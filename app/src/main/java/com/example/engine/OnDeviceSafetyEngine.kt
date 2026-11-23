@@ -214,13 +214,22 @@ object OnDeviceSafetyEngine {
         todayMinutes: Int,
         lateNightMinutes: Int,
         dailyLimitMin: Int,
-        historicalDailyMinutes: List<Int> = listOf(95, 110, 102, 88, 120, 105, 98)
+        historicalDailyMinutes: List<Int> = emptyList()
     ): HabitAnomalyReport {
-        val mean = historicalDailyMinutes.average().takeIf { !it.isNaN() } ?: 100.0
-        val variance = historicalDailyMinutes
-            .map { (it - mean) * (it - mean) }
-            .average()
-            .takeIf { !it.isNaN() && it > 25.0 } ?: 225.0
+        val hasHistory = historicalDailyMinutes.isNotEmpty()
+        val mean = if (hasHistory) {
+            historicalDailyMinutes.average().takeIf { !it.isNaN() } ?: dailyLimitMin.toDouble().coerceAtLeast(60.0)
+        } else {
+            dailyLimitMin.toDouble().coerceAtLeast(60.0)
+        }
+        val variance = if (historicalDailyMinutes.size > 1) {
+            historicalDailyMinutes
+                .map { (it - mean) * (it - mean) }
+                .average()
+                .takeIf { !it.isNaN() && it > 25.0 } ?: 225.0
+        } else {
+            225.0
+        }
         val stdDev = sqrt(variance)
         val zScore = (todayMinutes - mean) / stdDev
 
