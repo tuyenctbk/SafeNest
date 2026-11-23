@@ -261,7 +261,11 @@
     <string name="privacy_guarantee_note">Jaminan Privasi: Semua analisis teks AI dan pemeriksaan domain DNS berjalan 100% secara lokal di perangkat ini.</string>
     <string name="action_not_now">Nanti Saja</string>
     <string name="vpn_disclosure_title">Pengungkapan VPN DNS Lokal</string>
-    <string name="vpn_disclosure_body">SafeNest menggunakan Android VpnService secara lokal di perangkat ini hanya untuk memeriksa permintaan domain DNS (port 53) dan memblokir situs dewasa, judi, malware, atau situs yang diblokir orang tua. Tidak ada lalu lintas penjelajahan yang dikirim ke server VPN jarak jauh.</string>
+    <string name="vpn_disclosure_body">SafeNest menggunakan Android VpnService secara lokal di perangkat ini untuk memeriksa permintaan domain DNS (port 53) dan memblokir situs dewasa, judi, malware, atau yang diblokir orang tua.
+
+• Resolusi aman: Kueri yang diizinkan diteruskan ke Cloudflare Family DNS (1.1.1.3 / 1.0.0.3).
+• Log keselamatan: Domain yang diblokir dan stempel waktu dicatat dalam log keselamatan orang tua dan disinkronkan ke akun SafeNest Anda.
+• Tanpa perutean lalu lintas web: SafeNest tidak pernah mencegat atau merutekan lalu lintas penjelajahan web Anda melalui server VPN jarak jauh.</string>
     <string name="vpn_disclosure_confirm">Aktifkan Perisai DNS</string>
     <string name="usage_disclosure_title">Pengungkapan Akses Penggunaan Aplikasi</string>
     <string name="usage_disclosure_body">SafeNest menggunakan Akses Penggunaan untuk mengukur waktu layar harian per aplikasi dan menghitung anomali kebiasaan di perangkat. Ringkasan penggunaan hanya disinkronkan ke akun orang tua yang masuk.</string>

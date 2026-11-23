@@ -374,7 +374,10 @@ fun ProminentDisclosureDialog(
         },
         title = { Text(title, style = MaterialTheme.typography.titleLarge) },
         text = {
-            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            Column(
+                modifier = Modifier.verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
                 Text(body, style = MaterialTheme.typography.bodyMedium)
                 Surface(
                     color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.6f),

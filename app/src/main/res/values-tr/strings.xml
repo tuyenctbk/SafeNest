@@ -261,7 +261,11 @@
     <string name="privacy_guarantee_note">Gizlilik Garantisi: Tüm AI metin analizleri ve DNS alan adı denetimleri bu cihazda %100 yerel olarak çalışır.</string>
     <string name="action_not_now">Şimdi Değil</string>
     <string name="vpn_disclosure_title">Yerel DNS VPN Bildirimi</string>
-    <string name="vpn_disclosure_body">SafeNest, yalnızca DNS alan adı isteklerini (port 53) incelemek ve yetişkin, kumar, zararlı yazılım veya ebeveyn tarafından engellenen siteleri durdurmak için bu cihazda yerel olarak Android VpnService kullanır. Uzak bir VPN sunucusuna hiçbir gezinme trafiği gönderilmez.</string>
+    <string name="vpn_disclosure_body">SafeNest, yalnızca DNS alan adı isteklerini (port 53) incelemek ve yetişkin, kumar, zararlı yazılım veya ebeveyn tarafından engellenen siteleri engellemek için bu cihazda yerel olarak Android VpnService kullanır.
+
+• Güvenli çözümleme: İzin verilen sorgular güvenli çözümleme için Cloudflare Family DNS (1.1.1.3 / 1.0.0.3) sunucusuna iletilir.
+• Güvenlik günlükleri: Engellenen alan adları ve zaman damgaları ebeveyn güvenlik günlüğüne kaydedilir ve SafeNest hesabınızla senkronize edilir.
+• Web trafiği yönlendirilmez: SafeNest, internet gezinme trafiğinizi asla uzak bir VPN tüneli üzerinden yönlendirmez veya izlemez.</string>
     <string name="vpn_disclosure_confirm">DNS Kalkanını Etkinleştir</string>
     <string name="usage_disclosure_title">Uygulama Kullanım Erişimi Bildirimi</string>
     <string name="usage_disclosure_body">SafeNest, uygulama başına günlük ekran süresini ölçmek ve cihaz içi alışkanlık anomalilerini hesaplamak için Kullanım Erişimini kullanır. Kullanım özetleri yalnızca oturum açtığınız ebeveyn hesabıyla senkronlanır.</string>

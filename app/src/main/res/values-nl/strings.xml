@@ -261,7 +261,11 @@
     <string name="privacy_guarantee_note">Privacygarantie: alle AI-tekstanalyse en DNS-domeininspectie draaien 100% lokaal op dit apparaat.</string>
     <string name="action_not_now">Niet nu</string>
     <string name="vpn_disclosure_title">Verklaring Lokale DNS-VPN</string>
-    <string name="vpn_disclosure_body">SafeNest gebruikt Android VpnService lokaal op dit apparaat om alleen DNS-domeinverzoeken (poort 53) te controleren en websites voor volwassenen, gokken, malware of door ouders geblokkeerde sites te blokkeren. Er wordt geen browse-verkeer naar een externe VPN-server gestuurd.</string>
+    <string name="vpn_disclosure_body">SafeNest gebruikt Android VpnService lokaal op dit apparaat om DNS-domeinverzoeken (poort 53) te controleren en websites voor volwassenen, gokken, malware of door ouders geblokkeerde sites te blokkeren.
+
+• Veilige resolutie: Toegestane zoekopdrachten worden doorgestuurd naar Cloudflare Family DNS (1.1.1.3 / 1.0.0.3).
+• Veiligheidslogboeken: Geblokkeerde domeinen en tijdstempels worden vastgelegd in uw ouderlijk veiligheidslogboek en gesynchroniseerd met uw SafeNest-account.
+• Geen routering van webverkeer: SafeNest onderschept of routeert uw surfverkeer nooit via een externe VPN-server.</string>
     <string name="vpn_disclosure_confirm">DNS-schild inschakelen</string>
     <string name="usage_disclosure_title">Verklaring App-gebruikstoegang</string>
     <string name="usage_disclosure_body">SafeNest gebruikt Gebruikstoegang om de dagelijkse schermtijd per app te meten en afwijkingen in gewoonten lokaal te berekenen. Gebruikssamenvattingen worden alleen gesynchroniseerd met uw ingelogde ouderaccount.</string>

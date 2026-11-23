@@ -261,7 +261,11 @@
     <string name="privacy_guarantee_note">隱私保證：所有 AI 文字分析與 DNS 網域檢查皆 100% 於本裝置本機執行。</string>
     <string name="action_not_now">稍後再說</string>
     <string name="vpn_disclosure_title">本機 DNS VPN 說明</string>
-    <string name="vpn_disclosure_body">SafeNest 僅於本機使用 Android VpnService 檢查 DNS 網域請求（連接埠 53），以封鎖成人、賭博、惡意軟體或家長封鎖的網站。不會將任何瀏覽流量傳送至遠端 VPN 伺服器。</string>
+    <string name="vpn_disclosure_body">SafeNest 在此裝置上本機使用 Android VpnService 檢查 DNS 網域請求（連接埠 53），以封鎖成人、賭博、惡意軟體或家長封鎖的網站。
+
+• 安全上游解析：允許的查詢會轉發至 Cloudflare Family DNS (1.1.1.3 / 1.0.0.3) 進行安全解析。
+• 安全日誌：封鎖的網域和時間戳記會記錄在自訂安全日誌中，並同步至您的 SafeNest 帳戶。
+• 零網頁流量路由：SafeNest 絕不會透過任何遠端 VPN 通道攔截或轉發您的網頁瀏覽流量。</string>
     <string name="vpn_disclosure_confirm">啟用 DNS 護盾</string>
     <string name="usage_disclosure_title">應用程式使用存取權說明</string>
     <string name="usage_disclosure_body">SafeNest 使用「使用情況存取權」測量各應用程式的每日螢幕時間並於裝置端計算習慣異常。摘要僅會同步至您登入的家長帳戶。</string>

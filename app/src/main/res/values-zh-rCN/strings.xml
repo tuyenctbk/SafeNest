@@ -261,7 +261,11 @@
     <string name="privacy_guarantee_note">隐私承诺：所有 AI 文本分析与 DNS 域名检查均 100% 在本设备本地运行。</string>
     <string name="action_not_now">暂不</string>
     <string name="vpn_disclosure_title">本地 DNS VPN 说明</string>
-    <string name="vpn_disclosure_body">SafeNest 仅在本地使用 Android VpnService 检查 DNS 域名请求（端口 53），以拦截成人、赌博、恶意软件或家长指定的网站。不会将浏览流量发送到远程 VPN 服务器。</string>
+    <string name="vpn_disclosure_body">SafeNest 在此设备上本地使用 Android VpnService 检查 DNS 域名请求（端口 53），以拦截成人、赌博、恶意软件或家长指定的网站。
+
+• 安全上游解析：允许的查询将转发至 Cloudflare Family DNS (1.1.1.3 / 1.0.0.3) 进行安全解析。
+• 安全日志：拦截的域名和时间戳会记录在家长安全日志中，并同步到您的 SafeNest 账户。
+• 零网页流量路由：SafeNest 绝不会通过任何远程 VPN 隧道拦截或路由您的网页浏览流量。</string>
     <string name="vpn_disclosure_confirm">开启 DNS 护盾</string>
     <string name="usage_disclosure_title">应用使用权限说明</string>
     <string name="usage_disclosure_body">SafeNest 使用“使用情况访问权限”统计各应用每日屏幕时长，并在本地计算习惯异常。摘要仅同步至您登录的家长账号。</string>

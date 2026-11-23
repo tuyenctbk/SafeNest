@@ -261,7 +261,11 @@
     <string name="privacy_guarantee_note">Garantie de confidentialité : toute analyse de texte par IA et inspection DNS s\'exécute à 100 % localement sur cet appareil.</string>
     <string name="action_not_now">Pas maintenant</string>
     <string name="vpn_disclosure_title">Déclaration VPN DNS local</string>
-    <string name="vpn_disclosure_body">SafeNest utilise Android VpnService localement pour inspecter uniquement les requêtes DNS (port 53) et bloquer les sites adultes, de jeux d\'argent, malveillants ou bloqués par les parents. Aucun trafic n\'est envoyé vers un serveur VPN distant.</string>
+    <string name="vpn_disclosure_body">SafeNest utilise Android VpnService localement sur cet appareil pour inspecter les requêtes DNS (port 53) et bloquer les sites pour adultes, de jeux d\'argent, malveillants ou restreints par les parents.
+
+• Résolution sécurisée: Les requêtes autorisées sont transmises à Cloudflare Family DNS (1.1.1.3 / 1.0.0.3).
+• Journaux de sécurité: Les domaines bloqués et horodatages sont consignés dans le journal parental et synchronisés avec votre compte SafeNest.
+• Aucun routage du trafic web: SafeNest n\'intercepte ni ne redirige jamais votre navigation web via un serveur VPN distant.</string>
     <string name="vpn_disclosure_confirm">Activer le bouclier DNS</string>
     <string name="usage_disclosure_title">Déclaration d\'accès à l\'utilisation</string>
     <string name="usage_disclosure_body">SafeNest utilise l\'Accès à l\'utilisation pour mesurer le temps d\'écran quotidien par application et calculer les anomalies d\'habitudes sur l\'appareil. Les résumés sont synchronisés uniquement avec votre compte parent.</string>

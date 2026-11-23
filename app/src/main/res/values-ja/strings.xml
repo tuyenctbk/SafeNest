@@ -261,7 +261,11 @@
     <string name="privacy_guarantee_note">プライバシー保証: すべてのAIテキスト解析とDNSドメイン検査は100%この端末内でローカル実行されます。</string>
     <string name="action_not_now">今はしない</string>
     <string name="vpn_disclosure_title">ローカルDNS VPNに関する開示</string>
-    <string name="vpn_disclosure_body">SafeNestは端末内でAndroid VpnServiceを使用し、DNS要求（ポート53）のみを検査して成人向け・ギャンブル・マルウェア・保護者指定サイトを遮断します。閲覧通信が外部VPNサーバーへ送信されることはありません。</string>
+    <string name="vpn_disclosure_body">SafeNestは端末内でAndroid VpnServiceを使用し、DNS要求（ポート53）を検査して成人向け・ギャンブル・マルウェア・保護者指定サイトを遮断します。
+
+• 安全な名前解決: 許可された照会は安全な解決のためCloudflare Family DNS（1.1.1.3 / 1.0.0.3）に転送されます。
+• 安全ログ: 遮断されたドメインと日時は保護者ログに記録され、SafeNestアカウントと同期されます。
+• Web通信の非中継: SafeNestが閲覧通信を外部VPNサーバー経由で中継・傍受することは一切ありません。</string>
     <string name="vpn_disclosure_confirm">DNSシールドを有効化</string>
     <string name="usage_disclosure_title">アプリ使用状況アクセスに関する開示</string>
     <string name="usage_disclosure_body">SafeNestはアプリ別の1日利用時間を計測し、端末内で習慣異常を計算するために使用状況アクセスを利用します。要約はサインイン済みの保護者アカウントにのみ同期されます。</string>
