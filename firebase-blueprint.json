@@ -1,0 +1,422 @@
+{
+  "entities": {
+    "ParentProfile": {
+      "title": "ParentProfile",
+      "description": "Parent account metadata and family configuration.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Authenticated parent Firebase Auth UID."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Parent display name."
+        },
+        "pinHash": {
+          "type": "string",
+          "description": "Salted SHA-256 hex digest of the parent anti-tamper PIN."
+        },
+        "childModeEnabled": {
+          "type": "boolean",
+          "description": "Whether this device is currently in Child Guard mode."
+        },
+        "activeChildId": {
+          "type": "string",
+          "description": "Optional active child document ID selected for supervision."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp (FieldValue.serverTimestamp()) when profile was created."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp (FieldValue.serverTimestamp()) when profile was updated."
+        }
+      },
+      "required": [
+        "userId",
+        "displayName",
+        "childModeEnabled",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "ChildProfile": {
+      "title": "ChildProfile",
+      "description": "Supervised child profile with consolidated screen-time, downtime, DNS filter, and edge AI rules.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner parent UID."
+        },
+        "name": {
+          "type": "string",
+          "description": "Child's first name or nickname."
+        },
+        "age": {
+          "type": "integer",
+          "description": "Child age in years (3 to 18)."
+        },
+        "deviceModel": {
+          "type": "string",
+          "description": "Label of the child's Android device."
+        },
+        "avatarColor": {
+          "type": "string",
+          "enum": ["TEAL", "AMBER", "CORAL", "INDIGO", "SAGE"],
+          "description": "Theme token for child avatar badge."
+        },
+        "dailyLimitMin": {
+          "type": "integer",
+          "description": "Daily screen time allowance in minutes."
+        },
+        "bedtimeStart": {
+          "type": "string",
+          "description": "Bedtime downtime start in HH:mm 24-hour format."
+        },
+        "bedtimeEnd": {
+          "type": "string",
+          "description": "Bedtime downtime end in HH:mm 24-hour format."
+        },
+        "downtimePaused": {
+          "type": "boolean",
+          "description": "Instant device pause flag."
+        },
+        "safeSearchEnabled": {
+          "type": "boolean",
+          "description": "Enforce SafeSearch DNS rewriting."
+        },
+        "aiProtectionEnabled": {
+          "type": "boolean",
+          "description": "Enable on-device 3-stage AI notification safety scanner."
+        },
+        "vpnFilterEnabled": {
+          "type": "boolean",
+          "description": "Enable local DNS VPN filter."
+        },
+        "blockAdult": {
+          "type": "boolean",
+          "description": "Block adult content domains."
+        },
+        "blockGambling": {
+          "type": "boolean",
+          "description": "Block gambling and betting domains."
+        },
+        "blockMalware": {
+          "type": "boolean",
+          "description": "Block phishing and malware domains."
+        },
+        "blockSocial": {
+          "type": "boolean",
+          "description": "Block short-video and social media domains."
+        },
+        "customBlockedDomains": {
+          "type": "array",
+          "description": "Parent-specified custom blocked domains (max 50)."
+        },
+        "blockedAppPackages": {
+          "type": "array",
+          "description": "Package names restricted on the child device (max 50)."
+        },
+        "todayScreenTimeMin": {
+          "type": "integer",
+          "description": "Synced daily screen time in minutes."
+        },
+        "blockedAttemptsToday": {
+          "type": "integer",
+          "description": "Count of blocked web/app attempts today."
+        },
+        "batteryPercent": {
+          "type": "integer",
+          "description": "Last reported device battery percentage."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp (FieldValue.serverTimestamp())."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp (FieldValue.serverTimestamp())."
+        }
+      },
+      "required": [
+        "userId",
+        "name",
+        "age",
+        "deviceModel",
+        "avatarColor",
+        "dailyLimitMin",
+        "bedtimeStart",
+        "bedtimeEnd",
+        "downtimePaused",
+        "safeSearchEnabled",
+        "aiProtectionEnabled",
+        "vpnFilterEnabled",
+        "blockAdult",
+        "blockGambling",
+        "blockMalware",
+        "blockSocial",
+        "customBlockedDomains",
+        "blockedAppPackages",
+        "todayScreenTimeMin",
+        "blockedAttemptsToday",
+        "batteryPercent",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "SafetyAlert": {
+      "title": "SafetyAlert",
+      "description": "Privacy-safe redacted safety alert produced by the on-device AI or local DNS engine.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner parent UID."
+        },
+        "childId": {
+          "type": "string",
+          "description": "Associated child profile document ID."
+        },
+        "childName": {
+          "type": "string",
+          "description": "Display name of the child."
+        },
+        "alertType": {
+          "type": "string",
+          "enum": ["CYBERBULLYING", "SELF_HARM", "GROOMING_EXPLICIT", "SCAM_GAMBLING", "WEB_BLOCKED", "ANOMALY"],
+          "description": "Safety alert classification category."
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["HIGH", "MEDIUM", "LOW"],
+          "description": "Alert severity tier."
+        },
+        "appSource": {
+          "type": "string",
+          "description": "Source app or Local DNS filter."
+        },
+        "redactedSnippet": {
+          "type": "string",
+          "description": "Privacy-safe redacted summary (max 140 chars)."
+        },
+        "confidence": {
+          "type": "number",
+          "description": "On-device model confidence score (0.0 to 1.0)."
+        },
+        "acknowledged": {
+          "type": "boolean",
+          "description": "Whether the parent has reviewed and acknowledged the alert."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp (FieldValue.serverTimestamp())."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp (FieldValue.serverTimestamp())."
+        }
+      },
+      "required": [
+        "userId",
+        "childId",
+        "childName",
+        "alertType",
+        "severity",
+        "appSource",
+        "redactedSnippet",
+        "confidence",
+        "acknowledged",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "DailySummary": {
+      "title": "DailySummary",
+      "description": "Quota-optimized batched daily screen time and behavioral anomaly summary per child.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner parent UID."
+        },
+        "childId": {
+          "type": "string",
+          "description": "Associated child profile ID."
+        },
+        "dateKey": {
+          "type": "string",
+          "description": "ISO calendar date YYYY-MM-DD."
+        },
+        "totalScreenTimeMin": {
+          "type": "integer",
+          "description": "Total foreground usage minutes."
+        },
+        "lateNightMin": {
+          "type": "integer",
+          "description": "Usage minutes recorded after 22:00."
+        },
+        "blockedAttempts": {
+          "type": "integer",
+          "description": "Total blocked domains and app attempts."
+        },
+        "anomalyNote": {
+          "type": "string",
+          "description": "Statistical Z-score habit insight note."
+        },
+        "topApps": {
+          "type": "array",
+          "description": "Top apps formatted as 'AppName|minutes' (max 10)."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp (FieldValue.serverTimestamp())."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp (FieldValue.serverTimestamp())."
+        }
+      },
+      "required": [
+        "userId",
+        "childId",
+        "dateKey",
+        "totalScreenTimeMin",
+        "lateNightMin",
+        "blockedAttempts",
+        "anomalyNote",
+        "topApps",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "UsageQuotaLedger": {
+      "title": "UsageQuotaLedger",
+      "description": "Hybrid per-user AI usage quota ledger with per-feature counters, automatic period rollover, grace credits, and Eco Lite preference (never stores BYOK API keys).",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner parent Firebase Auth UID."
+        },
+        "dateIso": {
+          "type": "string",
+          "description": "Current rollover period key (YYYY-MM-DD for daily or YYYY-MM for monthly)."
+        },
+        "dailyCloudLimit": {
+          "type": "integer",
+          "description": "User-configured daily cloud request allowance cap (5 to 50)."
+        },
+        "cloudRequestsUsed": {
+          "type": "integer",
+          "description": "Total charged cloud AI requests consumed in the active period."
+        },
+        "chatUsed": {
+          "type": "integer",
+          "description": "Parent AI Coach chat interactions recorded in the active period."
+        },
+        "visionUsed": {
+          "type": "integer",
+          "description": "Risk Advisor / screenshot vision checks recorded in the active period."
+        },
+        "briefsUsed": {
+          "type": "integer",
+          "description": "Weekly coaching briefs generated in the active period."
+        },
+        "studioUsed": {
+          "type": "integer",
+          "description": "Reusable creative/studio interactions recorded in the active period."
+        },
+        "audioUsed": {
+          "type": "integer",
+          "description": "Reusable voice/audio interactions recorded in the active period."
+        },
+        "bonusGraceCredits": {
+          "type": "integer",
+          "description": "Bonus free grace credits granted in the active period (0 to 15)."
+        },
+        "graceClaimed": {
+          "type": "boolean",
+          "description": "Whether the one-time period grace credit grant has been claimed."
+        },
+        "ecoLiteMode": {
+          "type": "boolean",
+          "description": "User preference for Tier 2 Eco Lite mode, preserved across period rollovers."
+        },
+        "fallbackCascadeCount": {
+          "type": "integer",
+          "description": "Count of Tier 1 -> Tier 2 Eco Lite auto-cascades in the active period."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp (FieldValue.serverTimestamp()) when the ledger was created."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp (FieldValue.serverTimestamp()) when the ledger was last updated."
+        }
+      },
+      "required": [
+        "userId",
+        "dateIso",
+        "dailyCloudLimit",
+        "cloudRequestsUsed",
+        "chatUsed",
+        "visionUsed",
+        "briefsUsed",
+        "studioUsed",
+        "audioUsed",
+        "bonusGraceCredits",
+        "graceClaimed",
+        "ecoLiteMode",
+        "fallbackCascadeCount",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": {
+        "$ref": "#/entities/ParentProfile"
+      },
+      "description": "Parent profile and family PIN/mode metadata."
+    },
+    "/users/{userId}/children/{childId}": {
+      "schema": {
+        "$ref": "#/entities/ChildProfile"
+      },
+      "description": "Supervised child profiles and consolidated protection rules."
+    },
+    "/users/{userId}/alerts/{alertId}": {
+      "schema": {
+        "$ref": "#/entities/SafetyAlert"
+      },
+      "description": "Privacy-safe redacted safety alerts generated on-device."
+    },
+    "/users/{userId}/dailySummaries/{summaryId}": {
+      "schema": {
+        "$ref": "#/entities/DailySummary"
+      },
+      "description": "Batched daily usage and anomaly summaries."
+    },
+    "/users/{userId}/usageQuota/{periodId}": {
+      "schema": {
+        "$ref": "#/entities/UsageQuotaLedger"
+      },
+      "description": "Per-user AI usage quota ledger (daily or monthly) synced with local DataStore cache."
+    }
+  }
+}

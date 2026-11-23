@@ -1,0 +1,6 @@
+{
+  "name": "SafeNest",
+  "description": "Android-first parental control and on-device AI digital safety app with local DNS web filtering, screen time rules, and cloud-synced family alerts.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

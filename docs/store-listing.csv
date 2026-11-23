@@ -1,0 +1,253 @@
+locale,language,app_name,short_description,full_description
+en-US,English (US),SafeNest: Family DNS & Coach,"Local DNS filter, category limits, weekly reports, and private AI safety coach.","SafeNest helps parents guide healthy screen habits and protect family devices with a privacy-first, on-device design.
+
+Key Capabilities:
+• Local DNS Web Shield: Uses Android's local VpnService to filter adult, gambling, phishing, and social distraction domains right on the device—no remote VPN servers or browsing history uploads. Add custom blocked domains anytime and keep SafeSearch enabled.
+• Category Time Limits & Bedtime: Set daily budgets per app category (Games, Video, Social) plus bedtime downtime windows per child profile, with automatic DNS enforcement when category limits are reached.
+• Weekly Wellbeing Summaries: Track 7-day screen-time trends, balance scores, late-night spikes, and optional weekly parent summary notifications.
+• Parent AI Safety Coach & Risk Advisor: Get calm parenting scripts, check suspicious apps, links, or screenshots via Android Photo Picker, and review weekly coaching briefs—running locally on-device or with your optional personal Gemini API key (BYOK) featuring local PII redaction and daily budget controls.
+• On-Device AI Notification Scanning: A 3-stage local NLP engine screens notifications for signs of cyberbullying, self-harm risk, grooming, or phishing without sending raw message content to external servers.
+• Child Guard Mode & Parent PIN: Lock settings behind a locally hashed 4-digit PIN and sync child profiles and blocklists via Google Sign-In.
+
+Built for Family Privacy:
+No third-party ads, no data brokers, and clear disclosures before any optional permission is requested."
+vi,Vietnamese,SafeNest: DNS & Cố vấn AI,"Lọc DNS trên máy, giới hạn nhóm app, báo cáo tuần và cố vấn an toàn gia đình.","SafeNest giúp phụ huynh xây dựng thói quen dùng thiết bị lành mạnh và bảo vệ gia đình với kiến trúc ưu tiên quyền riêng tư ngay trên thiết bị.
+
+Tính năng nổi bật:
+• Lá chắn DNS cục bộ: Dùng VpnService cục bộ của Android để lọc tên miền người lớn, cờ bạc, lừa đảo và mạng xã hội ngay trên máy—không qua máy chủ VPN từ xa, không tải lên lịch sử duyệt web. Tự thêm tên miền chặn tùy chỉnh và duy trì SafeSearch.
+• Giới hạn thời gian theo danh mục & Giờ ngủ: Đặt hạn mức hằng ngày cho từng nhóm ứng dụng (Trò chơi, Video, Mạng xã hội) và khung giờ nghỉ cho mỗi hồ sơ trẻ, tự động chặn DNS khi chạm ngưỡng.
+• Tóm tắt tuần & Thống kê thói quen: Theo dõi xu hướng 7 ngày, điểm cân bằng, cảnh báo dùng khuya và thông báo tổng kết tuần tùy chọn.
+• Cố vấn AI Phụ huynh & Kiểm tra Rủi ro: Nhận gợi ý trò chuyện nhẹ nhàng, kiểm tra ứng dụng, liên kết hoặc ảnh chụp qua Bộ chọn Ảnh Android (không cần quyền lưu trữ), chạy cục bộ hoặc dùng khóa Gemini API cá nhân tùy chọn (BYOK) có ẩn danh thông tin nhạy cảm và giới hạn ngân sách ngày.
+• Quét thông báo AI trên thiết bị: Bộ phân tích 3 tầng phát hiện dấu hiệu bắt nạt mạng, tự hại, dụ dỗ hoặc lừa đảo mà không gửi nội dung gốc ra ngoài.
+• Chế độ Bảo vệ Trẻ & Mã PIN: Khóa cài đặt bằng mã PIN 4 chữ số băm cục bộ và đồng bộ hồ sơ an toàn qua Google.
+
+Thiết kế vì quyền riêng tư gia đình:
+Không quảng cáo bên thứ ba, không bán dữ liệu và luôn minh bạch trước mọi quyền tùy chọn."
+es-ES,Spanish,SafeNest: DNS y Guía IA,"Filtro DNS local, límites por categoría, resumen semanal y guía IA familiar.","SafeNest ayuda a madres y padres a fomentar hábitos digitales saludables y proteger los dispositivos familiares con un diseño privado procesado en el dispositivo.
+
+Funciones principales:
+• Escudo DNS local: Usa VpnService local de Android para filtrar dominios de adultos, apuestas, phishing y distracciones sociales directamente en el equipo, sin servidores VPN remotos ni carga de historial. Añade dominios propios y mantén SafeSearch activo.
+• Límites por categoría y hora de dormir: Define cupos diarios por categoría (Juegos, Video, Redes) y pausas nocturnas por perfil infantil, con bloqueo DNS automático al alcanzar el límite.
+• Resumen semanal de bienestar: Consulta tendencias de 7 días, puntuación de equilibrio, alertas de uso nocturno y notificaciones semanales opcionales.
+• Guía Parental IA y Detector de Riesgos: Recibe consejos prácticos, analiza apps, enlaces o capturas con el Selector de Fotos de Android y consulta resúmenes semanales—funciona localmente o con tu clave personal de Gemini (BYOK) con redacción local de datos personales.
+• Análisis local de notificaciones: Motor NLP de 3 fases en el dispositivo que detecta señales de ciberacoso, autolesión, engaño o phishing sin enviar mensajes originales a servidores externos.
+• Modo Protección Infantil y PIN: Protege los ajustes con un PIN de 4 dígitos con hash local y sincroniza perfiles con Google.
+
+Privacidad familiar ante todo:
+Sin anuncios de terceros, sin intermediarios de datos y con avisos claros antes de cada permiso opcional."
+fr-FR,French,SafeNest : DNS et Coach IA,"Filtre DNS local, limites par catégorie, bilan hebdo et coach IA familial.","SafeNest aide les parents à instaurer des habitudes numériques saines et à protéger les appareils familiaux grâce à un traitement confidentiel sur l'appareil.
+
+Fonctionnalités clés :
+• Bouclier DNS local : Utilise le VpnService local d'Android pour filtrer les domaines pour adultes, jeux d'argent, hameçonnage et distractions sociales directement sur l'appareil, sans serveur VPN distant ni envoi d'historique. Ajoutez vos domaines bloqués et gardez SafeSearch actif.
+• Limites par catégorie et coucher : Définissez des budgets quotidiens par catégorie (Jeux, Vidéo, Social) et des plages de repos par enfant, avec blocage DNS automatique une fois la limite atteinte.
+• Bilan hebdomadaire : Suivez l'évolution sur 7 jours, l'indice d'équilibre, les pics nocturnes et recevez un récapitulatif hebdomadaire optionnel.
+• Coach Parental IA et Analyse de Risques : Obtenez des conseils bienveillants, vérifiez applis, liens ou captures via le Sélecteur de photos Android et consultez le point hebdomadaire—en mode local hors ligne ou avec votre clé API Gemini personnelle (BYOK) incluant masquage local des données personnelles.
+• Analyse IA des notifications sur l'appareil : Moteur NLP local en 3 étapes détectant cyberharcèlement, automutilation, manipulation ou hameçonnage sans transférer les messages bruts.
+• Mode Garde Enfant et code PIN : Verrouillez les règles avec un PIN à 4 chiffres haché localement et synchronisez via Google.
+
+Conçu pour la vie privée :
+Sans publicité tierce, sans revente de données et avec information claire avant chaque autorisation optionnelle."
+de-DE,German,SafeNest: DNS & KI-Coach,"Lokaler DNS-Filter, Kategorie-Limits, Wochenbericht und KI-Elterncoach.","SafeNest hilft Eltern, gesunde Bildschirmgewohnheiten aufzubauen und Familiengeräte mit datenschutzfreundlicher Verarbeitung direkt auf dem Gerät zu schützen.
+
+Wichtige Funktionen:
+• Lokaler DNS-Schutz: Nutzt den lokalen Android-VpnService, um Domains für Erwachseneninhalte, Glücksspiel, Phishing und soziale Ablenkungen direkt auf dem Gerät zu filtern – ohne externe VPN-Server oder Verlauf-Uploads. Eigene Sperrlisten und SafeSearch jederzeit nutzbar.
+• Kategorie-Zeitlimits & Schlafenszeit: Legen Sie Tagesbudgets pro App-Kategorie (Spiele, Video, Social) und Ruhezeiten je Kinderprofil fest – inklusive automatischer DNS-Sperre bei Limit-Erreichen.
+• Wöchentliche Zusammenfassung: Verfolgen Sie 7-Tage-Trends, Balance-Werte, nächtliche Nutzungsspitzen und optionale Wochenbenachrichtigungen.
+• KI-Elterncoach & Risiko-Check: Erhalten Sie ruhige Gesprächstipps, prüfen Sie Apps, Links oder Screenshots über die Android-Fotoauswahl und lesen Sie Wochenbriefings – lokal auf dem Gerät oder optional mit eigenem Gemini-API-Schlüssel (BYOK) samt lokaler PII-Schwärzung.
+• Lokale KI-Benachrichtigungsprüfung: Dreistufige On-Device-NLP erkennt Hinweise auf Cybermobbing, Selbstgefährdung, Grooming oder Phishing ohne Upload roher Texte.
+• Kinderschutzmodus & Eltern-PIN: Sichern Sie Regeln per lokal gehashter 4-stelliger PIN und Google-Synchronisierung.
+
+Datenschutz für Familien:
+Keine Drittanbieter-Werbung, kein Datenhandel und klare Hinweise vor jeder optionalen Berechtigung."
+pt-BR,Portuguese (Brazil),SafeNest: DNS e Guia IA,"Filtro DNS local, limites por categoria, resumo semanal e guia IA.","O SafeNest ajuda pais e responsáveis a construir hábitos digitais saudáveis e proteger dispositivos da família com processamento privado no aparelho.
+
+Recursos principais:
+• Escudo DNS local: Usa o VpnService local do Android para filtrar domínios adultos, apostas, phishing e distrações sociais no dispositivo, sem servidores VPN remotos nem envio de histórico. Adicione domínios próprios e mantenha o SafeSearch ativo.
+• Limites por categoria e hora de dormir: Defina cotas diárias por categoria (Jogos, Vídeo, Social) e pausas noturnas por perfil infantil, com bloqueio DNS automático ao atingir o limite.
+• Resumo semanal de bem-estar: Acompanhe tendências de 7 dias, pontuação de equilíbrio, picos noturnos e notificações semanais opcionais.
+• Guia Parental IA e Detector de Riscos: Receba roteiros de conversa, avalie apps, links ou capturas pelo Seletor de Fotos do Android e veja resumos semanais—rodando no aparelho ou com sua chave Gemini pessoal opcional (BYOK) com ocultação local de dados sensíveis.
+• Análise local de notificações: Motor NLP local em 3 etapas detecta sinais de cyberbullying, autoagressão, aliciamento ou phishing sem enviar mensagens originais.
+• Modo Proteção Infantil e PIN: Trave as configurações com PIN de 4 dígitos em hash local e sincronize perfis pelo Google.
+
+Privacidade familiar em primeiro lugar:
+Sem anúncios de terceiros, sem venda de dados e com explicação clara antes de qualquer permissão opcional."
+it-IT,Italian,SafeNest: DNS e Coach IA,"Filtro DNS locale, limiti per categoria, report settimanali e coach IA.","SafeNest aiuta i genitori a coltivare abitudini digitali sane e proteggere i dispositivi di famiglia con elaborazione privata direttamente sul dispositivo.
+
+Funzionalità principali:
+• Scudo DNS locale: Usa il VpnService locale di Android per filtrare domini per adulti, gioco d'azzardo, phishing e distrazioni social sul dispositivo, senza server VPN remoti né invio della cronologia. Aggiungi domini personalizzati e mantieni SafeSearch attivo.
+• Limiti per categoria e orario nanna: Imposta limiti giornalieri per categoria (Giochi, Video, Social) e fasce di pausa per profilo, con blocco DNS automatico al raggiungimento della soglia.
+• Riepilogo settimanale: Monitora l'andamento su 7 giorni, l'indice di equilibrio, i picchi notturni e gli avvisi settimanali facoltativi.
+• Coach IA Genitori e Analisi Rischi: Ottieni consigli pratici, controlla app, link o schermate tramite il Selettore Foto Android e leggi i briefing settimanali—elaborazione locale sul dispositivo oppure con la tua chiave API Gemini personale (BYOK) con oscuramento locale dei dati sensibili.
+• Scansione notifiche IA sul dispositivo: Motore NLP locale a 3 fasi che individua segnali di cyberbullismo, autolesionismo, adescamento o phishing senza inviare i testi originali.
+• Modalità Protezione Bambino e PIN: Blocca le regole con un PIN a 4 cifre con hash locale e sincronizza con Google.
+
+Progettato per la privacy familiare:
+Nessuna pubblicità di terze parti, nessuna vendita di dati e informative chiare prima di ogni autorizzazione facoltativa."
+ja-JP,Japanese,SafeNest：DNS・AIコーチ,端末内DNSフィルタ、カテゴリ制限、週間レポート、家族向けAI安全コーチ。,"SafeNestは、端末内処理を軸にしたプライバシー重視の設計で、お子さまの健やかなデジタル習慣と家庭の安全を支える見守りアプリです。
+
+主な機能：
+・ローカルDNSシールド：AndroidのローカルVpnServiceにより、アダルト・ギャンブル・フィッシング・SNSなどの対象ドメインを端末内で直接フィルタリング。外部VPNサーバーや閲覧履歴の送信は行いません。独自ブロックリストやSafeSearchにも対応します。
+・カテゴリ別利用上限と就寝時間：ゲーム・動画・SNSなどのカテゴリごとに1日の上限と就寝時間を設定し、上限到達時はDNSで自動制御します。
+・週間サマリーと傾向分析：7日間の利用推移やバランススコア、深夜利用の急増を確認でき、任意の週間通知も受け取れます。
+・保護者向けAI安全コーチ＆リスク診断：声かけのヒントやアプリ・URL・Androidフォトピッカー経由のスクリーンショット診断、週間ブリーフを提供。完全オフラインの端末内モードに加え、任意の個人Gemini APIキー（BYOK・個人情報自動マスク付き）も利用できます。
+・端末内AI通知スキャン：3段階のローカルNLP処理でいじめ・自傷・勧誘・詐欺の兆候を検知し、本文を外部へ送信しません。
+・チャイルドガードと保護者PIN：端末内ハッシュ保存の4桁PINで設定を保護し、Googleサインインで家族ルールを同期します。
+
+家族のプライバシー設計：
+第三者広告やデータ売買は一切なく、任意権限の前には明確な説明を表示します。"
+ko-KR,Korean,SafeNest: DNS 및 AI 코치,"기기 내 DNS 필터, 카테고리 시간 제한, 주간 요약 및 가족 AI 안전 코치.","SafeNest는 기기 내 처리를 우선하는 프라이버시 설계로 건강한 디지털 습관과 가족 기기 보호를 돕는 보호자용 안전 앱입니다.
+
+주요 기능:
+• 로컬 DNS 웹 쉴드: Android 로컬 VpnService를 통해 성인, 도박, 피싱, 소셜 방해 도메인을 기기에서 직접 차단합니다. 원격 VPN 서버나 방문 기록 업로드가 없으며 사용자 지정 도메인과 SafeSearch를 지원합니다.
+• 카테고리별 시간 제한 및 취침 일정: 게임, 동영상, 소셜 등 앱 분류별 일일 한도와 취침 휴식 시간을 설정하고, 한도 도달 시 DNS 차단을 자동 적용합니다.
+• 주간 요약 리포트: 7일 화면 시간 추세, 균형 점수, 심야 사용 급증 알림 및 선택형 주간 요약 알림을 제공합니다.
+• 보호자 AI 안전 코치 & 위험 점검: 대화 가이드, 의심 앱·링크·Android 사진 선택기 스크린샷 위험 점검, 주간 코칭 브리핑을 제공합니다. 기기 내 오프라인 모드는 물론 개인 Gemini API 키(BYOK, 로컬 개인정보 가림 포함)도 선택할 수 있습니다.
+• 기기 내 AI 알림 스캔: 3단계 로컬 NLP 엔진이 사이버 괴롭힘, 자해 위험, 유인, 피싱 징후를 원본 메시지 전송 없이 감지합니다.
+• 자녀 보호 모드 및 PIN: 로컬 해시 저장되는 4자리 PIN으로 규칙을 잠그고 Google 로그인으로 동기화합니다.
+
+가족 프라이버시 원칙:
+제3자 광고나 데이터 판매가 없으며 모든 선택 권한 요청 전 명확히 안내합니다."
+zh-CN,Chinese (Simplified),SafeNest：DNS与AI安全助手,本机DNS过滤、分类时长限制、每周报告与家庭AI安全指导。,"SafeNest 采用本机优先的隐私架构，帮助家长培养孩子健康的数字习惯并守护家庭设备安全。
+
+核心功能：
+• 本地 DNS 安全盾：基于 Android 本地 VpnService，在设备端直接过滤成人、赌博、钓鱼和社交分心域名，无需远程 VPN 服务器，不上传浏览历史。支持自定义屏蔽域名与 SafeSearch。
+• 分类时长限制与就寝计划：为游戏、视频、社交等应用分类设置每日时长上限及就寝停用时段，达到上限时自动触发 DNS 拦截。
+• 每周健康摘要：查看 7 天趋势对比、平衡评分、深夜突增提醒，并支持可选的每周摘要通知。
+• 家长 AI 安全助手与风险评估：提供温和沟通建议、每周指导简报，并可通过 Android 照片选择器检查可疑应用、链接或截图风险；支持零联网本机模式，也可选配个人 Gemini API 密钥（BYOK，含本地隐私脱敏与每日预算保护）。
+• 端侧 AI 通知扫描：三阶段本地 NLP 引擎识别网络欺凌、自伤风险、诱导或诈骗信号，原始消息绝不外传。
+• 儿童守护模式与家长 PIN：采用本地哈希存储的 4 位 PIN 锁定规则，并通过 Google 安全同步配置。
+
+专注家庭隐私：
+无第三方广告，不出售数据，申请任何可选权限前均提供清晰说明。"
+zh-TW,Chinese (Traditional),SafeNest：DNS與AI守護助手,本機DNS過濾、分類時長限制、每週報告與家庭AI安全教練。,"SafeNest 採用本機優先的隱私架構，協助家長建立孩子健康的數位使用習慣並保護家庭裝置安全。
+
+主要功能：
+• 本機 DNS 防護盾：透過 Android 本機 VpnService，在裝置端直接過濾成人、博弈、釣魚與社群分心網域，不經由遠端 VPN 伺服器，也不上傳瀏覽紀錄。支援自訂封鎖清單與 SafeSearch。
+• 分類時間限制與就寢排程：為遊戲、影音、社群等應用程式分類設定每日上限與就寢時段，達上限時自動啟用 DNS 攔截。
+• 每週健康摘要：掌握 7 天使用趨勢、平衡分數、深夜暴增警示，並提供選用的每週摘要通知。
+• 家長 AI 安全教練與風險檢測：取得溫和對話引導與每週簡報，並可透過 Android 相片選擇器檢查可疑應用程式、網址或截圖；支援本機離線模式，亦可選用個人 Gemini API 金鑰（BYOK，具備本機個資遮蔽與每日額度控管）。
+• 裝置端 AI 通知掃描：三階段本機 NLP 引擎偵測網路霸凌、自傷風險、誘騙或詐騙訊號，原始訊息絕不外流。
+• 兒童守護模式與家長 PIN：使用本機雜湊儲存的 4 位數 PIN 鎖定規則，並透過 Google 登入同步家庭設定。
+
+以家庭隱私為核心：
+無第三方廣告、不販售個人資料，每項選用權限申請前皆提供透明說明。"
+ar,Arabic,SafeNest: DNS ومرشد ذكي,تصفية DNS محلية، حدود الفئات، ملخص أسبوعي، ومرشد أمان عائلي.,"يساعد SafeNest أولياء الأمور على بناء عادات رقمية صحية وحماية أجهزة العائلة عبر معالجة محلية تحفظ الخصوصية على الجهاز.
+
+المزايا الرئيسية:
+• درع DNS المحلي: يستخدم VpnService المحلي في Android لحظر نطاقات البالغين والمقامرة والتصيد والمنصات المشتتة مباشرة على الجهاز، دون خوادم VPN خارجية أو رفع سجل التصفح، مع قوائم حظر مخصصة وSafeSearch.
+• حدود الوقت حسب الفئة والنوم: حدد سقفًا يوميًا لفئات التطبيقات (الألعاب، الفيديو، التواصل) وأوقات الراحة الليلية، مع حظر DNS تلقائي عند بلوغ الحد.
+• الملخص الأسبوعي: تابع اتجاهات 7 أيام، ومؤشر التوازن، وتنبيهات الاستخدام الليلي المتأخر، وإشعارات الملخص الأسبوعي الاختيارية.
+• مرشد الأمان الذكي وفحص المخاطر: احصل على نصائح تربوية هادئة وافحص التطبيقات أو الروابط أو لقطات الشاشة عبر منتقي صور Android—يعمل محليًا على الجهاز أو اختياريًا بمفتاح Gemini API الخاص بك (BYOK) مع إخفاء البيانات الشخصية محليًا.
+• فحص الإشعارات بالذكاء المحلي: محرك لغوي من 3 مراحل يرصد التنمر الإلكتروني أو إيذاء النفس أو الاستدراج أو الاحتيال دون إرسال نصوص الرسائل للخارج.
+• وضع حماية الطفل ورمز PIN: اقفل القواعد برمز PIN من 4 أرقام محفوظ بتجزئة محلية وزامن الإعدادات بحساب Google.
+
+مصمم لخصوصية العائلة:
+بدون إعلانات خارجية أو بيع بيانات، ومع توضيح صريح قبل كل إذن اختياري."
+hi-IN,Hindi,SafeNest: DNS और AI कोच,"स्थानीय DNS फ़िल्टर, श्रेणी समय सीमा, साप्ताहिक रिपोर्ट और AI सुरक्षा कोच।","SafeNest अभिभावकों को स्वस्थ स्क्रीन आदतें बनाने और गोपनीयता-प्रथम, ऑन-डिवाइस डिज़ाइन से परिवार के डिवाइस सुरक्षित रखने में मदद करता है।
+
+मुख्य सुविधाएँ:
+• स्थानीय DNS वेब शील्ड: Android की स्थानीय VpnService से वयस्क, जुआ, फ़िशिंग और ध्यान भटकाने वाले सोशल डोमेन सीधे डिवाइस पर फ़िल्टर करता है—कोई रिमोट VPN सर्वर या ब्राउज़िंग इतिहास अपलोड नहीं। कस्टम ब्लॉकलिस्ट और SafeSearch शामिल हैं।
+• श्रेणी समय सीमा और सोने का समय: प्रत्येक श्रेणी (गेम्स, वीडियो, सोशल) की दैनिक सीमा और सोने का समय तय करें, सीमा पूरी होने पर स्वतः DNS नियंत्रण के साथ।
+• साप्ताहिक स्वास्थ्य सारांश: 7-दिन के रुझान, संतुलन स्कोर, देर रात उपयोग चेतावनी और वैकल्पिक साप्ताहिक सारांश सूचनाएँ देखें।
+• अभिभावक AI सुरक्षा कोच और जोखिम सलाहकार: शांत बातचीत के सुझाव पाएं, Android फ़ोटो पिकर से ऐप, लिंक या स्क्रीनशॉट जांचें—पूरी तरह ऑन-डिवाइस या अपनी वैकल्पिक निजी Gemini API कुंजी (BYOK) के साथ स्थानीय PII सुरक्षा सहित।
+• ऑन-डिवाइस AI नोटिफ़िकेशन स्कैनिंग: 3-स्तरीय स्थानीय NLP इंजन साइबरबुलिंग, आत्म-हानि, प्रलोभन या फ़िशिंग के संकेत बिना मूल संदेश बाहर भेजे पहचानता है।
+• चाइल्ड गार्ड मोड और अभिभावक PIN: स्थानीय हैश किए गए 4-अंकीय PIN से नियम लॉक करें और Google से सिंक करें।
+
+पारिवारिक गोपनीयता के लिए निर्मित:
+कोई तृतीय-पक्ष विज्ञापन नहीं, कोई डेटा बिक्री नहीं, और हर वैकल्पिक अनुमति से पहले स्पष्ट जानकारी।"
+id,Indonesian,SafeNest: DNS & Pelatih AI,"Filter DNS lokal, batas kategori, laporan mingguan, dan pelatih keamanan AI.","SafeNest membantu orang tua membangun kebiasaan layar yang sehat dan melindungi perangkat keluarga dengan pemrosesan privat langsung di perangkat.
+
+Fitur Utama:
+• Perisai DNS Lokal: Menggunakan VpnService lokal Android untuk menyaring domain dewasa, judi, phishing, dan gangguan media sosial di perangkat—tanpa server VPN jarak jauh dan tanpa unggahan riwayat penjelajahan. Tambahkan daftar blokir khusus dan aktifkan SafeSearch.
+• Batas Waktu Kategori & Tidur: Atur batas harian per kategori aplikasi (Game, Video, Sosial) serta jam tidur anak, dengan penegakan DNS otomatis saat batas tercapai.
+• Ringkasan Mingguan: Pantau tren 7 hari, skor keseimbangan, lonjakan larut malam, dan notifikasi ringkasan mingguan opsional.
+• Pelatih Keamanan AI & Pemeriksa Risiko: Dapatkan panduan komunikasi tenang, periksa aplikasi, tautan, atau tangkapan layar via Pemilih Foto Android—berjalan lokal di perangkat atau dengan kunci API Gemini pribadi opsional (BYOK) beserta penyamaran data pribadi lokal.
+• Pemindaian Notifikasi AI di Perangkat: Mesin NLP 3 tahap mendeteksi tanda perundungan siber, menyakiti diri, bujukan berbahaya, atau phishing tanpa mengirim pesan asli ke luar.
+• Mode Penjaga Anak & PIN Orang Tua: Kunci aturan dengan PIN 4 digit ter-hash lokal dan sinkronkan lewat Google.
+
+Dirancang untuk Privasi Keluarga:
+Tanpa iklan pihak ketiga, tanpa penjualan data, dan penjelasan jelas sebelum setiap izin opsional."
+th,Thai,SafeNest: DNS และโค้ช AI,กรอง DNS บนเครื่อง จำกัดเวลาหมวดแอป สรุปสัปดาห์ และโค้ชความปลอดภัย AI,"SafeNest ช่วยผู้ปกครองสร้างพฤติกรรมหน้าจอที่ดีและปกป้องอุปกรณ์ของครอบครัวด้วยการประมวลผลบนเครื่องที่เน้นความเป็นส่วนตัว
+
+ความสามารถหลัก:
+• เกราะ DNS บนเครื่อง: ใช้ VpnService ภายในเครื่องของ Android เพื่อกรองโดเมนสำหรับผู้ใหญ่ การพนัน ฟิชชิง และโซเชียลที่รบกวนสมาธิทันทีบนเครื่อง โดยไม่ผ่านเซิร์ฟเวอร์ VPN ภายนอกและไม่อัปโหลดประวัติการเข้าชม เพิ่มโดเมนบล็อกเองและเปิด SafeSearch ได้
+• จำกัดเวลาตามหมวดหมู่และเวลานอน: ตั้งขีดจำกัดรายวันตามหมวดแอป (เกม วิดีโอ โซเชียล) และเวลานอน พร้อมการบล็อก DNS อัตโนมัติเมื่อครบกำหนด
+• สรุปรายสัปดาห์: ติดตามแนวโน้ม 7 วัน คะแนนความสมดุล แจ้งเตือนการใช้งานดึก และรับสรุปสัปดาห์แบบเลือกได้
+• โค้ช AI ผู้ปกครองและตรวจความเสี่ยง: รับแนวทางพูดคุยอย่างใจเย็น ตรวจแอป ลิงก์ หรือภาพหน้าจอผ่านตัวเลือกรูปภาพ Android—ทำงานบนเครื่องโดยสมบูรณ์หรือใช้คีย์ Gemini API ส่วนตัว (BYOK) พร้อมซ่อนข้อมูลส่วนตัวอัตโนมัติบนเครื่อง
+• สแกนการแจ้งเตือน AI บนเครื่อง: ระบบ NLP 3 ขั้นตอนช่วยตรวจจับการกลั่นแกล้ง การทำร้ายตนเอง การหลอกลวง หรือฟิชชิงโดยไม่ส่งข้อความดิบออกนอกเครื่อง
+• โหมดป้องกันเด็กและ PIN ผู้ปกครอง: ล็อกการตั้งค่าด้วย PIN 4 หลักแบบแฮชบนเครื่องและซิงก์ผ่าน Google
+
+สร้างเพื่อความเป็นส่วนตัวของครอบครัว:
+ไม่มีโฆษณาบุคคลที่สาม ไม่ขายข้อมูล และอธิบายชัดเจนก่อนขอสิทธิ์เพิ่มเติมทุกครั้ง"
+ru-RU,Russian,SafeNest: DNS и ИИ-помощник,"Локальный DNS-фильтр, лимиты категорий, недельный отчёт и ИИ-советник.","SafeNest помогает родителям формировать здоровые цифровые привычки и защищать семейные устройства благодаря обработке данных прямо на устройстве.
+
+Основные возможности:
+• Локальный DNS-щит: использует локальный Android VpnService для фильтрации доменов для взрослых, азартных игр, фишинга и соцсетей на устройстве — без удалённых VPN-серверов и загрузки истории. Поддерживаются свои списки и SafeSearch.
+• Лимиты категорий и режим сна: задавайте дневные бюджеты по категориям (Игры, Видео, Соцсети) и часы сна с автоматической DNS-блокировкой при превышении лимита.
+• Еженедельные отчёты: отслеживайте 7-дневную динамику, индекс баланса, ночные всплески и получайте необязательные еженедельные сводки.
+• ИИ-советник и проверка рисков: получайте спокойные рекомендации, проверяйте приложения, ссылки и скриншоты через системный выбор фото Android — локально на устройстве или с личным API-ключом Gemini (BYOK) и локальным скрытием личных данных.
+• Локальное ИИ-сканирование уведомлений: 3-этапный NLP-движок выявляет признаки кибербуллинга, самоповреждения, манипуляций и фишинга без отправки исходных текстов.
+• Детский режим и PIN родителя: защита настроек 4-значным PIN с локальным хешированием и облачной синхронизацией через Google.
+
+Конфиденциальность семьи на первом месте:
+Никакой сторонней рекламы и продажи данных, прозрачные пояснения перед каждым запросом разрешения."
+tr-TR,Turkish,SafeNest: DNS ve YZ Koçu,"Yerel DNS filtresi, kategori sınırları, haftalık özet ve YZ aile koçu.","SafeNest, gizliliği öne alan cihaz içi mimarisiyle ebeveynlerin sağlıklı ekran alışkanlıkları kurmasına ve aile cihazlarını korumasına yardımcı olur.
+
+Temel Özellikler:
+• Yerel DNS Kalkanı: Yetişkin içeriği, kumar, kimlik avı ve sosyal dikkat dağıtıcı alan adlarını uzak VPN sunucuları olmadan ve tarama geçmişini yüklemeden doğrudan cihazda filtrelemek için yerel Android VpnService kullanır. Özel listeler ve SafeSearch desteklenir.
+• Kategori Süre Sınırları ve Uyku Planı: Uygulama kategorileri (Oyun, Video, Sosyal) için günlük sınırlar ve uyku saatleri belirleyin; sınır dolduğunda DNS engellemesi otomatik uygulanır.
+• Haftalık Özetler: 7 günlük eğilimleri, denge puanını, gece geç kullanım artışlarını ve isteğe bağlı haftalık bildirimleri görün.
+• Ebeveyn YZ Güvenlik Koçu ve Risk Danışmanı: Sakin iletişim önerileri alın; Android Fotoğraf Seçici ile uygulamaları, bağlantıları veya ekran görüntülerini inceleyin—tamamen cihaz içinde ya da yerel gizlilik maskelemeli isteğe bağlı kişisel Gemini API anahtarıyla (BYOK) çalışır.
+• Cihaz İçi YZ Bildirim Taraması: 3 aşamalı yerel NLP motoru siber zorbalık, kendine zarar verme, istismar veya kimlik avı sinyallerini ham mesajları dışa göndermeden tarar.
+• Çocuk Koruma Modu ve Ebeveyn PIN: Yerel karma 4 haneli PIN ve Google ile güvenli kural senkronizasyonu.
+
+Aile Gizliliği İçin Tasarlandı:
+Üçüncü taraf reklam veya veri satışı yoktur; her isteğe bağlı izin öncesi net bilgilendirme sunulur."
+nl-NL,Dutch,SafeNest: DNS & AI-Coach,"Lokale DNS-filter, categorielimieten, weekrapporten en AI-coach.","SafeNest helpt ouders gezonde schermgewoonten op te bouwen en gezinsapparaten te beschermen met een privacygerichte verwerking op het apparaat.
+
+Belangrijkste functies:
+• Lokaal DNS-schild: Gebruikt Androids lokale VpnService om domeinen voor volwassenen, gokken, phishing en sociale afleiding direct op het apparaat te filteren—zonder externe VPN-servers of upload van browsegeschiedenis. Ondersteunt eigen lijsten en SafeSearch.
+• Categorielimieten & bedtijd: Stel dagelijkse budgetten in per appcategorie (Games, Video, Sociaal) plus rusttijden per kindprofiel, met automatische DNS-blokkering zodra een limiet wordt bereikt.
+• Wekelijkse overzichten: Volg 7-daagse trends, balansscores, nachtelijke pieken en optionele wekelijkse meldingen.
+• AI-Veiligheidscoach & Risicocheck: Krijg rustige gesprekstips, controleer apps, links of screenshots via Android Fotokiezer en lees weekbriefings—lokaal op het apparaat of optioneel met een eigen Gemini API-sleutel (BYOK) met lokale PII-afscherming.
+• Lokale AI-meldingsscan: Een 3-traps lokale NLP-engine herkent signalen van cyberpesten, zelfbeschadiging, grooming of phishing zonder ruwe berichten te verzenden.
+• Kindbewakingsmodus & ouder-PIN: Vergrendel regels met een lokaal gehashte 4-cijferige PIN en Google-synchronisatie.
+
+Ontworpen voor gezinsprivacy:
+Geen advertenties van derden, geen gegevensverkoop en duidelijke uitleg vóór elke optionele toestemming."
+pl-PL,Polish,SafeNest: DNS i Asystent AI,"Lokalny filtr DNS, limity kategorii, raporty tygodniowe i asystent AI.","SafeNest pomaga rodzicom kształtować zdrowe nawyki cyfrowe i chronić urządzenia rodzinne dzięki prywatnemu przetwarzaniu bezpośrednio na urządzeniu.
+
+Główne możliwości:
+• Lokalna tarcza DNS: Wykorzystuje lokalny Android VpnService do filtrowania domen dla dorosłych, hazardowych, phishingowych i społecznościowych na urządzeniu — bez zdalnych serwerów VPN i wysyłania historii. Dodawaj własne domeny i korzystaj z SafeSearch.
+• Limity kategorii i pora snu: Ustaw dzienne budżety dla kategorii aplikacji (Gry, Wideo, Społeczności) oraz godziny odpoczynku z automatycznym blokowaniem DNS po przekroczeniu limitu.
+• Podsumowania tygodniowe: Śledź 7-dniowe trendy, wynik równowagi, nocne skoki aktywności i opcjonalne powiadomienia tygodniowe.
+• Rodzicielski Asystent AI i Doradca Ryzyka: Otrzymuj spokojne wskazówki, sprawdzaj aplikacje, linki lub zrzuty ekranu przez systemowy Wybór Zdjęć Androida — lokalnie na urządzeniu lub opcjonalnie z własnym kluczem Gemini API (BYOK) z lokalnym maskowaniem danych osobowych.
+• Lokalne skanowanie powiadomień AI: 3-etapowy silnik NLP wykrywa oznaki cyberprzemocy, samookaleczenia, manipulacji i phishingu bez wysyłania surowych treści wiadomości.
+• Tryb ochrony dziecka i PIN rodzica: Zabezpiecz reguły lokalnie haszowanym 4-cyfrowym PIN-em i synchronizacją Google.
+
+Z myślą o prywatności rodziny:
+Bez reklam firm trzecich i handlu danymi, z jasną informacją przed każdym opcjonalnym uprawnieniem."
+uk,Ukrainian,SafeNest: DNS та ШІ-порадник,"Локальний DNS-фільтр, ліміти категорій, тижневий звіт і ШІ-порадник.","SafeNest допомагає батькам формувати здорові цифрові звички та захищати родинні пристрої завдяки приватній обробці безпосередньо на пристрої.
+
+Основні можливості:
+• Локальний DNS-щит: використовує локальний Android VpnService для фільтрації доменів для дорослих, азартних ігор, фішингу та соцмереж прямо на пристрої — без віддалених VPN-серверів і завантаження історії. Підтримуються власні списки та SafeSearch.
+• Ліміти категорій і час сну: налаштовуйте денні ліміти для категорій застосунків (Ігри, Відео, Соцмережі) та години відпочинку з автоматичним DNS-блокуванням після вичерпання ліміту.
+• Тижневі підсумки: відстежуйте 7-денну динаміку, індекс балансу, нічні сплески й отримуйте необов'язкові тижневі сповіщення.
+• Батьківський ШІ-порадник і перевірка ризиків: отримуйте виважені підказки, перевіряйте застосунки, посилання або знімки екрана через системний вибір фото Android — локально на пристрої або за бажанням із власним ключем Gemini API (BYOK) та локальним приховуванням персональних даних.
+• Локальне ШІ-сканування сповіщень: 3-етапний NLP-рушій виявляє ознаки кібербулінгу, самопошкодження, маніпуляцій або фішингу без надсилання вихідних текстів.
+• Режим захисту дитини та PIN: блокуйте правила 4-значним PIN-кодом із локальним хешуванням і синхронізацією через Google.
+
+Створено для приватності родини:
+Без сторонньої реклами й продажу даних, із чіткими поясненнями перед кожним необов'язковим дозволом."
+ms,Malay,SafeNest: DNS & Jurulatih AI,"Penapis DNS setempat, had kategori, laporan mingguan & jurulatih AI.","SafeNest membantu ibu bapa membina tabiat skrin yang sihat dan melindungi peranti keluarga melalui pemprosesan privasi terus pada peranti.
+
+Keupayaan Utama:
+• Perisai DNS Setempat: Menggunakan VpnService setempat Android untuk menapis domain dewasa, perjudian, pancingan data dan gangguan sosial pada peranti—tanpa pelayan VPN jauh atau muat naik sejarah pelayaran. Tambah senarai sekatan tersuai dan kekalkan SafeSearch.
+• Had Masa Kategori & Jadual Tidur: Tetapkan belanjawan harian mengikut kategori aplikasi (Permainan, Video, Sosial) serta waktu tidur setiap anak, dengan penguatkuasaan DNS automatik apabila had dicapai.
+• Ringkasan Mingguan: Pantau trend 7 hari, skor keseimbangan, lonjakan lewat malam dan pemberitahuan ringkasan mingguan pilihan.
+• Jurulatih Keselamatan AI & Penasihat Risiko: Dapatkan panduan perbualan tenang, semak aplikasi, pautan atau tangkapan skrin melalui Pemilih Foto Android—berjalan setempat pada peranti atau dengan kunci API Gemini peribadi pilihan (BYOK) berserta penyembunyian data peribadi setempat.
+• Imbasan Pemberitahuan AI Setempat: Enjin NLP 3 peringkat mengesan tanda buli siber, mencederakan diri, pemangsaan atau penipuan tanpa menghantar mesej asal ke luar.
+• Mod Pengawal Anak & PIN Ibu Bapa: Kunci tetapan dengan PIN 4 digit bercincang setempat dan segerakkan peraturan melalui Google.
+
+Dibina untuk Privasi Keluarga:
+Tiada iklan pihak ketiga, tiada penjualan data dan penjelasan jelas sebelum setiap kebenaran pilihan."

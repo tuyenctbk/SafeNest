@@ -1,0 +1,294 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global default-deny safety net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isValidTimeString(t) {
+      return t is string && t.size() == 5 && t.matches('^([01][0-9]|2[0-3]):[0-5][0-9]$');
+    }
+
+    function isValidStringList(arr, maxLen) {
+      return arr is list &&
+             arr.size() <= maxLen &&
+             (arr.size() == 0 || (arr[0] is string && arr[0].size() <= 120));
+    }
+
+    function isValidParentProfile(data, userId) {
+      return data.userId is string && data.userId == userId &&
+             data.displayName is string && data.displayName.size() >= 1 && data.displayName.size() <= 80 &&
+             (!('pinHash' in data) || (data.pinHash is string && data.pinHash.size() <= 128)) &&
+             data.childModeEnabled is bool &&
+             (!('activeChildId' in data) || (data.activeChildId is string && data.activeChildId.size() <= 128)) &&
+             data.createdAt is timestamp && data.createdAt <= request.time &&
+             data.updatedAt is timestamp && data.updatedAt <= request.time;
+    }
+
+    function isValidChildProfile(data, userId) {
+      return data.userId is string && data.userId == userId &&
+             data.name is string && data.name.size() >= 1 && data.name.size() <= 40 &&
+             data.age is int && data.age >= 3 && data.age <= 18 &&
+             data.deviceModel is string && data.deviceModel.size() >= 1 && data.deviceModel.size() <= 60 &&
+             data.avatarColor is string && data.avatarColor in ['TEAL', 'AMBER', 'CORAL', 'INDIGO', 'SAGE'] &&
+             data.dailyLimitMin is int && data.dailyLimitMin >= 15 && data.dailyLimitMin <= 720 &&
+             isValidTimeString(data.bedtimeStart) &&
+             isValidTimeString(data.bedtimeEnd) &&
+             data.downtimePaused is bool &&
+             data.safeSearchEnabled is bool &&
+             data.aiProtectionEnabled is bool &&
+             data.vpnFilterEnabled is bool &&
+             data.blockAdult is bool &&
+             data.blockGambling is bool &&
+             data.blockMalware is bool &&
+             data.blockSocial is bool &&
+             isValidStringList(data.customBlockedDomains, 50) &&
+             isValidStringList(data.blockedAppPackages, 50) &&
+             data.todayScreenTimeMin is int && data.todayScreenTimeMin >= 0 && data.todayScreenTimeMin <= 1440 &&
+             data.blockedAttemptsToday is int && data.blockedAttemptsToday >= 0 && data.blockedAttemptsToday <= 10000 &&
+             data.batteryPercent is int && data.batteryPercent >= 0 && data.batteryPercent <= 100 &&
+             data.createdAt is timestamp && data.createdAt <= request.time &&
+             data.updatedAt is timestamp && data.updatedAt <= request.time;
+    }
+
+    function isValidSafetyAlert(data, userId) {
+      return data.userId is string && data.userId == userId &&
+             isValidId(data.childId) &&
+             data.childName is string && data.childName.size() >= 1 && data.childName.size() <= 40 &&
+             data.alertType is string && data.alertType in ['CYBERBULLYING', 'SELF_HARM', 'GROOMING_EXPLICIT', 'SCAM_GAMBLING', 'WEB_BLOCKED', 'ANOMALY'] &&
+             data.severity is string && data.severity in ['HIGH', 'MEDIUM', 'LOW'] &&
+             data.appSource is string && data.appSource.size() >= 1 && data.appSource.size() <= 60 &&
+             data.redactedSnippet is string && data.redactedSnippet.size() >= 1 && data.redactedSnippet.size() <= 140 &&
+             (data.confidence is float || data.confidence is int) && data.confidence >= 0.0 && data.confidence <= 1.0 &&
+             data.acknowledged is bool &&
+             data.createdAt is timestamp && data.createdAt <= request.time &&
+             data.updatedAt is timestamp && data.updatedAt <= request.time;
+    }
+
+    function isValidDailySummary(data, userId) {
+      return data.userId is string && data.userId == userId &&
+             isValidId(data.childId) &&
+             data.dateKey is string && data.dateKey.size() == 10 && data.dateKey.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$') &&
+             data.totalScreenTimeMin is int && data.totalScreenTimeMin >= 0 && data.totalScreenTimeMin <= 1440 &&
+             data.lateNightMin is int && data.lateNightMin >= 0 && data.lateNightMin <= 600 &&
+             data.blockedAttempts is int && data.blockedAttempts >= 0 && data.blockedAttempts <= 10000 &&
+             data.anomalyNote is string && data.anomalyNote.size() <= 200 &&
+             isValidStringList(data.topApps, 10) &&
+             data.createdAt is timestamp && data.createdAt <= request.time &&
+             data.updatedAt is timestamp && data.updatedAt <= request.time;
+    }
+
+    function isValidUsageQuota(data, userId) {
+      return data.userId is string && data.userId == userId &&
+             data.dateIso is string && data.dateIso.size() >= 7 && data.dateIso.size() <= 10 &&
+             data.dateIso.matches('^[0-9]{4}-[0-9]{2}(-[0-9]{2})?$') &&
+             data.dailyCloudLimit is int && data.dailyCloudLimit >= 5 && data.dailyCloudLimit <= 50 &&
+             data.cloudRequestsUsed is int && data.cloudRequestsUsed >= 0 && data.cloudRequestsUsed <= 1000 &&
+             data.chatUsed is int && data.chatUsed >= 0 && data.chatUsed <= 1000 &&
+             data.visionUsed is int && data.visionUsed >= 0 && data.visionUsed <= 1000 &&
+             data.briefsUsed is int && data.briefsUsed >= 0 && data.briefsUsed <= 1000 &&
+             data.studioUsed is int && data.studioUsed >= 0 && data.studioUsed <= 1000 &&
+             data.audioUsed is int && data.audioUsed >= 0 && data.audioUsed <= 1000 &&
+             data.bonusGraceCredits is int && data.bonusGraceCredits >= 0 && data.bonusGraceCredits <= 15 &&
+             data.graceClaimed is bool &&
+             data.ecoLiteMode is bool &&
+             data.fallbackCascadeCount is int && data.fallbackCascadeCount >= 0 && data.fallbackCascadeCount <= 1000 &&
+             data.createdAt is timestamp && data.createdAt <= request.time &&
+             data.updatedAt is timestamp && data.updatedAt <= request.time;
+    }
+
+    match /users/{userId} {
+      allow get: if isOwner(userId) && isValidId(userId);
+      allow list: if false;
+
+      allow create: if isOwner(userId) &&
+                       isValidId(userId) &&
+                       incoming().keys().hasAll(['userId', 'displayName', 'childModeEnabled', 'createdAt', 'updatedAt']) &&
+                       incoming().keys().hasOnly(['userId', 'displayName', 'pinHash', 'childModeEnabled', 'activeChildId', 'createdAt', 'updatedAt']) &&
+                       isValidParentProfile(incoming(), userId);
+
+      allow update: if isOwner(userId) &&
+                       isValidId(userId) &&
+                       isValidParentProfile(incoming(), userId) &&
+                       incoming().userId == existing().userId &&
+                       incoming().createdAt == existing().createdAt &&
+                       incoming().diff(existing()).affectedKeys().hasOnly(['displayName', 'pinHash', 'childModeEnabled', 'activeChildId', 'updatedAt']);
+
+      allow delete: if isOwner(userId) && isValidId(userId);
+
+      match /children/{childId} {
+        allow get: if isOwner(userId) && isValidId(childId);
+        allow list: if isOwner(userId);
+
+        allow create: if isOwner(userId) &&
+                         isValidId(childId) &&
+                         incoming().keys().hasAll([
+                           'userId', 'name', 'age', 'deviceModel', 'avatarColor',
+                           'dailyLimitMin', 'bedtimeStart', 'bedtimeEnd', 'downtimePaused',
+                           'safeSearchEnabled', 'aiProtectionEnabled', 'vpnFilterEnabled',
+                           'blockAdult', 'blockGambling', 'blockMalware', 'blockSocial',
+                           'customBlockedDomains', 'blockedAppPackages',
+                           'todayScreenTimeMin', 'blockedAttemptsToday', 'batteryPercent',
+                           'createdAt', 'updatedAt'
+                         ]) &&
+                         incoming().keys().hasOnly([
+                           'userId', 'name', 'age', 'deviceModel', 'avatarColor',
+                           'dailyLimitMin', 'bedtimeStart', 'bedtimeEnd', 'downtimePaused',
+                           'safeSearchEnabled', 'aiProtectionEnabled', 'vpnFilterEnabled',
+                           'blockAdult', 'blockGambling', 'blockMalware', 'blockSocial',
+                           'customBlockedDomains', 'blockedAppPackages',
+                           'todayScreenTimeMin', 'blockedAttemptsToday', 'batteryPercent',
+                           'createdAt', 'updatedAt'
+                         ]) &&
+                         isValidChildProfile(incoming(), userId);
+
+        allow update: if isOwner(userId) &&
+                         isValidId(childId) &&
+                         isValidChildProfile(incoming(), userId) &&
+                         incoming().userId == existing().userId &&
+                         incoming().createdAt == existing().createdAt &&
+                         (
+                           // Action: Update protection rules & schedules
+                           incoming().diff(existing()).affectedKeys().hasOnly([
+                             'name', 'age', 'deviceModel', 'avatarColor',
+                             'dailyLimitMin', 'bedtimeStart', 'bedtimeEnd', 'downtimePaused',
+                             'safeSearchEnabled', 'aiProtectionEnabled', 'vpnFilterEnabled',
+                             'blockAdult', 'blockGambling', 'blockMalware', 'blockSocial',
+                             'customBlockedDomains', 'blockedAppPackages', 'updatedAt'
+                           ]) ||
+                           // Action: Telemetry / heartbeat sync
+                           incoming().diff(existing()).affectedKeys().hasOnly([
+                             'todayScreenTimeMin', 'blockedAttemptsToday', 'batteryPercent', 'updatedAt'
+                           ])
+                         );
+
+        allow delete: if isOwner(userId) && isValidId(childId);
+      }
+
+      match /alerts/{alertId} {
+        allow get: if isOwner(userId) && isValidId(alertId);
+        allow list: if isOwner(userId);
+
+        allow create: if isOwner(userId) &&
+                         isValidId(alertId) &&
+                         incoming().keys().hasAll([
+                           'userId', 'childId', 'childName', 'alertType', 'severity',
+                           'appSource', 'redactedSnippet', 'confidence', 'acknowledged',
+                           'createdAt', 'updatedAt'
+                         ]) &&
+                         incoming().keys().hasOnly([
+                           'userId', 'childId', 'childName', 'alertType', 'severity',
+                           'appSource', 'redactedSnippet', 'confidence', 'acknowledged',
+                           'createdAt', 'updatedAt'
+                         ]) &&
+                         isValidSafetyAlert(incoming(), userId);
+
+        allow update: if isOwner(userId) &&
+                         isValidId(alertId) &&
+                         isValidSafetyAlert(incoming(), userId) &&
+                         incoming().userId == existing().userId &&
+                         incoming().childId == existing().childId &&
+                         incoming().createdAt == existing().createdAt &&
+                         // Action: Acknowledge / unacknowledge alert
+                         incoming().diff(existing()).affectedKeys().hasOnly(['acknowledged', 'updatedAt']);
+
+        allow delete: if isOwner(userId) && isValidId(alertId);
+      }
+
+      match /dailySummaries/{summaryId} {
+        allow get: if isOwner(userId) && isValidId(summaryId);
+        allow list: if isOwner(userId);
+
+        allow create: if isOwner(userId) &&
+                         isValidId(summaryId) &&
+                         incoming().keys().hasAll([
+                           'userId', 'childId', 'dateKey', 'totalScreenTimeMin',
+                           'lateNightMin', 'blockedAttempts', 'anomalyNote', 'topApps',
+                           'createdAt', 'updatedAt'
+                         ]) &&
+                         incoming().keys().hasOnly([
+                           'userId', 'childId', 'dateKey', 'totalScreenTimeMin',
+                           'lateNightMin', 'blockedAttempts', 'anomalyNote', 'topApps',
+                           'createdAt', 'updatedAt'
+                         ]) &&
+                         isValidDailySummary(incoming(), userId);
+
+        allow update: if isOwner(userId) &&
+                         isValidId(summaryId) &&
+                         isValidDailySummary(incoming(), userId) &&
+                         incoming().userId == existing().userId &&
+                         incoming().childId == existing().childId &&
+                         incoming().dateKey == existing().dateKey &&
+                         incoming().createdAt == existing().createdAt &&
+                         incoming().diff(existing()).affectedKeys().hasOnly([
+                           'totalScreenTimeMin', 'lateNightMin', 'blockedAttempts',
+                           'anomalyNote', 'topApps', 'updatedAt'
+                         ]);
+
+        allow delete: if isOwner(userId) && isValidId(summaryId);
+      }
+
+      match /usageQuota/{periodId} {
+        allow get: if isOwner(userId) && periodId in ['daily', 'monthly'];
+        allow list: if isOwner(userId);
+
+        allow create: if isOwner(userId) &&
+                         periodId in ['daily', 'monthly'] &&
+                         incoming().keys().hasAll([
+                           'userId', 'dateIso', 'dailyCloudLimit', 'cloudRequestsUsed',
+                           'chatUsed', 'visionUsed', 'briefsUsed', 'studioUsed', 'audioUsed',
+                           'bonusGraceCredits', 'graceClaimed', 'ecoLiteMode', 'fallbackCascadeCount',
+                           'createdAt', 'updatedAt'
+                         ]) &&
+                         incoming().keys().hasOnly([
+                           'userId', 'dateIso', 'dailyCloudLimit', 'cloudRequestsUsed',
+                           'chatUsed', 'visionUsed', 'briefsUsed', 'studioUsed', 'audioUsed',
+                           'bonusGraceCredits', 'graceClaimed', 'ecoLiteMode', 'fallbackCascadeCount',
+                           'createdAt', 'updatedAt'
+                         ]) &&
+                         isValidUsageQuota(incoming(), userId);
+
+        allow update: if isOwner(userId) &&
+                         periodId in ['daily', 'monthly'] &&
+                         isValidUsageQuota(incoming(), userId) &&
+                         incoming().userId == existing().userId &&
+                         incoming().createdAt == existing().createdAt &&
+                         (
+                           // Action: Quota counter mutation, atomic deduct/refund, grace grant, or rollover reset
+                           incoming().diff(existing()).affectedKeys().hasOnly([
+                             'dateIso', 'cloudRequestsUsed', 'chatUsed', 'visionUsed', 'briefsUsed',
+                             'studioUsed', 'audioUsed', 'bonusGraceCredits', 'graceClaimed',
+                             'fallbackCascadeCount', 'updatedAt'
+                           ]) ||
+                           // Action: User preference update (Eco Lite Mode or daily budget cap)
+                           incoming().diff(existing()).affectedKeys().hasOnly([
+                             'dailyCloudLimit', 'ecoLiteMode', 'updatedAt'
+                           ])
+                         );
+
+        allow delete: if isOwner(userId) && periodId in ['daily', 'monthly'];
+      }
+    }
+  }
+}
