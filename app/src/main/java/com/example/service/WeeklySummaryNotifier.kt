@@ -130,7 +130,7 @@ object WeeklySummaryNotifier {
         )
 
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.mipmap.ic_launcher)
+            .setSmallIcon(R.drawable.ic_stat_safenest_shield)
             .setContentTitle(title)
             .setContentText(summaryLine)
             .setStyle(NotificationCompat.BigTextStyle().bigText(details))

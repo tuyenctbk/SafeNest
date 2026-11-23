@@ -38,6 +38,7 @@ import androidx.compose.material.icons.filled.Psychology
 import androidx.compose.material.icons.filled.QueryStats
 import androidx.compose.material.icons.filled.Shield
 import androidx.compose.material.icons.filled.Stop
+import androidx.compose.material.icons.outlined.PrivacyTip
 import androidx.compose.material.icons.outlined.RadioButtonUnchecked
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Button
@@ -89,6 +90,7 @@ import com.example.ui.theme.StatusWarnAmber
 fun ShieldLabScreen(
     activeChild: ChildProfile?,
     hasParentPin: Boolean,
+    isLocalMode: Boolean = false,
     vpnState: VpnRuntimeState,
     deviceHealth: DeviceHealthStatus,
     labAiResult: SafetyClassificationResult?,
@@ -99,6 +101,7 @@ fun ShieldLabScreen(
     lastPromptReason: SuppressionReason,
     aiCoachPrefs: AiCoachPreferences = AiCoachPreferences(),
     onOpenAiCoach: () -> Unit = {},
+    onShowPrivacyPolicy: () -> Unit = {},
     onToggleVpnRequest: (Boolean) -> Unit,
     onRequestUsageAccess: () -> Unit,
     onRequestNotificationAccess: () -> Unit,
@@ -702,6 +705,22 @@ fun ShieldLabScreen(
                     }
 
                     OutlinedButton(
+                        onClick = onShowPrivacyPolicy,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(48.dp)
+                            .testTag("privacy_policy_button")
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.PrivacyTip,
+                            contentDescription = stringResource(R.string.shield_privacy_policy_button),
+                            modifier = Modifier.size(18.dp)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(stringResource(R.string.shield_privacy_policy_button))
+                    }
+
+                    OutlinedButton(
                         onClick = onSignOut,
                         modifier = Modifier
                             .fillMaxWidth()
@@ -714,7 +733,12 @@ fun ShieldLabScreen(
                             modifier = Modifier.size(18.dp)
                         )
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(stringResource(R.string.sign_out_parent_account))
+                        Text(
+                            stringResource(
+                                if (isLocalMode) R.string.auth_switch_account_mode
+                                else R.string.sign_out_parent_account
+                            )
+                        )
                     }
                 }
             }

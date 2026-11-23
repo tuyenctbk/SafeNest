@@ -25,7 +25,7 @@ import java.util.Locale
 class FamilyRepository(
     private val db: FirebaseFirestore,
     private val auth: FirebaseAuth = Firebase.auth
-) {
+) : SafeNestRepository {
     constructor(context: Context) : this(
         FirebaseFirestore.getInstance(
             context.applicationContext.getString(R.string.firestore_database_id)
@@ -41,7 +41,7 @@ class FamilyRepository(
         return uid
     }
 
-    fun observeParentProfile(userId: String): Flow<ParentProfile?> = flow {
+    override fun observeParentProfile(userId: String): Flow<ParentProfile?> = flow {
         val uid = requireUserId(userId)
         val path = "users/$uid"
         emitAll(
@@ -62,7 +62,7 @@ class FamilyRepository(
         )
     }
 
-    suspend fun ensureParentProfile(userId: String, displayName: String): Result<Unit> {
+    override suspend fun ensureParentProfile(userId: String, displayName: String): Result<Unit> {
         val path = "users/$userId"
         return try {
             val uid = requireUserId(userId)
@@ -88,12 +88,12 @@ class FamilyRepository(
         }
     }
 
-    suspend fun updateParentSettings(
+    override suspend fun updateParentSettings(
         userId: String,
-        pinHash: String? = null,
-        childModeEnabled: Boolean? = null,
-        activeChildId: String? = null,
-        fallbackDisplayName: String = "Parent"
+        pinHash: String?,
+        childModeEnabled: Boolean?,
+        activeChildId: String?,
+        fallbackDisplayName: String
     ): Result<Unit> {
         val path = "users/$userId"
         return try {
@@ -119,7 +119,7 @@ class FamilyRepository(
         }
     }
 
-    fun observeChildren(userId: String): Flow<List<ChildProfile>> = flow {
+    override fun observeChildren(userId: String): Flow<List<ChildProfile>> = flow {
         val uid = requireUserId(userId)
         val path = "users/$uid/children"
         emitAll(
@@ -138,7 +138,7 @@ class FamilyRepository(
         )
     }
 
-    suspend fun createChild(
+    override suspend fun createChild(
         userId: String,
         name: String,
         age: Long,
@@ -146,7 +146,8 @@ class FamilyRepository(
         avatarTone: AvatarTone,
         dailyLimitMin: Long,
         bedtimeStart: String,
-        bedtimeEnd: String
+        bedtimeEnd: String,
+        initialDnsSnapshot: LocalFilterSnapshot?
     ): Result<String> {
         var docPath = "users/$userId/children"
         return try {
@@ -171,14 +172,14 @@ class FamilyRepository(
                 "bedtimeStart" to validStart,
                 "bedtimeEnd" to validEnd,
                 "downtimePaused" to false,
-                "safeSearchEnabled" to true,
-                "aiProtectionEnabled" to true,
+                "safeSearchEnabled" to (initialDnsSnapshot?.safeSearchEnabled ?: true),
+                "aiProtectionEnabled" to (initialDnsSnapshot?.aiProtectionEnabled ?: true),
                 "vpnFilterEnabled" to true,
-                "blockAdult" to true,
-                "blockGambling" to true,
-                "blockMalware" to true,
-                "blockSocial" to false,
-                "customBlockedDomains" to emptyList<String>(),
+                "blockAdult" to (initialDnsSnapshot?.blockAdult ?: true),
+                "blockGambling" to (initialDnsSnapshot?.blockGambling ?: true),
+                "blockMalware" to (initialDnsSnapshot?.blockMalware ?: true),
+                "blockSocial" to (initialDnsSnapshot?.blockSocial ?: false),
+                "customBlockedDomains" to (initialDnsSnapshot?.customBlockedDomains?.sorted()?.take(50) ?: emptyList<String>()),
                 "blockedAppPackages" to emptyList<String>(),
                 "todayScreenTimeMin" to 0L,
                 "blockedAttemptsToday" to 0L,
@@ -196,7 +197,7 @@ class FamilyRepository(
         }
     }
 
-    suspend fun updateChildRules(
+    override suspend fun updateChildRules(
         userId: String,
         childId: String,
         updates: Map<String, Any>
@@ -221,7 +222,7 @@ class FamilyRepository(
         }
     }
 
-    suspend fun updateChildTelemetry(
+    override suspend fun updateChildTelemetry(
         userId: String,
         childId: String,
         todayScreenTimeMin: Long,
@@ -252,7 +253,7 @@ class FamilyRepository(
         }
     }
 
-    suspend fun deleteChild(userId: String, childId: String): Result<Unit> {
+    override suspend fun deleteChild(userId: String, childId: String): Result<Unit> {
         val path = "users/$userId/children/$childId"
         return try {
             val uid = requireUserId(userId)
@@ -270,7 +271,7 @@ class FamilyRepository(
         }
     }
 
-    fun observeAlerts(userId: String): Flow<List<SafetyAlert>> = flow {
+    override fun observeAlerts(userId: String): Flow<List<SafetyAlert>> = flow {
         val uid = requireUserId(userId)
         val path = "users/$uid/alerts"
         emitAll(
@@ -289,7 +290,7 @@ class FamilyRepository(
         )
     }
 
-    suspend fun createAlert(
+    override suspend fun createAlert(
         userId: String,
         childId: String,
         childName: String,
@@ -328,7 +329,7 @@ class FamilyRepository(
         }
     }
 
-    suspend fun setAlertAcknowledged(
+    override suspend fun setAlertAcknowledged(
         userId: String,
         alertId: String,
         acknowledged: Boolean
@@ -355,7 +356,7 @@ class FamilyRepository(
         }
     }
 
-    suspend fun acknowledgeAllAlerts(
+    override suspend fun acknowledgeAllAlerts(
         userId: String,
         alertIds: List<String>
     ): Result<Unit> {
@@ -385,7 +386,7 @@ class FamilyRepository(
         }
     }
 
-    suspend fun deleteAlert(userId: String, alertId: String): Result<Unit> {
+    override suspend fun deleteAlert(userId: String, alertId: String): Result<Unit> {
         val path = "users/$userId/alerts/$alertId"
         return try {
             val uid = requireUserId(userId)
@@ -403,7 +404,7 @@ class FamilyRepository(
         }
     }
 
-    fun observeDailySummaries(userId: String): Flow<List<DailySummary>> = flow {
+    override fun observeDailySummaries(userId: String): Flow<List<DailySummary>> = flow {
         val uid = requireUserId(userId)
         val path = "users/$uid/dailySummaries"
         emitAll(
@@ -422,7 +423,7 @@ class FamilyRepository(
         )
     }
 
-    suspend fun upsertDailySummary(
+    override suspend fun upsertDailySummary(
         userId: String,
         childId: String,
         dateKey: String,

@@ -19,6 +19,7 @@ import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential.Companion.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
 import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingException
 import com.google.firebase.Firebase
+import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseUser
@@ -30,11 +31,33 @@ import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
 private const val AUTH_TAG = "Auth"
+
+/**
+ * Safely checks whether Firebase has been initialized (e.g., via google-services.json).
+ * Prevents crashes on cold start when running offline or in local-only builds.
+ */
+fun isFirebaseConfigured(context: Context): Boolean =
+    runCatching { FirebaseApp.getApps(context.applicationContext).isNotEmpty() }.getOrDefault(false)
+
+fun safeAuthStateFlow(context: Context): Flow<FirebaseUser?> =
+    if (isFirebaseConfigured(context)) {
+        runCatching { Firebase.auth.authStateFlow() }.getOrElse { flowOf(null) }
+    } else {
+        flowOf(null)
+    }
+
+fun safeCurrentFirebaseUser(context: Context): FirebaseUser? =
+    if (isFirebaseConfigured(context)) {
+        runCatching { Firebase.auth.currentUser }.getOrNull()
+    } else {
+        null
+    }
 
 fun FirebaseAuth.authStateFlow(): Flow<FirebaseUser?> = callbackFlow {
     val listener = FirebaseAuth.AuthStateListener { firebaseAuth ->
@@ -50,6 +73,19 @@ private tailrec fun Context.findActivity(): Activity? = when (this) {
     else -> null
 }
 
+private fun resolveDefaultWebClientId(context: Context): String {
+    return try {
+        val resId = context.resources.getIdentifier(
+            "default_web_client_id",
+            "string",
+            context.packageName
+        )
+        if (resId != 0) context.getString(resId).trim() else ""
+    } catch (_: Exception) {
+        ""
+    }
+}
+
 /**
  * Silent Auto-Sign-In on startup using GetGoogleIdOption (strictly one credential option per request).
  */
@@ -60,15 +96,15 @@ fun attemptAutoSignIn(
     onUnauthenticated: () -> Unit,
     scope: CoroutineScope
 ) {
+    if (!isFirebaseConfigured(context)) {
+        onUnauthenticated()
+        return
+    }
     if (Firebase.auth.currentUser != null) {
         onAuthSuccess()
         return
     }
-    val clientId = try {
-        context.getString(R.string.default_web_client_id).trim()
-    } catch (_: Exception) {
-        ""
-    }
+    val clientId = resolveDefaultWebClientId(context)
     if (clientId.isBlank()) {
         Log.w(AUTH_TAG, "Silent auto sign-in skipped: default_web_client_id missing")
         onUnauthenticated()
@@ -125,11 +161,11 @@ fun onGoogleSignInClicked(
     scope: CoroutineScope,
     onAuthCancelled: () -> Unit = {}
 ) {
-    val clientId = try {
-        context.getString(R.string.default_web_client_id).trim()
-    } catch (_: Exception) {
-        ""
+    if (!isFirebaseConfigured(context)) {
+        onAuthError(context.getString(R.string.auth_err_missing_client_id))
+        return
     }
+    val clientId = resolveDefaultWebClientId(context)
     if (clientId.isBlank()) {
         onAuthError(context.getString(R.string.auth_err_missing_client_id))
         return
@@ -205,7 +241,7 @@ fun signOutUser(
             } catch (e: Exception) {
                 Log.w(AUTH_TAG, "Failed to clear credential state: ${e.message}")
             } finally {
-                Firebase.auth.signOut()
+                runCatching { Firebase.auth.signOut() }
                 onSignOutComplete()
             }
         }

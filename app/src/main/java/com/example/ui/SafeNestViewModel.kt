@@ -36,6 +36,7 @@ import com.example.data.FamilyRepository
 import com.example.data.LocalFilterSnapshot
 import com.example.data.LocalPinStore
 import com.example.data.ParentProfile
+import com.example.data.SafeNestRepository
 import com.example.data.SafetyAlert
 import com.example.data.UiState
 import com.example.data.UsageQuotaManager
@@ -85,7 +86,7 @@ import java.io.ByteArrayOutputStream
 
 class SafeNestViewModel(
     private val appContext: Context,
-    private val repository: FamilyRepository,
+    private val repository: SafeNestRepository,
     private val localPinStore: LocalPinStore,
     private val deviceChecker: DeviceProtectionChecker,
     private val eventTracker: AppEventTracker,
@@ -209,6 +210,7 @@ class SafeNestViewModel(
 
     private val _todayCategoryUsage = MutableStateFlow<DailyCategoryUsage?>(null)
     private val _alertedExceededCategories = mutableSetOf<AppUsageCategory>()
+    private var _alertedDateKey: String = ""
 
     val weeklySummaryReport: StateFlow<WeeklySummaryReport?> =
         combine(
@@ -430,6 +432,11 @@ class SafeNestViewModel(
             SafeNestDnsVpnService.updateInMemoryBlocklist(child.customBlockedDomains.toSet())
             viewModelScope.launch {
                 localPinStore.syncLocalRulesFromChild(child)
+                repository.updateParentSettings(
+                    userId = currentUserId,
+                    activeChildId = childId,
+                    fallbackDisplayName = userDisplayName
+                )
             }
         }
     }
@@ -480,6 +487,15 @@ class SafeNestViewModel(
             _bannerMessage.value = appContext.getString(R.string.banner_weekly_push_permission_needed)
             trackFrictionEvent(AppEventName.PERMISSION_DISCLOSURE_DECLINED, "weekly_push")
         }
+    }
+
+    fun notifyWeeklyPushPermissionDenied() {
+        _bannerMessage.value = appContext.getString(R.string.banner_weekly_push_permission_needed)
+        trackFrictionEvent(AppEventName.PERMISSION_DISCLOSURE_DECLINED, "weekly_push")
+    }
+
+    fun showPrivacyPolicySummary() {
+        _bannerMessage.value = appContext.getString(R.string.banner_privacy_policy_note)
     }
 
     fun setCategoryLimit(category: AppUsageCategory, enabled: Boolean, limitMinutes: Int) {
@@ -600,6 +616,13 @@ class SafeNestViewModel(
     }
 
     private fun logNewlyExceededCategories(exceeded: Set<AppUsageCategory>) {
+        val todayKey = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US).format(java.util.Date())
+        if (_alertedDateKey != todayKey) {
+            _alertedDateKey = todayKey
+            _alertedExceededCategories.clear()
+        } else {
+            _alertedExceededCategories.retainAll(exceeded)
+        }
         val newlyExceeded = exceeded - _alertedExceededCategories
         if (newlyExceeded.isEmpty()) return
         _alertedExceededCategories.addAll(newlyExceeded)
@@ -731,6 +754,8 @@ class SafeNestViewModel(
         bedtimeEnd: String
     ) {
         viewModelScope.launch {
+            val isFirstChild = (childrenState.value as? UiState.Success)?.data.orEmpty().isEmpty()
+            val inheritedSnapshot = if (isFirstChild) localFilterSnapshot.value else null
             val result = repository.createChild(
                 userId = currentUserId,
                 name = name,
@@ -739,10 +764,16 @@ class SafeNestViewModel(
                 avatarTone = avatarTone,
                 dailyLimitMin = dailyLimitMin,
                 bedtimeStart = bedtimeStart,
-                bedtimeEnd = bedtimeEnd
+                bedtimeEnd = bedtimeEnd,
+                initialDnsSnapshot = inheritedSnapshot
             )
             result.onSuccess { newId ->
                 _selectedChildId.value = newId
+                repository.updateParentSettings(
+                    userId = currentUserId,
+                    activeChildId = newId,
+                    fallbackDisplayName = userDisplayName
+                )
                 _bannerMessage.value = appContext.getString(R.string.banner_child_added, name)
                 eventTracker.trackEvent(
                     event = AppEventName.CHILD_PROFILE_CREATED,
@@ -752,6 +783,165 @@ class SafeNestViewModel(
                 _bannerMessage.value = err.message ?: appContext.getString(R.string.banner_child_add_failed)
                 trackFrictionEvent(AppEventName.ACTION_ERROR_OCCURRED, "add_child")
             }
+        }
+    }
+
+    /**
+     * Opt-in onboarding action: populates realistic sample child profiles, 14-day screen-time history,
+     * category limits, custom DNS patterns, and redacted safety alerts so parents can explore
+     * SafeNest immediately and edit or remove profiles anytime.
+     */
+    fun seedSampleFamily() {
+        viewModelScope.launch {
+            val existing = (childrenState.value as? UiState.Success)?.data.orEmpty()
+            if (existing.isNotEmpty()) return@launch
+
+            val mayaSnapshot = LocalFilterSnapshot(
+                blockAdult = true,
+                blockGambling = true,
+                blockMalware = true,
+                blockSocial = false,
+                safeSearchEnabled = true,
+                aiProtectionEnabled = true,
+                customBlockedDomains = setOf("*.tiktok.com", "bet365.com", "omegle.com", "*.doubleclick.net")
+            )
+            val mayaRes = repository.createChild(
+                userId = currentUserId,
+                name = "Maya",
+                age = 11L,
+                deviceModel = "Pixel 7",
+                avatarTone = AvatarTone.TEAL,
+                dailyLimitMin = 120L,
+                bedtimeStart = "21:30",
+                bedtimeEnd = "06:30",
+                initialDnsSnapshot = mayaSnapshot
+            )
+            val leoRes = repository.createChild(
+                userId = currentUserId,
+                name = "Leo",
+                age = 8L,
+                deviceModel = "Galaxy Tab A9",
+                avatarTone = AvatarTone.AMBER,
+                dailyLimitMin = 90L,
+                bedtimeStart = "20:30",
+                bedtimeEnd = "06:30",
+                initialDnsSnapshot = LocalFilterSnapshot(
+                    blockAdult = true,
+                    blockGambling = true,
+                    blockMalware = true,
+                    blockSocial = true,
+                    safeSearchEnabled = true,
+                    aiProtectionEnabled = true,
+                    customBlockedDomains = setOf("*.roblox.com", "tiktok.com")
+                )
+            )
+
+            val mayaId = mayaRes.getOrNull()
+            val leoId = leoRes.getOrNull()
+            if (mayaId != null) {
+                _selectedChildId.value = mayaId
+                repository.updateParentSettings(
+                    userId = currentUserId,
+                    activeChildId = mayaId,
+                    fallbackDisplayName = userDisplayName
+                )
+                repository.updateChildTelemetry(
+                    userId = currentUserId,
+                    childId = mayaId,
+                    todayScreenTimeMin = 84L,
+                    blockedAttemptsToday = 6L,
+                    batteryPercent = 82L
+                )
+
+                val dateFormat = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US)
+                val cal = java.util.Calendar.getInstance()
+                // 14-day history showing healthier improvement this week vs last week
+                val prevWeekProfile = listOf(128, 118, 134, 112, 142, 138, 122)
+                val thisWeekProfile = listOf(102, 94, 108, 88, 96, 114, 84)
+                val allDays = prevWeekProfile + thisWeekProfile
+                val batchSummaries = (0 until 14).map { i ->
+                    val dayCal = (cal.clone() as java.util.Calendar).apply {
+                        add(java.util.Calendar.DAY_OF_YEAR, -(13 - i))
+                    }
+                    val total = allDays[i]
+                    val video = (total * 0.34).toInt()
+                    val games = (total * 0.25).toInt()
+                    val edu = (total * 0.23).toInt()
+                    val social = (total * 0.11).toInt()
+                    val browse = (total - video - games - edu - social).coerceAtLeast(4)
+                    val lateNight = if (i < 7 && i % 3 == 0) 22L else if (i == 12) 12L else 0L
+                    val note = if (i == 13) {
+                        appContext.getString(R.string.anomaly_healthy, total, -0.4)
+                    } else {
+                        ""
+                    }
+                    DailySummary(
+                        childId = mayaId,
+                        dateKey = dateFormat.format(dayCal.time),
+                        totalScreenTimeMin = total.toLong(),
+                        lateNightMin = lateNight,
+                        blockedAttempts = if (i == 13) 6L else (2L + (i % 4)),
+                        anomalyNote = note,
+                        topApps = listOf(
+                            "YouTube|$video|VIDEO",
+                            "Minecraft|$games|GAMES",
+                            "Duolingo|$edu|EDUCATION",
+                            "Discord|$social|SOCIAL",
+                            "Chrome|$browse|BROWSING"
+                        )
+                    )
+                }
+                repository.upsertDailySummaries(currentUserId, batchSummaries)
+
+                // Sample redacted safety alerts
+                repository.createAlert(
+                    userId = currentUserId,
+                    childId = mayaId,
+                    childName = "Maya",
+                    alertType = AlertType.SCAM_GAMBLING,
+                    severity = AlertSeverity.HIGH,
+                    appSource = "Discord",
+                    redactedSnippet = "Free Robux claim! Send OTP [NUMBER] via [LINK] from [USER]",
+                    confidence = 0.94
+                )
+                repository.createAlert(
+                    userId = currentUserId,
+                    childId = mayaId,
+                    childName = "Maya",
+                    alertType = AlertType.CYBERBULLYING,
+                    severity = AlertSeverity.MEDIUM,
+                    appSource = "Messages",
+                    redactedSnippet = "Nobody likes you [USER], stop joining our group chat",
+                    confidence = 0.86
+                )
+                repository.createAlert(
+                    userId = currentUserId,
+                    childId = mayaId,
+                    childName = "Maya",
+                    alertType = AlertType.WEB_BLOCKED,
+                    severity = AlertSeverity.MEDIUM,
+                    appSource = appContext.getString(R.string.source_local_dns),
+                    redactedSnippet = appContext.getString(
+                        R.string.alert_dns_blocked_snippet,
+                        "bet365.com",
+                        "blocked gambling"
+                    ),
+                    confidence = 1.0
+                )
+                // Apply balanced category limits preset for rich preview
+                val preset = CategoryTimeLimitEngine.presetRules(CategoryLimitPreset.BALANCED)
+                localPinStore.saveCategoryLimitRules(preset)
+            }
+            if (leoId != null) {
+                repository.updateChildTelemetry(
+                    userId = currentUserId,
+                    childId = leoId,
+                    todayScreenTimeMin = 52L,
+                    blockedAttemptsToday = 3L,
+                    batteryPercent = 91L
+                )
+            }
+            _bannerMessage.value = appContext.getString(R.string.banner_sample_family_loaded)
         }
     }
 

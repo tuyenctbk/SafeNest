@@ -141,14 +141,14 @@ private fun UpdateSuggestionDialog(
                     textAlign = TextAlign.Center,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
-                if (hasNewer && !updateInfo?.releaseNotes.isNullOrBlank()) {
+                if (hasNewer && updateInfo.releaseNotes.isNotBlank()) {
                     Surface(
                         color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f),
                         shape = RoundedCornerShape(12.dp),
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Text(
-                            text = updateInfo?.releaseNotes.orEmpty(),
+                            text = updateInfo.releaseNotes,
                             style = MaterialTheme.typography.bodySmall,
                             modifier = Modifier.padding(12.dp)
                         )

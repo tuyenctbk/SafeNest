@@ -4,6 +4,13 @@ import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,6 +27,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Send
@@ -120,6 +128,14 @@ fun AiCoachScreen(
     var chatInput by rememberSaveable { mutableStateOf("") }
     var riskInput by rememberSaveable { mutableStateOf("") }
     var pickedScreenshotUri by remember { mutableStateOf<Uri?>(null) }
+    val chatListState = rememberLazyListState()
+
+    LaunchedEffect(messages.size, isThinking) {
+        if (messages.isNotEmpty()) {
+            val targetIdx = messages.size + (if (isThinking) 1 else 0)
+            chatListState.animateScrollToItem(targetIdx)
+        }
+    }
 
     // Zero-permission Android Photo Picker (Google Play compliant — no storage permission needed)
     val photoPickerLauncher = rememberLauncherForActivityResult(
@@ -192,15 +208,32 @@ fun AiCoachScreen(
             }
         }
 
-        when (selectedSection) {
-            AiCoachSection.COACH_CHAT -> {
-                LazyColumn(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxWidth(),
-                    contentPadding = PaddingValues(vertical = 4.dp),
-                    verticalArrangement = Arrangement.spacedBy(10.dp)
-                ) {
+        AnimatedContent(
+            targetState = selectedSection,
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth(),
+            transitionSpec = {
+                val direction = if (targetState.ordinal >= initialState.ordinal) 1 else -1
+                (fadeIn(tween(200)) + slideInHorizontally(tween(200)) { it / 12 * direction }) togetherWith
+                    (fadeOut(tween(140)) + slideOutHorizontally(tween(140)) { -it / 12 * direction })
+            },
+            label = "aiCoachSectionTransition"
+        ) { section ->
+            when (section) {
+                AiCoachSection.COACH_CHAT -> {
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.spacedBy(10.dp)
+                    ) {
+                        LazyColumn(
+                            state = chatListState,
+                            modifier = Modifier
+                                .weight(1f)
+                                .fillMaxWidth(),
+                            contentPadding = PaddingValues(vertical = 4.dp),
+                            verticalArrangement = Arrangement.spacedBy(10.dp)
+                        ) {
                     if (messages.isEmpty()) {
                         item {
                             Card(
@@ -341,16 +374,15 @@ fun AiCoachScreen(
                         )
                     }
                 }
-            }
+                    }
+                }
 
-            AiCoachSection.RISK_CHECKER -> {
-                LazyColumn(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxWidth(),
-                    contentPadding = PaddingValues(vertical = 4.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
+                AiCoachSection.RISK_CHECKER -> {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(vertical = 4.dp),
+                        verticalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
                     item {
                         Card(
                             shape = RoundedCornerShape(20.dp),
@@ -523,14 +555,12 @@ fun AiCoachScreen(
                 }
             }
 
-            AiCoachSection.WEEKLY_BRIEF -> {
-                LazyColumn(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxWidth(),
-                    contentPadding = PaddingValues(vertical = 4.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
+                AiCoachSection.WEEKLY_BRIEF -> {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(vertical = 4.dp),
+                        verticalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
                     item {
                         Card(
                             shape = RoundedCornerShape(20.dp),
@@ -649,6 +679,7 @@ fun AiCoachScreen(
                         }
                     }
                 }
+            }
             }
         }
     }

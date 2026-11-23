@@ -114,9 +114,9 @@ object DefaultEnglishAiCoachLocalizer : AiCoachLocalizer {
 
         AiCoachTopic.GAMING_OR_SCREEN_TIME -> buildString {
             appendLine("Practical screen-time plan for $childName ($ageStage, current limit ${dailyLimitMinutes}m/day):")
-            appendLine("• Replace sudden cutoffs with predictable category caps (e.g., School Night preset: 45m Games, 45m Video, 30m Social).")
+            appendLine("• Replace sudden cutoffs with predictable category caps (e.g., School Night preset: 30m Video, 30m Games, 20m Social).")
             appendLine("• Give a 10-minute wrap-up cue before a match or episode ends to prevent meltdowns.")
-            appendLine("• Conversation starter: \"You get to pick which 45 minutes of gaming feel best today — after homework or before dinner?\"")
+            appendLine("• Conversation starter: \"You get to pick which 30 minutes of gaming feel best today — after homework or before dinner?\"")
         }.trim()
 
         AiCoachTopic.BEDTIME_OR_SLEEP -> buildString {

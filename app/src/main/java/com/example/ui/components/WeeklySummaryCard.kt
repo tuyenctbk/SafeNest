@@ -1,7 +1,7 @@
 package com.example.ui.components
 
+import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
@@ -40,7 +40,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -603,11 +604,17 @@ private fun WeeklyComparisonMiniChart(
         30
     )
 
-    val animProgress by animateFloatAsState(
-        targetValue = 1f,
-        animationSpec = spring(stiffness = Spring.StiffnessLow),
-        label = "weeklyChartReveal"
-    )
+    val animProgress = remember { Animatable(0f) }
+    LaunchedEffect(thisWeekDays, previousWeekDays) {
+        animProgress.snapTo(0f)
+        animProgress.animateTo(
+            targetValue = 1f,
+            animationSpec = spring(
+                dampingRatio = Spring.DampingRatioLowBouncy,
+                stiffness = Spring.StiffnessLow
+            )
+        )
+    }
 
     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
         Canvas(
@@ -658,7 +665,7 @@ private fun WeeklyComparisonMiniChart(
                 )
 
                 if (prevMin > 0) {
-                    val h = ((prevMin.toFloat() / maxMinutes.toFloat()) * usableHeight * animProgress)
+                    val h = ((prevMin.toFloat() / maxMinutes.toFloat()) * usableHeight * animProgress.value)
                         .coerceAtLeast(4.dp.toPx())
                     drawRoundRect(
                         color = prevBarColor,
@@ -669,7 +676,7 @@ private fun WeeklyComparisonMiniChart(
                 }
 
                 if (currMin > 0) {
-                    val h = ((currMin.toFloat() / maxMinutes.toFloat()) * usableHeight * animProgress)
+                    val h = ((currMin.toFloat() / maxMinutes.toFloat()) * usableHeight * animProgress.value)
                         .coerceAtLeast(4.dp.toPx())
                     val color = if (currMin > dailyLimitMin) overLimitColor else thisBarColor
                     drawRoundRect(

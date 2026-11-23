@@ -22,6 +22,14 @@
     <string name="auth_sign_in_google">Sign in with Google</string>
     <string name="auth_continue_google">Continue with Google</string>
     <string name="auth_signing_in">Signing in with Google…</string>
+    <string name="auth_continue_local_device">Continue Privately on Device</string>
+    <string name="auth_local_device_hint">No account required • 100% on-device DNS, rules &amp; AI safety</string>
+    <string name="auth_local_mode_badge">On-Device Private Mode</string>
+    <string name="auth_switch_account_mode">Switch Account / Mode</string>
+    <string name="empty_load_sample_family">Explore with Sample Family</string>
+    <string name="banner_sample_family_loaded">Sample family loaded — explore charts, alerts, and AI coach anytime.</string>
+    <string name="shield_privacy_policy_button">View Privacy Policy</string>
+    <string name="banner_privacy_policy_note">100% on-device DNS &amp; AI safety • Zero ads • Zero data selling.</string>
     <string name="auth_privacy_badge_1">100% On-Device AI — chats never leave the phone</string>
     <string name="auth_privacy_badge_2">Zero-cost Local DNS VPN with SafeSearch</string>
     <string name="auth_privacy_badge_3">Cloud-synced parent rules &amp; redacted alerts</string>
@@ -89,7 +97,7 @@
     <string name="metric_downtime">Downtime</string>
     <string name="metric_downtime_to">to %1$s</string>
     <string name="habit_card_title">On-Device Habit Intelligence</string>
-    <string name="habit_card_subtitle">Z-score anomaly check • Batched Spark sync</string>
+    <string name="habit_card_subtitle">On-device rhythm check • Daily habit baseline</string>
     <string name="sync_button">Sync</string>
     <string name="sync_usage_cd">Sync Usage</string>
     <string name="habit_empty_hint">Tap Sync after granting Usage Access to compute real screen-time breakdown and detect late-night or surge anomalies locally.</string>
@@ -108,7 +116,7 @@
     <string name="dns_proxy_active_desc">Port 53 local tunnel (10.0.0.1) • Sinkhole 0.0.0.0</string>
     <string name="dns_proxy_paused_desc">Toggle on to intercept UDP port 53 locally</string>
     <string name="dns_metric_inspected">Inspected</string>
-    <string name="dns_metric_blocked">Blocked 0.0.0.0</string>
+    <string name="dns_metric_blocked">Blocked</string>
     <string name="dns_metric_custom_rules">Custom Rules</string>
     <string name="dns_add_domain_title">Add Custom Domain to Blocklist</string>
     <string name="dns_add_domain_synced">Applied instantly in memory &amp; synced to %1$s</string>
@@ -180,7 +188,7 @@
     <string name="alerts_title">Safety Alerts</string>
     <string name="alert_filter_all">All</string>
     <string name="alert_filter_unreviewed">Unreviewed</string>
-    <string name="alert_filter_high">High Severity</string>
+    <string name="alert_filter_high">High</string>
     <string name="alerts_review_all">Review All</string>
     <string name="alerts_empty_title">All Clear</string>
     <string name="alerts_empty_subtitle">No matching safety alerts. Full chat logs never leave the child\'s device—only privacy-redacted risk summaries appear here.</string>
@@ -512,7 +520,7 @@
 
     <!-- Hard Category Time Limits -->
     <string name="cat_limits_screen_title">Category Time Limits</string>
-    <string name="cat_limits_entry_title">Hard Category Time Limits</string>
+    <string name="cat_limits_entry_title">Category Time Limits</string>
     <string name="cat_limits_entry_subtitle">Auto-block Video, Games &amp; Social via local VPN when daily limits are reached</string>
     <string name="cat_limits_entry_active_badge">%1$d active</string>
     <string name="cat_limits_entry_locked_badge">%1$d locked</string>
@@ -520,7 +528,7 @@
     <string name="cat_limits_hero_armed">Category Guard Armed</string>
     <string name="cat_limits_hero_setup">Finish Setup to Auto-Enforce</string>
     <string name="cat_limits_hero_subtitle">Tracks real UsageStats per category and sinkholes domains (0.0.0.0) in VpnService when reached</string>
-    <string name="cat_limits_metric_active">Active Limits</string>
+    <string name="cat_limits_metric_active">Active</string>
     <string name="cat_limits_metric_locked">Locked Now</string>
     <string name="cat_limits_metric_vpn_rules">VPN Rules</string>
     <string name="cat_limits_chip_usage_ok">UsageStats Live</string>
@@ -606,7 +614,7 @@
     <string name="blocked_sites_hero_title">Website Blocklist</string>
     <string name="blocked_sites_hero_active_desc">Local DNS filter is actively sinkholing blocked domains on this device.</string>
     <string name="blocked_sites_hero_paused_desc">Enable Local DNS Shield to enforce these blocked websites in real time.</string>
-    <string name="blocked_sites_metric_total">Blocked Sites</string>
+    <string name="blocked_sites_metric_total">Blocked</string>
     <string name="blocked_sites_metric_custom">Custom</string>
     <string name="blocked_sites_metric_shields">DNS Shields</string>
     <string name="blocked_sites_input_title">Block Specific Websites</string>
@@ -720,7 +728,7 @@
     <string name="ai_coach_tab_chat">Coach</string>
     <string name="ai_coach_tab_risk">Risk Check</string>
     <string name="ai_coach_tab_brief">Weekly Brief</string>
-    <string name="ai_coach_starter_gaming">How do I reduce gaming time without arguments?</string>
+    <string name="ai_coach_starter_gaming">Reduce gaming time without arguments?</string>
     <string name="ai_coach_starter_bedtime">Tips for calmer screen-free bedtimes</string>
     <string name="ai_coach_starter_bully">How to talk calmly about a bullying alert?</string>
     <string name="ai_coach_starter_agreement">Draft a 3-point family phone agreement</string>
@@ -732,7 +740,7 @@
     <string name="ai_coach_welcome_body">Ask for calm conversation starters, screen-time routines, or how to handle a specific alert. Responses include 1-tap SafeNest guardrails.</string>
     <string name="ai_coach_clear_chat">Clear chat</string>
     <string name="ai_coach_thinking">Thinking safely…</string>
-    <string name="ai_coach_input_placeholder">Ask about limits, bedtime, apps, or alerts…</string>
+    <string name="ai_coach_input_placeholder">Ask about limits, bedtime, or alerts…</string>
     <string name="ai_coach_send_cd">Send question</string>
     <string name="ai_coach_risk_card_title">App, Website &amp; Screenshot Risk Advisor</string>
     <string name="ai_coach_risk_card_subtitle">Check an app name, domain, slang message, or attach a screenshot privately</string>
@@ -789,7 +797,7 @@
     <string name="ai_coach_age_stage_teen">teen (age %1$d)</string>
     <string name="ai_coach_action_block_label">Block %1$s</string>
     <string name="ai_coach_reply_bully">For a %1$s child facing a tough online interaction, stay calm first so %2$s feels safe coming to you again:\n• Validate before reacting: thank them for telling you and avoid immediately confiscating the phone as punishment.\n• Capture evidence calmly: keep the redacted SafeNest alert and block the sender/platform together.\n• Conversation starter: \"I saw something that worried me — you\'re not in trouble. Can we look at it together and decide how to handle it?\"</string>
-    <string name="ai_coach_reply_gaming">Practical screen-time plan for %1$s (%2$s, current limit %3$dm/day):\n• Replace sudden cutoffs with predictable category caps (e.g., School Night preset: 45m Games, 45m Video, 30m Social).\n• Give a 10-minute wrap-up cue before a match or episode ends to prevent meltdowns.\n• Conversation starter: \"You get to pick which 45 minutes of gaming feel best today — after homework or before dinner?\"</string>
+    <string name="ai_coach_reply_gaming">Practical screen-time plan for %1$s (%2$s, current limit %3$dm/day):\n• Replace sudden cutoffs with predictable category caps (e.g., School Night preset: 30m Video, 30m Games, 20m Social).\n• Give a 10-minute wrap-up cue before a match or episode ends to prevent meltdowns.\n• Conversation starter: \"You get to pick which 30 minutes of gaming feel best today — after homework or before dinner?\"</string>
     <string name="ai_coach_reply_bedtime">Protecting sleep for %1$s (Bedtime %2$s–%3$s):\n• Charge devices outside the bedroom 30 minutes before %2$s so bedtime feels like a family routine, not a punishment.\n• Keep SafeNest DNS Shield + Bedtime Downtime active so late-night autoplay never restarts.\n• Conversation starter: \"Let\'s both park our phones in the kitchen at %2$s so we wake up sharp tomorrow.\"</string>
     <string name="ai_coach_reply_agreement">3-point Family Device Agreement tailored for %1$s (age %2$d):\n1. Safety first: no passwords, private photos, or meeting online strangers — ever.\n2. Balance: %3$dm daily budget with %4$s–%5$s screen-free sleep.\n3. No-shame rescue rule: if something weird pops up, tell a parent immediately with zero punishment.</string>
     <string name="ai_coach_dns_state_blocked">currently BLOCKED</string>

@@ -66,6 +66,12 @@ import com.example.R
 import com.example.engine.CategoryEnforcementSnapshot
 import com.example.engine.CategoryLimitStatus
 import com.example.engine.CategoryTimeLimitEngine
+import com.example.ui.theme.HeroCrimsonEnd
+import com.example.ui.theme.HeroCrimsonStart
+import com.example.ui.theme.HeroEmeraldEnd
+import com.example.ui.theme.HeroEmeraldStart
+import com.example.ui.theme.HeroSlateEnd
+import com.example.ui.theme.HeroSlateStart
 import com.example.ui.theme.StatusDangerRed
 import com.example.ui.theme.StatusSafeGreen
 import com.example.ui.theme.StatusWarnAmber
@@ -88,18 +94,18 @@ fun CategoryEnforcementHeroCard(
     val fullyReady = usageAccessGranted && vpnRunning
     val heroStart by animateColorAsState(
         targetValue = when {
-            lockedCount > 0 && vpnRunning -> Color(0xFFB3392B)
-            fullyReady -> MaterialTheme.colorScheme.primary
-            else -> Color(0xFF344947)
+            lockedCount > 0 && vpnRunning -> HeroCrimsonStart
+            fullyReady -> HeroEmeraldStart
+            else -> HeroSlateStart
         },
         animationSpec = spring(),
         label = "catHeroStart"
     )
     val heroEnd by animateColorAsState(
         targetValue = when {
-            lockedCount > 0 && vpnRunning -> Color(0xFF7D241C)
-            fullyReady -> Color(0xFF167B72)
-            else -> Color(0xFF213130)
+            lockedCount > 0 && vpnRunning -> HeroCrimsonEnd
+            fullyReady -> HeroEmeraldEnd
+            else -> HeroSlateEnd
         },
         animationSpec = spring(),
         label = "catHeroEnd"

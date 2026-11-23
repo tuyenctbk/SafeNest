@@ -82,6 +82,10 @@ import com.example.ui.components.BlockedWebsiteRow
 import com.example.ui.components.ClearBlocklistConfirmationDialog
 import com.example.ui.components.LocalDnsFullCheckCard
 import com.example.ui.components.LocalDnsShieldToggleChip
+import com.example.ui.theme.HeroEmeraldDeep
+import com.example.ui.theme.HeroEmeraldStart
+import com.example.ui.theme.HeroSlateEnd
+import com.example.ui.theme.HeroSlateStart
 import com.example.ui.theme.StatusDangerRed
 
 private enum class WebsiteSourceFilter {
@@ -168,12 +172,12 @@ fun BlockedWebsitesScreen(
     }
 
     val heroStart by animateColorAsState(
-        targetValue = if (vpnState.running) MaterialTheme.colorScheme.primary else Color(0xFF334745),
+        targetValue = if (vpnState.running) HeroEmeraldStart else HeroSlateStart,
         animationSpec = spring(),
         label = "blockedSitesHeroStart"
     )
     val heroEnd by animateColorAsState(
-        targetValue = if (vpnState.running) Color(0xFF0E6861) else Color(0xFF212F2E),
+        targetValue = if (vpnState.running) HeroEmeraldDeep else HeroSlateEnd,
         animationSpec = spring(),
         label = "blockedSitesHeroEnd"
     )

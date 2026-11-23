@@ -1,6 +1,7 @@
 package com.example.service
 
 import android.app.AppOpsManager
+import android.app.usage.UsageEvents
 import android.app.usage.UsageStatsManager
 import android.content.ComponentName
 import android.content.Context
@@ -215,19 +216,46 @@ class DeviceProtectionChecker(private val context: Context) {
         dateKey: String,
         includeLateNight: Boolean
     ): DailyCategoryUsage {
-        val stats = usm.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, startOfDay, endOfDay).orEmpty()
         val pm = appContext.packageManager
+        val excludedPkgs = buildExcludedPackages(pm)
+        val launcherPkgs = loadLauncherPackageSet(pm)
+
+        // Primary: exact per-app foreground time strictly within [startOfDay, endOfDay] via UsageEvents.
+        // Avoids Android's notorious INTERVAL_DAILY multi-day bucket overlap and idle home-launcher inflation.
+        val perAppMs = measurePerAppForegroundMs(
+            usm = usm,
+            windowStart = startOfDay,
+            windowEnd = endOfDay,
+            excludedPkgs = excludedPkgs,
+            launcherPkgs = launcherPkgs
+        ).toMutableMap()
+
+        // Fallback for older historical days (>24h ago) where UsageEvents retention may have expired.
+        val isHistoricalDay = (System.currentTimeMillis() - endOfDay) > 24L * 60L * 60L * 1000L
+        if (perAppMs.isEmpty() && isHistoricalDay) {
+            val stats = usm.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, startOfDay, endOfDay).orEmpty()
+            for (entry in stats) {
+                val pkg = entry.packageName ?: continue
+                if (pkg in excludedPkgs) continue
+                if (launcherPkgs.isNotEmpty() && pkg !in launcherPkgs) continue
+                val fgMs = entry.totalTimeInForeground
+                if (fgMs < 60_000L || fgMs > 12L * 60L * 60L * 1000L) continue
+                if (entry.firstTimeStamp < startOfDay - 3_600_000L || entry.lastTimeStamp > endOfDay + 3_600_000L) continue
+                if (entry.lastTimeUsed < startOfDay || entry.lastTimeUsed > endOfDay) continue
+                perAppMs[pkg] = (perAppMs[pkg] ?: 0L) + fgMs
+            }
+        }
+
         val perAppMap = linkedMapOf<String, CategorizedAppUsage>()
         val categoryMinutes = linkedMapOf<AppUsageCategory, Int>()
         var totalMs = 0L
 
-        for (entry in stats) {
-            val fgMs = entry.totalTimeInForeground
-            if (fgMs < 60_000L || entry.packageName == appContext.packageName) continue
+        for ((pkg, fgMs) in perAppMs) {
+            if (fgMs < 60_000L) continue
             totalMs += fgMs
-            val (label, androidCat) = resolveAppInfo(pm, entry.packageName)
+            val (label, androidCat) = resolveAppInfo(pm, pkg)
             val category = AppCategoryAnalytics.classifyApp(
-                packageName = entry.packageName,
+                packageName = pkg,
                 appName = label,
                 androidCategory = androidCat
             )
@@ -236,7 +264,7 @@ class DeviceProtectionChecker(private val context: Context) {
             val existing = perAppMap[cleanLabel]
             perAppMap[cleanLabel] = CategorizedAppUsage(
                 appName = cleanLabel,
-                packageName = entry.packageName,
+                packageName = pkg,
                 minutes = (existing?.minutes ?: 0) + mins,
                 category = category
             )
@@ -252,16 +280,10 @@ class DeviceProtectionChecker(private val context: Context) {
             var lateNightMs = 0L
             val earlyEnd = minOf(endOfDay, fiveAm)
             if (earlyEnd > startOfDay) {
-                usm.queryUsageStats(UsageStatsManager.INTERVAL_BEST, startOfDay, earlyEnd)
-                    .orEmpty()
-                    .filter { it.packageName != appContext.packageName }
-                    .forEach { lateNightMs += it.totalTimeInForeground }
+                lateNightMs += measurePerAppForegroundMs(usm, startOfDay, earlyEnd, excludedPkgs, launcherPkgs).values.sum()
             }
             if (endOfDay > tenPm) {
-                usm.queryUsageStats(UsageStatsManager.INTERVAL_BEST, tenPm, endOfDay)
-                    .orEmpty()
-                    .filter { it.packageName != appContext.packageName }
-                    .forEach { lateNightMs += it.totalTimeInForeground }
+                lateNightMs += measurePerAppForegroundMs(usm, tenPm, endOfDay, excludedPkgs, launcherPkgs).values.sum()
             }
             lateNightMinutes = (lateNightMs / 60_000L).toInt().coerceIn(0, minOf(totalMinutes, 600))
         }
@@ -275,6 +297,93 @@ class DeviceProtectionChecker(private val context: Context) {
             categoryMinutes = categoryMinutes,
             apps = sortedApps
         )
+    }
+
+    private fun buildExcludedPackages(pm: PackageManager): Set<String> {
+        val excluded = HashSet<String>(
+            listOf(
+                appContext.packageName,
+                "android",
+                "com.android.systemui",
+                "com.android.settings",
+                "com.android.vending",
+                "com.android.launcher",
+                "com.android.launcher3",
+                "com.google.android.apps.nexuslauncher",
+                "com.google.android.gms",
+                "com.google.android.gsf",
+                "com.sec.android.app.launcher",
+                "com.miui.home",
+                "com.oppo.launcher",
+                "com.huawei.android.launcher",
+                "com.oneplus.launcher"
+            )
+        )
+        runCatching {
+            val homeIntent = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
+            pm.queryIntentActivities(homeIntent, 0).forEach { info ->
+                info.activityInfo?.packageName?.let { excluded.add(it) }
+            }
+        }
+        return excluded
+    }
+
+    private fun loadLauncherPackageSet(pm: PackageManager): Set<String> {
+        return runCatching {
+            val intent = Intent(Intent.ACTION_MAIN, null).addCategory(Intent.CATEGORY_LAUNCHER)
+            pm.queryIntentActivities(intent, 0)
+                .mapNotNull { it.activityInfo?.packageName }
+                .toSet()
+        }.getOrDefault(emptySet())
+    }
+
+    /**
+     * Measures exact per-package foreground activity time strictly within [windowStart, windowEnd] via UsageEvents,
+     * excluding home launchers and system UI packages.
+     */
+    private fun measurePerAppForegroundMs(
+        usm: UsageStatsManager,
+        windowStart: Long,
+        windowEnd: Long,
+        excludedPkgs: Set<String>,
+        launcherPkgs: Set<String>
+    ): Map<String, Long> {
+        if (windowEnd <= windowStart) return emptyMap()
+        val events = runCatching { usm.queryEvents(windowStart, windowEnd) }.getOrNull() ?: return emptyMap()
+        val event = UsageEvents.Event()
+        val activeStartByPkg = HashMap<String, Long>()
+        val durationByPkg = HashMap<String, Long>()
+
+        while (events.hasNextEvent()) {
+            events.getNextEvent(event)
+            val pkg = event.packageName ?: continue
+            if (pkg in excludedPkgs) continue
+            if (launcherPkgs.isNotEmpty() && pkg !in launcherPkgs) continue
+            val ts = event.timeStamp.coerceIn(windowStart, windowEnd)
+            @Suppress("DEPRECATION")
+            when (event.eventType) {
+                UsageEvents.Event.ACTIVITY_RESUMED,
+                UsageEvents.Event.MOVE_TO_FOREGROUND -> {
+                    activeStartByPkg.putIfAbsent(pkg, ts)
+                }
+                UsageEvents.Event.ACTIVITY_PAUSED,
+                UsageEvents.Event.ACTIVITY_STOPPED,
+                UsageEvents.Event.MOVE_TO_BACKGROUND -> {
+                    val startedAt = activeStartByPkg.remove(pkg)
+                    if (startedAt != null && ts > startedAt) {
+                        durationByPkg[pkg] = (durationByPkg[pkg] ?: 0L) + (ts - startedAt)
+                    }
+                }
+            }
+        }
+        // Close any session still active at the end of the window (bounded to <= 2 hours to avoid stuck events)
+        activeStartByPkg.forEach { (pkg, startedAt) ->
+            if (windowEnd > startedAt) {
+                val delta = minOf(windowEnd - startedAt, 2L * 60L * 60L * 1000L)
+                durationByPkg[pkg] = (durationByPkg[pkg] ?: 0L) + delta
+            }
+        }
+        return durationByPkg
     }
 
     private fun resolveAppInfo(pm: PackageManager, packageName: String): Pair<String, Int?> {

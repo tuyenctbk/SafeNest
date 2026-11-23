@@ -1,19 +1,47 @@
-*.iml
-.gradle
-.kotlin
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+# Gradle & Kotlin build caches
+.gradle/
+.kotlin/
+/build/
+build/
+
+# Local configuration & secrets (NEVER commit)
 local.properties
 .env
-debug.keystore
-*-debug.log
+.env.*
+!.env.example
+*.jks
+*.keystore
+*.p12
+*.pfx
+*.pem
+google-services.json
+
+# Built Android artifacts
+*.apk
+*.ap_
+*.aab
+*.dex
+*.class
+
+# Android Studio / IntelliJ IDE files
+*.iml
+.idea/
+/captures/
+.navigation/
+.externalNativeBuild/
+.cxx/
+
+# Firebase & Node test artifacts
+.firebase/
+node_modules/
+firebase-debug.log*
+firestore-debug.log*
+ui-debug.log*
+
+# Logs, dumps & OS metadata
+*.log
+hs_err_pid*
+replay_pid*
+*.hprof
+.DS_Store
+Thumbs.db

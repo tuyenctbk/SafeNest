@@ -107,11 +107,15 @@ import com.example.analytics.AppEventTracker
 import com.example.analytics.EngagementPromptType
 import com.example.analytics.PromptOutcome
 import com.example.analytics.StoreIntentHelper
-import com.example.auth.authStateFlow
+import com.example.auth.isFirebaseConfigured
+import com.example.auth.safeAuthStateFlow
+import com.example.auth.safeCurrentFirebaseUser
 import com.example.auth.signOutUser
 import com.example.data.FamilyRepository
+import com.example.data.LocalFamilyRepository
 import com.example.data.LocalPinStore
 import com.example.data.UiState
+import kotlinx.coroutines.launch
 import com.example.service.DeviceProtectionChecker
 import com.example.service.SafeNestDnsVpnService
 import com.example.service.WeeklySummaryNotifier
@@ -136,8 +140,6 @@ import com.example.ui.screens.ShieldLabScreen
 import com.example.ui.screens.UsageInsightsScreen
 import com.example.ui.theme.SafeNestTheme
 import com.example.ui.theme.StatusSafeGreen
-import com.google.firebase.Firebase
-import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : ComponentActivity() {
@@ -202,29 +204,43 @@ private enum class PinModalMode {
 private sealed interface RootRoute {
     data object Splash : RootRoute
     data object Auth : RootRoute
-    data class Authenticated(val uid: String, val displayName: String) : RootRoute
+    data class Authenticated(
+        val uid: String,
+        val displayName: String,
+        val isLocalMode: Boolean
+    ) : RootRoute
 }
 
 @Composable
 fun AppContent(
     openWeeklySummarySignal: kotlinx.coroutines.flow.StateFlow<Int> = kotlinx.coroutines.flow.MutableStateFlow(0)
 ) {
-    val auth = Firebase.auth
-    val currentUser by auth.authStateFlow().collectAsStateWithLifecycle(initialValue = auth.currentUser)
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    val localPinStore = remember(context) { LocalPinStore(context.applicationContext) }
+    val authFlow = remember(context) { safeAuthStateFlow(context) }
+    val currentUser by authFlow.collectAsStateWithLifecycle(initialValue = safeCurrentFirebaseUser(context))
+    val localPrivateMode by localPinStore.localPrivateModeFlow.collectAsStateWithLifecycle(initialValue = false)
     var splashCompleted by rememberSaveable { mutableStateOf(false) }
 
     val defaultParentName = stringResource(R.string.parent_default_name)
 
     val route: RootRoute = when {
         !splashCompleted -> RootRoute.Splash
-        currentUser == null -> RootRoute.Auth
-        else -> {
+        currentUser != null -> {
             val user = currentUser!!
             RootRoute.Authenticated(
                 uid = user.uid,
-                displayName = user.displayName ?: user.email?.substringBefore("@") ?: defaultParentName
+                displayName = user.displayName ?: user.email?.substringBefore("@") ?: defaultParentName,
+                isLocalMode = false
             )
         }
+        localPrivateMode -> RootRoute.Authenticated(
+            uid = LocalFamilyRepository.LOCAL_USER_ID,
+            displayName = defaultParentName,
+            isLocalMode = true
+        )
+        else -> RootRoute.Auth
     }
 
     AnimatedContent(
@@ -241,13 +257,19 @@ fun AppContent(
             )
 
             is RootRoute.Auth -> AuthScreen(
-                onAuthSuccess = { /* AuthStateListener updates currentUser reactively */ }
+                onAuthSuccess = { /* AuthStateListener updates currentUser reactively */ },
+                onContinueLocalMode = {
+                    scope.launch {
+                        localPinStore.setLocalPrivateMode(true)
+                    }
+                }
             )
 
-            is RootRoute.Authenticated -> key(target.uid) {
+            is RootRoute.Authenticated -> key("${target.uid}_${target.isLocalMode}") {
                 SafeNestMainShell(
                     currentUserId = target.uid,
                     userDisplayName = target.displayName,
+                    isLocalMode = target.isLocalMode,
                     openWeeklySummarySignal = openWeeklySummarySignal
                 )
             }
@@ -260,6 +282,7 @@ fun AppContent(
 private fun SafeNestMainShell(
     currentUserId: String,
     userDisplayName: String,
+    isLocalMode: Boolean,
     openWeeklySummarySignal: kotlinx.coroutines.flow.StateFlow<Int>
 ) {
     val context = LocalContext.current
@@ -267,17 +290,27 @@ private fun SafeNestMainShell(
     val credentialManager = remember(context) { CredentialManager.create(context) }
 
     val viewModel: SafeNestViewModel = viewModel(
-        key = currentUserId,
+        key = "${currentUserId}_${isLocalMode}",
         factory = viewModelFactory {
             initializer {
                 val app = checkNotNull(this[APPLICATION_KEY]) {
                     "APPLICATION_KEY missing from CreationExtras"
                 }
-                val databaseId = app.getString(R.string.firestore_database_id)
-                val db = FirebaseFirestore.getInstance(databaseId)
+                val useCloud = !isLocalMode && isFirebaseConfigured(app)
+                val db = if (useCloud) {
+                    val databaseId = app.getString(R.string.firestore_database_id)
+                    runCatching { FirebaseFirestore.getInstance(databaseId) }.getOrNull()
+                } else {
+                    null
+                }
+                val repository = if (db != null) {
+                    FamilyRepository(db)
+                } else {
+                    LocalFamilyRepository(app)
+                }
                 SafeNestViewModel(
                     appContext = app,
-                    repository = FamilyRepository(db),
+                    repository = repository,
                     localPinStore = LocalPinStore(app),
                     deviceChecker = DeviceProtectionChecker(app),
                     eventTracker = AppEventTracker(app, db),
@@ -323,7 +356,7 @@ private fun SafeNestMainShell(
     val aiIsTestingKey by viewModel.aiIsTestingKey.collectAsStateWithLifecycle()
     val aiKeyTestResult by viewModel.aiKeyTestResult.collectAsStateWithLifecycle()
 
-    var currentTab by remember { mutableStateOf(SafeNestTab.HOME) }
+    var currentTab by rememberSaveable { mutableStateOf(SafeNestTab.HOME) }
     var secondaryScreen by rememberSaveable { mutableStateOf(SecondaryScreen.NONE) }
     var lastHandledWeeklyTick by rememberSaveable { mutableIntStateOf(0) }
     LaunchedEffect(weeklyDeepLinkTick) {
@@ -408,7 +441,7 @@ private fun SafeNestMainShell(
         if (granted) {
             viewModel.sendWeeklySummaryNotificationNow()
         } else {
-            viewModel.sendWeeklySummaryNotificationNow()
+            viewModel.notifyWeeklyPushPermissionDenied()
         }
     }
 
@@ -577,11 +610,23 @@ private fun SafeNestMainShell(
                             AnimatedContent(
                                 targetState = Pair(secondaryScreen, currentTab),
                                 transitionSpec = {
-                                    val targetOrd = targetState.second.ordinal
-                                    val initOrd = initialState.second.ordinal
-                                    val direction = if (targetOrd >= initOrd) 1 else -1
-                                    (fadeIn(tween(220)) + slideInHorizontally(tween(220)) { it / 16 * direction }) togetherWith
-                                        (fadeOut(tween(150)) + slideOutHorizontally(tween(150)) { -it / 16 * direction })
+                                    val enteringSecondary = initialState.first == SecondaryScreen.NONE && targetState.first != SecondaryScreen.NONE
+                                    val exitingSecondary = initialState.first != SecondaryScreen.NONE && targetState.first == SecondaryScreen.NONE
+                                    when {
+                                        enteringSecondary -> {
+                                            (fadeIn(tween(240)) + slideInHorizontally(tween(240)) { it / 6 }) togetherWith
+                                                (fadeOut(tween(160)) + slideOutHorizontally(tween(160)) { -it / 12 })
+                                        }
+                                        exitingSecondary -> {
+                                            (fadeIn(tween(220)) + slideInHorizontally(tween(220)) { -it / 10 }) togetherWith
+                                                (fadeOut(tween(180)) + slideOutHorizontally(tween(180)) { it / 6 })
+                                        }
+                                        else -> {
+                                            val direction = if (targetState.second.ordinal >= initialState.second.ordinal) 1 else -1
+                                            (fadeIn(tween(220)) + slideInHorizontally(tween(220)) { it / 14 * direction }) togetherWith
+                                                (fadeOut(tween(150)) + slideOutHorizontally(tween(150)) { -it / 14 * direction })
+                                        }
+                                    }
                                 },
                                 label = "tabContentTransition"
                             ) { (secondary, tab) ->
@@ -696,6 +741,7 @@ private fun SafeNestMainShell(
                                         onSendWeeklyPushNow = triggerWeeklySummaryPush,
                                         onSelectChild = viewModel::selectChild,
                                         onOpenAddChild = { showAddChildDialog = true },
+                                        onSeedSampleFamily = viewModel::seedSampleFamily,
                                         onTogglePause = { child ->
                                             viewModel.updateRuleField(
                                                 child,
@@ -747,9 +793,7 @@ private fun SafeNestMainShell(
                                         onOpenBlockedWebsites = { secondaryScreen = SecondaryScreen.BLOCKED_WEBSITES },
                                         onUpdateRule = viewModel::updateRuleField,
                                         onUpdateBedtime = viewModel::updateBedtime,
-                                        onAddCustomDomain = { child, domain ->
-                                            viewModel.addCustomBlockedDomain(child, domain)
-                                        },
+                                        onAddCustomDomain = viewModel::addCustomBlockedDomain,
                                         onRemoveCustomDomain = viewModel::removeCustomBlockedDomain,
                                         onToggleBlockedApp = viewModel::toggleBlockedApp,
                                         onDeleteChild = viewModel::deleteChild,
@@ -766,6 +810,7 @@ private fun SafeNestMainShell(
                                     else -> ShieldLabScreen(
                                         activeChild = activeChild,
                                         hasParentPin = hasParentPin,
+                                        isLocalMode = isLocalMode,
                                         vpnState = vpnState,
                                         deviceHealth = deviceHealth,
                                         labAiResult = labAiResult,
@@ -776,6 +821,7 @@ private fun SafeNestMainShell(
                                         lastPromptReason = lastPromptReason,
                                         aiCoachPrefs = aiCoachPrefs,
                                         onOpenAiCoach = { secondaryScreen = SecondaryScreen.AI_COACH },
+                                        onShowPrivacyPolicy = viewModel::showPrivacyPolicySummary,
                                         onToggleVpnRequest = { enable ->
                                             if (enable) {
                                                 pendingDisclosure = DisclosureType.VPN

@@ -81,9 +81,8 @@ object WeeklySummaryEngine {
             val cloudEntry = cloudByDate[key]
 
             val chosen = when {
-                deviceEntry != null && cloudEntry != null -> {
-                    if (deviceEntry.totalMinutes >= cloudEntry.totalMinutes) deviceEntry else cloudEntry
-                }
+                cloudEntry != null && cloudEntry.totalMinutes > 0 -> cloudEntry
+                deviceEntry != null && deviceEntry.totalMinutes > 0 -> deviceEntry
                 cloudEntry != null -> cloudEntry
                 deviceEntry != null -> deviceEntry
                 else -> DailyCategoryUsage(

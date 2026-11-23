@@ -85,6 +85,8 @@ import com.example.ui.components.DailyStackedBarChart
 import com.example.ui.components.WeeklySummaryCard
 import com.example.ui.components.avatarColorFor
 import com.example.ui.components.formatDurationLabel
+import com.example.ui.theme.HeroEmeraldStart
+import com.example.ui.theme.HeroInsightsEnd
 import com.example.ui.theme.StatusDangerRed
 import com.example.ui.theme.StatusSafeGreen
 import com.example.ui.theme.StatusWarnAmber
@@ -544,8 +546,8 @@ private fun InsightsHeroCard(
                 .background(
                     Brush.linearGradient(
                         colors = listOf(
-                            MaterialTheme.colorScheme.primary,
-                            Color(0xFF15696B)
+                            HeroEmeraldStart,
+                            HeroInsightsEnd
                         )
                     )
                 )

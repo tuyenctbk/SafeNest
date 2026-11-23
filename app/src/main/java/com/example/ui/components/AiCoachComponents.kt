@@ -133,38 +133,33 @@ fun AiCoachEntryCard(
             }
             Column(
                 modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(4.dp)
+                verticalArrangement = Arrangement.spacedBy(5.dp)
             ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                Text(
+                    text = stringResource(R.string.ai_coach_title),
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Surface(
+                    shape = RoundedCornerShape(50),
+                    color = if (isCloud) MaterialTheme.colorScheme.primary.copy(alpha = 0.14f)
+                    else StatusSafeGreen.copy(alpha = 0.14f)
                 ) {
                     Text(
-                        text = stringResource(R.string.ai_coach_title),
-                        style = MaterialTheme.typography.titleMedium,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.weight(1f, fill = false)
+                        text = stringResource(
+                            when {
+                                isCloud && prefs.shouldAutoUseEcoLite -> R.string.ai_coach_badge_eco_short
+                                isCloud -> R.string.ai_coach_badge_byok_short
+                                else -> R.string.ai_coach_badge_free_short
+                            }
+                        ),
+                        style = MaterialTheme.typography.labelSmall,
+                        fontWeight = FontWeight.SemiBold,
+                        color = if (isCloud) MaterialTheme.colorScheme.primary else StatusSafeGreen,
+                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
                     )
-                    Surface(
-                        shape = RoundedCornerShape(50),
-                        color = if (isCloud) MaterialTheme.colorScheme.primary.copy(alpha = 0.14f)
-                        else StatusSafeGreen.copy(alpha = 0.14f)
-                    ) {
-                        Text(
-                            text = stringResource(
-                                when {
-                                    isCloud && prefs.shouldAutoUseEcoLite -> R.string.ai_coach_badge_eco_short
-                                    isCloud -> R.string.ai_coach_badge_byok_short
-                                    else -> R.string.ai_coach_badge_free_short
-                                }
-                            ),
-                            style = MaterialTheme.typography.labelSmall,
-                            fontWeight = FontWeight.SemiBold,
-                            color = if (isCloud) MaterialTheme.colorScheme.primary else StatusSafeGreen,
-                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)
-                        )
-                    }
                 }
                 Text(
                     text = stringResource(R.string.ai_coach_entry_subtitle),

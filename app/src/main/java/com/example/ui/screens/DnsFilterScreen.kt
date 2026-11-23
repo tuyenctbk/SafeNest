@@ -83,6 +83,10 @@ import com.example.ui.components.PatternComposerCard
 import com.example.ui.components.PatternComposerMode
 import com.example.ui.components.PatternListFilter
 import com.example.ui.components.VpnSyncStatusBanner
+import com.example.ui.theme.HeroEmeraldEnd
+import com.example.ui.theme.HeroEmeraldStart
+import com.example.ui.theme.HeroSlateEnd
+import com.example.ui.theme.HeroSlateStart
 import com.example.ui.theme.StatusDangerRed
 import com.example.ui.theme.StatusSafeGreen
 import java.text.SimpleDateFormat
@@ -142,12 +146,12 @@ fun DnsFilterScreen(
     }
 
     val heroStartColor by animateColorAsState(
-        targetValue = if (vpnState.running) MaterialTheme.colorScheme.primary else Color(0xFF334745),
+        targetValue = if (vpnState.running) HeroEmeraldStart else HeroSlateStart,
         animationSpec = spring(),
         label = "dnsHeroStartColor"
     )
     val heroEndColor by animateColorAsState(
-        targetValue = if (vpnState.running) Color(0xFF167B72) else Color(0xFF233230),
+        targetValue = if (vpnState.running) HeroEmeraldEnd else HeroSlateEnd,
         animationSpec = spring(),
         label = "dnsHeroEndColor"
     )

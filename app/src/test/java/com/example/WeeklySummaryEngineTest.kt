@@ -201,4 +201,36 @@ class WeeklySummaryEngineTest {
         assertEquals(WeeklyTrendDirection.STEADY, steadyReport.trendDirection)
         assertEquals(3, steadyReport.deltaPercent)
     }
+
+    @Test
+    fun buildFourteenDayTimeline_prefersChildRecordedSummaryOverUnrelatedHostDeviceUsage() {
+        val anchor = anchorMillis()
+        val todayKey = dateKeyOffset(anchor, 0)
+        val childSummary = listOf(
+            DailySummary(
+                childId = "maya",
+                dateKey = todayKey,
+                totalScreenTimeMin = 84,
+                lateNightMin = 0,
+                topApps = listOf("YouTube|30|VIDEO", "Duolingo|24|EDUCATION", "Minecraft|30|GAMES")
+            )
+        )
+        val hostDeviceHistory = listOf(
+            DailyCategoryUsage(
+                dateKey = todayKey,
+                shortDayLabel = "Sun",
+                totalMinutes = 420,
+                lateNightMinutes = 60,
+                categoryMinutes = mapOf(AppUsageCategory.OTHER to 420),
+                apps = emptyList()
+            )
+        )
+
+        val timeline = WeeklySummaryEngine.buildFourteenDayTimeline(
+            cloudSummaries = childSummary,
+            deviceHistory = hostDeviceHistory,
+            nowMillis = anchor
+        )
+        assertEquals(84, timeline.last().totalMinutes)
+    }
 }

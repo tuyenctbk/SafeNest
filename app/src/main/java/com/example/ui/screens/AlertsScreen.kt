@@ -5,7 +5,9 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -119,15 +121,20 @@ fun AlertsScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp, vertical = 10.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Row(
+                        modifier = Modifier
+                            .weight(1f)
+                            .horizontalScroll(rememberScrollState()),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
                         AlertFilter.entries.forEach { filter ->
                             FilterChip(
                                 selected = activeFilter == filter,
                                 onClick = { activeFilter = filter },
-                                label = { Text(stringResource(filter.labelRes)) },
+                                label = { Text(stringResource(filter.labelRes), maxLines = 1) },
                                 modifier = Modifier.testTag("alert_filter_${filter.name.lowercase()}")
                             )
                         }
@@ -137,7 +144,7 @@ fun AlertsScreen(
                             onClick = onAcknowledgeAll,
                             modifier = Modifier.testTag("mark_all_alerts_reviewed_button")
                         ) {
-                            Text(stringResource(R.string.alerts_review_all))
+                            Text(stringResource(R.string.alerts_review_all), maxLines = 1)
                         }
                     }
                 }

@@ -37,6 +37,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.BatteryStd
 import androidx.compose.material.icons.filled.Bedtime
 import androidx.compose.material.icons.filled.CheckCircle
@@ -87,6 +88,8 @@ import com.example.ui.components.AiCoachEntryCard
 import com.example.ui.components.BlockedWebsitesEntryCard
 import com.example.ui.components.WeeklySummaryCard
 import com.example.ui.components.avatarColorFor
+import com.example.ui.theme.HeroEmeraldEnd
+import com.example.ui.theme.HeroEmeraldStart
 import com.example.ui.theme.StatusDangerRed
 import com.example.ui.theme.StatusSafeGreen
 import com.example.ui.theme.StatusWarnAmber
@@ -108,6 +111,7 @@ fun DashboardScreen(
     onSendWeeklyPushNow: () -> Unit,
     onSelectChild: (String) -> Unit,
     onOpenAddChild: () -> Unit,
+    onSeedSampleFamily: () -> Unit = {},
     onTogglePause: (ChildProfile) -> Unit,
     onSyncDeviceUsage: (ChildProfile) -> Unit,
     onNavigateToAlerts: () -> Unit,
@@ -155,7 +159,10 @@ fun DashboardScreen(
         is UiState.Success -> {
             val children = childrenState.data
             if (children.isEmpty()) {
-                EmptyFamilyOnboarding(onOpenAddChild = onOpenAddChild)
+                EmptyFamilyOnboarding(
+                    onOpenAddChild = onOpenAddChild,
+                    onSeedSampleFamily = onSeedSampleFamily
+                )
                 return
             }
 
@@ -602,8 +609,8 @@ private fun HeroChildStatusCard(
                 .background(
                     Brush.linearGradient(
                         colors = listOf(
-                            MaterialTheme.colorScheme.primary,
-                            Color(0xFF15766E)
+                            HeroEmeraldStart,
+                            HeroEmeraldEnd
                         )
                     )
                 )
@@ -712,7 +719,9 @@ private fun HeroChildStatusCard(
                         Spacer(modifier = Modifier.width(6.dp))
                         Text(
                             text = stringResource(if (child.downtimePaused) R.string.resume_device else R.string.pause_device),
-                            fontWeight = FontWeight.SemiBold
+                            fontWeight = FontWeight.SemiBold,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
                         )
                     }
 
@@ -732,7 +741,11 @@ private fun HeroChildStatusCard(
                             modifier = Modifier.size(17.dp)
                         )
                         Spacer(modifier = Modifier.width(6.dp))
-                        Text(stringResource(R.string.child_mode_short))
+                        Text(
+                            text = stringResource(R.string.child_mode_short),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
                     }
                 }
             }
@@ -797,12 +810,16 @@ private fun MetricTile(
             Text(
                 text = value,
                 style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
             Text(
                 text = label,
                 style = MaterialTheme.typography.labelMedium,
-                color = MaterialTheme.colorScheme.onSurface
+                color = MaterialTheme.colorScheme.onSurface,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
             Text(
                 text = sublabel,
@@ -816,7 +833,10 @@ private fun MetricTile(
 }
 
 @Composable
-private fun EmptyFamilyOnboarding(onOpenAddChild: () -> Unit) {
+private fun EmptyFamilyOnboarding(
+    onOpenAddChild: () -> Unit,
+    onSeedSampleFamily: () -> Unit
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -868,6 +888,22 @@ private fun EmptyFamilyOnboarding(onOpenAddChild: () -> Unit) {
                     Icon(Icons.Filled.Add, contentDescription = null)
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(stringResource(R.string.add_child_profile))
+                }
+                OutlinedButton(
+                    onClick = onSeedSampleFamily,
+                    shape = RoundedCornerShape(16.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(48.dp)
+                        .testTag("onboarding_sample_family_button")
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.AutoAwesome,
+                        contentDescription = null,
+                        modifier = Modifier.size(18.dp)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(stringResource(R.string.empty_load_sample_family))
                 }
             }
         }

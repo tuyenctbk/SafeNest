@@ -79,7 +79,7 @@ fun ControlsScreen(
     onOpenBlockedWebsites: () -> Unit = {},
     onUpdateRule: (ChildProfile, String, Any) -> Unit,
     onUpdateBedtime: (ChildProfile, String, String) -> Unit,
-    onAddCustomDomain: (ChildProfile, String) -> Unit,
+    onAddCustomDomain: (ChildProfile, String) -> Boolean,
     onRemoveCustomDomain: (ChildProfile, String) -> Unit,
     onToggleBlockedApp: (ChildProfile, String) -> Unit,
     onDeleteChild: (ChildProfile) -> Unit,
@@ -286,8 +286,9 @@ fun ControlsScreen(
                 ) {
                     val submitCustomDomain = {
                         if (customDomainInput.trim().length >= 3) {
-                            onAddCustomDomain(activeChild, customDomainInput)
-                            customDomainInput = ""
+                            if (onAddCustomDomain(activeChild, customDomainInput)) {
+                                customDomainInput = ""
+                            }
                         }
                     }
                     OutlinedTextField(

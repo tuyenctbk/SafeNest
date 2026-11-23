@@ -50,6 +50,17 @@ class LocalPinStore(private val context: Context) {
     private val activeChildNameKey = stringPreferencesKey("active_child_name")
     private val weeklySummaryNotifyEnabledKey = booleanPreferencesKey("weekly_summary_notify_enabled")
     private val weeklySummaryLastSentWeekKey = stringPreferencesKey("weekly_summary_last_sent_week")
+    private val localPrivateModeKey = booleanPreferencesKey("local_private_mode_enabled")
+
+    val localPrivateModeFlow: Flow<Boolean> = context.safeNestDataStore.data.map { prefs ->
+        prefs[localPrivateModeKey] ?: false
+    }
+
+    suspend fun setLocalPrivateMode(enabled: Boolean) {
+        context.safeNestDataStore.edit { prefs ->
+            prefs[localPrivateModeKey] = enabled
+        }
+    }
 
     val pinHashFlow: Flow<String> = context.safeNestDataStore.data.map { prefs ->
         prefs[pinHashKey] ?: ""
@@ -147,6 +158,7 @@ class LocalPinStore(private val context: Context) {
             prefs.remove(activeChildIdKey)
             prefs.remove(activeChildNameKey)
             prefs.remove(weeklySummaryLastSentWeekKey)
+            prefs[localPrivateModeKey] = false
         }
     }
 

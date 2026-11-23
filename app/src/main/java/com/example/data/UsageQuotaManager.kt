@@ -1012,10 +1012,54 @@ class UsageQuotaManager(
     companion object {
         private const val TAG = "UsageQuotaManager"
 
-        fun create(context: Context, db: FirebaseFirestore): UsageQuotaManager =
+        fun create(context: Context, db: FirebaseFirestore?): UsageQuotaManager =
             UsageQuotaManager(
                 localMirror = AiCoachPreferencesStore(context.applicationContext),
-                remoteLedger = FirestoreQuotaRemoteLedger(db = db)
+                remoteLedger = if (db != null) {
+                    FirestoreQuotaRemoteLedger(db = db)
+                } else {
+                    NoOpQuotaRemoteLedger
+                }
             )
     }
+}
+
+private object NoOpQuotaRemoteLedger : QuotaRemoteLedger {
+    override fun observeQuotaLedger(userId: String): Flow<UsageQuotaLedger?> = flow { emit(null) }
+
+    override suspend fun reserveCloudCredit(
+        userId: String,
+        periodIso: String,
+        fallbackDailyLimit: Int,
+        fallbackEcoLite: Boolean
+    ): Result<RemoteReserveResult> = Result.failure(IllegalStateException("Local-only quota mode"))
+
+    override suspend fun commitFeatureUsage(
+        userId: String,
+        periodIso: String,
+        channel: AiFeatureChannel,
+        cascadedTier: Boolean,
+        refundReservedCloudCredit: Boolean,
+        fallbackDailyLimit: Int,
+        fallbackEcoLite: Boolean
+    ): Result<UsageQuotaLedger> = Result.failure(IllegalStateException("Local-only quota mode"))
+
+    override suspend fun refundCloudCredit(
+        userId: String,
+        periodIso: String
+    ): Result<UsageQuotaLedger?> = Result.success(null)
+
+    override suspend fun claimGraceCredits(
+        userId: String,
+        periodIso: String,
+        fallbackDailyLimit: Int,
+        fallbackEcoLite: Boolean
+    ): Result<Pair<Boolean, UsageQuotaLedger>> = Result.failure(IllegalStateException("Local-only quota mode"))
+
+    override suspend fun updatePreferences(
+        userId: String,
+        periodIso: String,
+        dailyCloudLimit: Int,
+        ecoLiteMode: Boolean
+    ): Result<Unit> = Result.success(Unit)
 }

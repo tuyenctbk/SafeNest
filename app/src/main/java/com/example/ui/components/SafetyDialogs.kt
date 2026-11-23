@@ -8,10 +8,12 @@ import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -69,6 +71,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -86,6 +90,10 @@ import com.example.ui.theme.AvatarCoral
 import com.example.ui.theme.AvatarIndigo
 import com.example.ui.theme.AvatarSage
 import com.example.ui.theme.AvatarTeal
+import com.example.ui.theme.HeroCrimsonEnd
+import com.example.ui.theme.HeroCrimsonStart
+import com.example.ui.theme.HeroEmeraldEnd
+import com.example.ui.theme.HeroEmeraldStart
 import kotlin.math.roundToInt
 
 private val TIME_FORMAT_REGEX = Regex("^([01][0-9]|2[0-3]):[0-5][0-9]$")
@@ -540,16 +548,28 @@ fun ChildGuardModeScreen(
         label = "shieldBreath"
     )
 
+    val remainingFraction = (remaining.toFloat() / limitMin.coerceAtLeast(1L).toFloat()).coerceIn(0f, 1f)
+    val animatedRing by animateFloatAsState(
+        targetValue = if (paused) 0f else remainingFraction,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioLowBouncy,
+            stiffness = Spring.StiffnessLow
+        ),
+        label = "guardAllowanceRing"
+    )
+    val ringColor = if (paused) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary
+    val ringTrackColor = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.45f)
+
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(
                 Brush.verticalGradient(
-                    colors = listOf(
-                        MaterialTheme.colorScheme.primary,
-                        MaterialTheme.colorScheme.primary.copy(alpha = 0.85f),
-                        MaterialTheme.colorScheme.background
-                    )
+                    colors = if (paused) {
+                        listOf(HeroCrimsonStart, HeroCrimsonEnd, MaterialTheme.colorScheme.background)
+                    } else {
+                        listOf(HeroEmeraldStart, HeroEmeraldEnd, MaterialTheme.colorScheme.background)
+                    }
                 )
             )
             .windowInsetsPadding(WindowInsets.safeDrawing)
@@ -570,22 +590,44 @@ fun ChildGuardModeScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 Box(
-                    modifier = Modifier
-                        .scale(pulseScale)
-                        .size(76.dp)
-                        .clip(CircleShape)
-                        .background(
-                            if (paused) MaterialTheme.colorScheme.errorContainer
-                            else MaterialTheme.colorScheme.primaryContainer
-                        ),
+                    modifier = Modifier.size(104.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    Icon(
-                        imageVector = Icons.Filled.Shield,
-                        contentDescription = stringResource(R.string.child_guard_active_cd),
-                        tint = if (paused) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.size(40.dp)
-                    )
+                    Canvas(modifier = Modifier.fillMaxSize()) {
+                        val stroke = Stroke(width = 7.dp.toPx(), cap = StrokeCap.Round)
+                        drawArc(
+                            color = ringTrackColor,
+                            startAngle = -90f,
+                            sweepAngle = 360f,
+                            useCenter = false,
+                            style = stroke
+                        )
+                        drawArc(
+                            color = ringColor,
+                            startAngle = -90f,
+                            sweepAngle = 360f * animatedRing,
+                            useCenter = false,
+                            style = stroke
+                        )
+                    }
+                    Box(
+                        modifier = Modifier
+                            .scale(pulseScale)
+                            .size(74.dp)
+                            .clip(CircleShape)
+                            .background(
+                                if (paused) MaterialTheme.colorScheme.errorContainer
+                                else MaterialTheme.colorScheme.primaryContainer
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.Shield,
+                            contentDescription = stringResource(R.string.child_guard_active_cd),
+                            tint = ringColor,
+                            modifier = Modifier.size(38.dp)
+                        )
+                    }
                 }
 
                 Text(
