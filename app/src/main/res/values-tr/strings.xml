@@ -201,11 +201,6 @@
     <string name="shield_status_ok">TAMAM</string>
     <string name="shield_ai_lab_title">Cihaz İçi Edge AI Denetleyici ($0)</string>
     <string name="shield_ai_lab_sub">3 aşamalı çok dilli güvenlik hunisini yerel olarak test edin</string>
-    <string name="ai_sample_en_bully">EN Zorbalık</string>
-    <string name="ai_sample_vn_slang">VN Argo</string>
-    <string name="ai_sample_grooming">İstismar</string>
-    <string name="ai_sample_vn_scam">VN Dolandırıcılık</string>
-    <string name="ai_sample_safe">Güvenli Sohbet</string>
     <string name="shield_ai_input_label">Cihazda taranacak mesaj</string>
     <string name="shield_ai_input_hint">Mesaj veya genç argosu girin…</string>
     <string name="shield_run_ai_scan">3 Aşamalı Cihaz İçi Taramayı Çalıştır</string>
@@ -721,10 +716,6 @@
     <string name="ai_coach_starter_bedtime">Daha sakin ekransız uyku vakti ipuçları</string>
     <string name="ai_coach_starter_bully">Zorbalık uyarısı hakkında sakin bir şekilde nasıl konuşulur?</string>
     <string name="ai_coach_starter_agreement">3 maddelik aile telefon sözleşmesi taslağı oluştur</string>
-    <string name="ai_coach_risk_sample_omegle">omegle.com\'u kontrol et</string>
-    <string name="ai_coach_risk_sample_robux">Ücretsiz Robux dolandırıcılığı</string>
-    <string name="ai_coach_risk_sample_betting">bet365.com\'u kontrol et</string>
-    <string name="ai_coach_risk_sample_tiktok">TikTok uyku vakti</string>
     <string name="ai_coach_welcome_title">%1$s için özel koçluk</string>
     <string name="ai_coach_welcome_body">Sakin sohbet başlatıcıları, ekran süresi rutinleri veya belirli bir uyarıyı nasıl ele alacağınızı sorun. Yanıtlar tek dokunuşlu SafeNest korumaları içerir.</string>
     <string name="ai_coach_clear_chat">Sohbeti temizle</string>
@@ -768,8 +759,6 @@
     <string name="ai_coach_switched_local_banner">Cihaz İçi Ücretsiz moda geçildi ($0, çevrimdışı çalışır).</string>
     <string name="ai_model_primary_standard">Gemini 3.8 Flash (Standart)</string>
     <string name="ai_model_economy_lite">Gemini 3.5 Flash-Lite (Eko)</string>
-    <string name="ai_coach_risk_sample_robux_input">Ücretsiz Robux! Şifreni ve OTP 482910 kodunu hemen gönder</string>
-    <string name="ai_coach_risk_sample_tiktok_input">Gece geç saatte TikTok kısa video otomatik oynatma</string>
     <string name="ai_test_key_too_short">API anahtarı çok kısa görünüyor. Geçerli bir Gemini API anahtarı yapıştırın.</string>
     <string name="ai_test_key_success">%1$s ile başarıyla bağlanıldı.</string>
     <string name="ai_test_key_auth_or_quota">Anahtar reddedildi veya kota aşıldı (%1$s).</string>

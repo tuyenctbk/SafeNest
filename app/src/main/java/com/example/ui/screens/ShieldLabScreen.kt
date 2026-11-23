@@ -12,8 +12,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -40,7 +38,6 @@ import androidx.compose.material.icons.filled.Shield
 import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material.icons.outlined.PrivacyTip
 import androidx.compose.material.icons.outlined.RadioButtonUnchecked
-import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -85,7 +82,6 @@ import com.example.ui.theme.StatusDangerRed
 import com.example.ui.theme.StatusSafeGreen
 import com.example.ui.theme.StatusWarnAmber
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ShieldLabScreen(
     activeChild: ChildProfile?,
@@ -118,23 +114,8 @@ fun ShieldLabScreen(
     onShareApp: () -> Unit,
     onSignOut: () -> Unit
 ) {
-    var aiSampleInput by remember { mutableStateOf("") }
-    var dnsSampleInput by remember { mutableStateOf("") }
-
-    val quickAiSamples = listOf(
-        R.string.ai_sample_en_bully to "Nobody likes you @minh, you are a worthless loser!",
-        R.string.ai_sample_vn_slang to "Đồ ngu vcl, không ai chơi với mày đâu biến đi!",
-        R.string.ai_sample_grooming to "Don't tell your parents, keep this secret and send me a pic",
-        R.string.ai_sample_vn_scam to "Chơi tài xỉu nổ hũ nhận quà gửi mã OTP 482910 ngay",
-        R.string.ai_sample_safe to "Hey! Want to study math homework together at 5pm?"
-    )
-
-    val quickDnsSamples = listOf(
-        "bet365.com",
-        "adult-test.example",
-        "google.com",
-        "khanacademy.org"
-    )
+    var aiInput by remember { mutableStateOf("") }
+    var dnsInput by remember { mutableStateOf("") }
 
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -309,24 +290,9 @@ fun ShieldLabScreen(
                         }
                     }
 
-                    FlowRow(
-                        horizontalArrangement = Arrangement.spacedBy(6.dp),
-                        verticalArrangement = Arrangement.spacedBy(6.dp)
-                    ) {
-                        quickAiSamples.forEach { (labelRes, sample) ->
-                            AssistChip(
-                                onClick = {
-                                    aiSampleInput = sample
-                                    onRunAiCheck(sample)
-                                },
-                                label = { Text(stringResource(labelRes), style = MaterialTheme.typography.labelMedium) }
-                            )
-                        }
-                    }
-
                     OutlinedTextField(
-                        value = aiSampleInput,
-                        onValueChange = { aiSampleInput = it },
+                        value = aiInput,
+                        onValueChange = { aiInput = it },
                         label = { Text(stringResource(R.string.shield_ai_input_label)) },
                         placeholder = { Text(stringResource(R.string.shield_ai_input_hint)) },
                         minLines = 2,
@@ -337,8 +303,8 @@ fun ShieldLabScreen(
                     )
 
                     Button(
-                        onClick = { onRunAiCheck(aiSampleInput) },
-                        enabled = aiSampleInput.trim().isNotEmpty(),
+                        onClick = { onRunAiCheck(aiInput) },
+                        enabled = aiInput.trim().isNotEmpty(),
                         shape = RoundedCornerShape(14.dp),
                         modifier = Modifier
                             .fillMaxWidth()
@@ -470,28 +436,14 @@ fun ShieldLabScreen(
                     verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
                     Text(stringResource(R.string.shield_dns_tester_title), style = MaterialTheme.typography.titleMedium)
-                    FlowRow(
-                        horizontalArrangement = Arrangement.spacedBy(6.dp),
-                        verticalArrangement = Arrangement.spacedBy(6.dp)
-                    ) {
-                        quickDnsSamples.forEach { domain ->
-                            AssistChip(
-                                onClick = {
-                                    dnsSampleInput = domain
-                                    onRunDnsCheck(domain)
-                                },
-                                label = { Text(domain, style = MaterialTheme.typography.labelSmall) }
-                            )
-                        }
-                    }
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         OutlinedTextField(
-                            value = dnsSampleInput,
-                            onValueChange = { dnsSampleInput = it },
+                            value = dnsInput,
+                            onValueChange = { dnsInput = it },
                             label = { Text(stringResource(R.string.shield_dns_input_label)) },
                             singleLine = true,
                             modifier = Modifier
@@ -499,8 +451,8 @@ fun ShieldLabScreen(
                                 .testTag("dns_lab_input")
                         )
                         Button(
-                            onClick = { onRunDnsCheck(dnsSampleInput) },
-                            enabled = dnsSampleInput.trim().isNotEmpty(),
+                            onClick = { onRunDnsCheck(dnsInput) },
+                            enabled = dnsInput.trim().isNotEmpty(),
                             modifier = Modifier
                                 .height(54.dp)
                                 .testTag("run_dns_check_button")

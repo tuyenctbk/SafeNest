@@ -201,11 +201,6 @@
     <string name="shield_status_ok">ОК</string>
     <string name="shield_ai_lab_title">Локальный инспектор Edge AI ($0)</string>
     <string name="shield_ai_lab_sub">Проверьте 3-этапный мультиязычный фильтр локально</string>
-    <string name="ai_sample_en_bully">Буллинг EN</string>
-    <string name="ai_sample_vn_slang">Сленг VN</string>
-    <string name="ai_sample_grooming">Груминг</string>
-    <string name="ai_sample_vn_scam">Мошенник VN</string>
-    <string name="ai_sample_safe">Безопасный чат</string>
     <string name="shield_ai_input_label">Сообщение для локального сканирования</string>
     <string name="shield_ai_input_hint">Введите сообщение или подростковый сленг…</string>
     <string name="shield_run_ai_scan">Запустить 3-этапную проверку на устройстве</string>
@@ -721,10 +716,6 @@
     <string name="ai_coach_starter_bedtime">Советы для спокойного сна без экранов</string>
     <string name="ai_coach_starter_bully">Как спокойно обсудить тревогу о травле?</string>
     <string name="ai_coach_starter_agreement">Составить семейное соглашение о телефоне из 3 пунктов</string>
-    <string name="ai_coach_risk_sample_omegle">Проверить omegle.com</string>
-    <string name="ai_coach_risk_sample_robux">Мошенничество с Robux</string>
-    <string name="ai_coach_risk_sample_betting">Проверить bet365.com</string>
-    <string name="ai_coach_risk_sample_tiktok">TikTok перед сном</string>
     <string name="ai_coach_welcome_title">Советы специально для %1$s</string>
     <string name="ai_coach_welcome_body">Спросите, как начать спокойный разговор, выстроить режим экрана или отреагировать на оповещение — с правилами SafeNest в 1 касание.</string>
     <string name="ai_coach_clear_chat">Очистить чат</string>
@@ -768,8 +759,6 @@
     <string name="ai_coach_switched_local_banner">Включён локальный бесплатный режим ($0, работает офлайн).</string>
     <string name="ai_model_primary_standard">Gemini 3.8 Flash (Стандарт)</string>
     <string name="ai_model_economy_lite">Gemini 3.5 Flash-Lite (Эко)</string>
-    <string name="ai_coach_risk_sample_robux_input">Бесплатные Robux! Отправь пароль и код OTP 482910 сейчас</string>
-    <string name="ai_coach_risk_sample_tiktok_input">Ночное автовоспроизведение коротких видео в TikTok</string>
     <string name="ai_test_key_too_short">Ключ API слишком короткий. Вставьте действительный ключ Gemini API.</string>
     <string name="ai_test_key_success">Успешно подключено к %1$s.</string>
     <string name="ai_test_key_auth_or_quota">Ключ отклонён или лимит исчерпан (%1$s).</string>

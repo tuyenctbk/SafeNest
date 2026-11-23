@@ -46,6 +46,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.example.BuildConfig
 import com.example.R
 import com.example.analytics.ActivePromptRequest
 import com.example.analytics.AppUpdateInfo
@@ -92,7 +93,7 @@ private fun UpdateSuggestionDialog(
     onSkipVersion: () -> Unit
 ) {
     val hasNewer = updateInfo?.hasUpdate == true
-    val versionLabel = updateInfo?.latestVersionName.orEmpty().ifBlank { "1.0" }
+    val versionLabel = updateInfo?.latestVersionName.orEmpty().ifBlank { BuildConfig.VERSION_NAME }
     val mandatory = updateInfo?.isMandatory == true
 
     AlertDialog(

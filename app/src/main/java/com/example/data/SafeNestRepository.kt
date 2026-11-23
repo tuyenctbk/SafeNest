@@ -87,24 +87,4 @@ interface SafeNestRepository {
         anomalyNote: String,
         topApps: List<String>
     ): Result<Unit>
-
-    suspend fun upsertDailySummaries(
-        userId: String,
-        summaries: List<DailySummary>
-    ): Result<Unit> {
-        for (summary in summaries) {
-            val res = upsertDailySummary(
-                userId = userId,
-                childId = summary.childId,
-                dateKey = summary.dateKey,
-                totalScreenTimeMin = summary.totalScreenTimeMin,
-                lateNightMin = summary.lateNightMin,
-                blockedAttempts = summary.blockedAttempts,
-                anomalyNote = summary.anomalyNote,
-                topApps = summary.topApps
-            )
-            if (res.isFailure) return res
-        }
-        return Result.success(Unit)
-    }
 }

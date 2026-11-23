@@ -334,43 +334,6 @@ class LocalFamilyRepository(private val context: Context) : SafeNestRepository {
         }
     }
 
-    override suspend fun upsertDailySummaries(
-        userId: String,
-        summaries: List<DailySummary>
-    ): Result<Unit> = runCatching {
-        if (summaries.isEmpty()) return@runCatching
-        val now = Timestamp.now()
-        val prepared = summaries.map { item ->
-            val safeDate = if (DATE_REGEX.matches(item.dateKey)) {
-                item.dateKey
-            } else {
-                SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Date())
-            }
-            val summaryId = "${item.childId}_${safeDate}".replace(Regex("[^a-zA-Z0-9_\\-]"), "_").take(128)
-            DailySummary(
-                id = summaryId,
-                userId = userId,
-                childId = item.childId.take(128),
-                dateKey = safeDate,
-                totalScreenTimeMin = item.totalScreenTimeMin.coerceIn(0L, 1440L),
-                lateNightMin = item.lateNightMin.coerceIn(0L, 600L),
-                blockedAttempts = item.blockedAttempts.coerceIn(0L, 10000L),
-                anomalyNote = item.anomalyNote.take(200),
-                topApps = item.topApps.take(10).map { it.take(120) },
-                createdAt = now,
-                updatedAt = now
-            )
-        }
-        val newIds = prepared.map { it.id }.toSet()
-        context.localFamilyDataStore.edit { prefs ->
-            val list = decodeSummaries(prefs[summariesKey])
-                .filterNot { it.id in newIds }
-                .toMutableList()
-            list.addAll(prepared)
-            prefs[summariesKey] = encodeSummaries(list.sortedByDescending { it.dateKey }.take(90))
-        }
-    }
-
     private fun encodeParent(p: ParentProfile): String = JSONObject().apply {
         put("id", p.id)
         put("userId", p.userId)

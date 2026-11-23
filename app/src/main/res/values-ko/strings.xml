@@ -201,11 +201,6 @@
     <string name="shield_status_ok">허용</string>
     <string name="shield_ai_lab_title">온디바이스 엣지 AI 검사기 ($0)</string>
     <string name="shield_ai_lab_sub">3단계 다국어 안전 필터 파이프라인을 로컬에서 테스트</string>
-    <string name="ai_sample_en_bully">영어 괴롭힘</string>
-    <string name="ai_sample_vn_slang">VN 속어</string>
-    <string name="ai_sample_grooming">그루밍</string>
-    <string name="ai_sample_vn_scam">VN 사기</string>
-    <string name="ai_sample_safe">안전한 대화</string>
     <string name="shield_ai_input_label">온디바이스로 스캔할 메시지</string>
     <string name="shield_ai_input_hint">메시지 또는 속어를 입력하세요…</string>
     <string name="shield_run_ai_scan">3단계 온디바이스 스캔 실행</string>
@@ -722,10 +717,6 @@
     <string name="ai_coach_starter_bedtime">화면 없는 차분한 취침 습관 팁</string>
     <string name="ai_coach_starter_bully">괴롭힘 알림에 대해 차분히 대화하는 법</string>
     <string name="ai_coach_starter_agreement">3가지 가족 스마트폰 약속 작성</string>
-    <string name="ai_coach_risk_sample_omegle">omegle.com 확인</string>
-    <string name="ai_coach_risk_sample_robux">무료 Robux 사기</string>
-    <string name="ai_coach_risk_sample_betting">bet365.com 확인</string>
-    <string name="ai_coach_risk_sample_tiktok">취침 전 TikTok</string>
     <string name="ai_coach_welcome_title">%1$s 맞춤 안전 코칭</string>
     <string name="ai_coach_welcome_body">차분한 대화 시작 문구, 스크린 타임 루틴, 알림 대처법을 질문하세요. 원탭 SafeNest 규칙도 함께 제안됩니다.</string>
     <string name="ai_coach_clear_chat">대화 지우기</string>
@@ -769,8 +760,6 @@
     <string name="ai_coach_switched_local_banner">온디바이스 무료 모드($0, 오프라인 지원)로 전환되었습니다.</string>
     <string name="ai_model_primary_standard">Gemini 3.8 Flash (표준)</string>
     <string name="ai_model_economy_lite">Gemini 3.5 Flash-Lite (에코)</string>
-    <string name="ai_coach_risk_sample_robux_input">무료 Robux! 지금 비밀번호와 OTP 482910을 보내세요</string>
-    <string name="ai_coach_risk_sample_tiktok_input">심야 TikTok 쇼츠 자동 재생</string>
     <string name="ai_test_key_too_short">API 키가 너무 짧습니다. 유효한 Gemini API 키를 붙여넣으세요.</string>
     <string name="ai_test_key_success">%1$s에 성공적으로 연결되었습니다.</string>
     <string name="ai_test_key_auth_or_quota">키가 거부되었거나 할당량을 초과했습니다 (%1$s).</string>

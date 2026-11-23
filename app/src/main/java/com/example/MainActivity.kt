@@ -741,7 +741,6 @@ private fun SafeNestMainShell(
                                         onSendWeeklyPushNow = triggerWeeklySummaryPush,
                                         onSelectChild = viewModel::selectChild,
                                         onOpenAddChild = { showAddChildDialog = true },
-                                        onSeedSampleFamily = viewModel::seedSampleFamily,
                                         onTogglePause = { child ->
                                             viewModel.updateRuleField(
                                                 child,

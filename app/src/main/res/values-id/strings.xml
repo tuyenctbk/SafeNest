@@ -201,11 +201,6 @@
     <string name="shield_status_ok">OK</string>
     <string name="shield_ai_lab_title">Inspektur AI di Perangkat ($0)</string>
     <string name="shield_ai_lab_sub">Uji corong keamanan multibahasa 3 tahap secara lokal</string>
-    <string name="ai_sample_en_bully">Perundungan EN</string>
-    <string name="ai_sample_vn_slang">Bahasa Gaul VN</string>
-    <string name="ai_sample_grooming">Grooming</string>
-    <string name="ai_sample_vn_scam">Penipuan VN</string>
-    <string name="ai_sample_safe">Obrolan Aman</string>
     <string name="shield_ai_input_label">Pesan untuk dipindai di perangkat</string>
     <string name="shield_ai_input_hint">Masukkan pesan atau bahasa gaul…</string>
     <string name="shield_run_ai_scan">Jalankan Pemindaian 3 Tahap di Perangkat</string>
@@ -722,10 +717,6 @@
     <string name="ai_coach_starter_bedtime">Tips tidur tenang bebas layar</string>
     <string name="ai_coach_starter_bully">Bagaimana berbicara tenang tentang peringatan perundungan?</string>
     <string name="ai_coach_starter_agreement">Buat kesepakatan ponsel keluarga 3 poin</string>
-    <string name="ai_coach_risk_sample_omegle">Periksa omegle.com</string>
-    <string name="ai_coach_risk_sample_robux">Penipuan Robux gratis</string>
-    <string name="ai_coach_risk_sample_betting">Periksa bet365.com</string>
-    <string name="ai_coach_risk_sample_tiktok">TikTok sebelum tidur</string>
     <string name="ai_coach_welcome_title">Panduan khusus untuk %1$s</string>
     <string name="ai_coach_welcome_body">Tanyakan pembuka obrolan tenang, rutinitas layar, atau cara menangani peringatan — lengkap dengan aturan SafeNest 1 ketuk.</string>
     <string name="ai_coach_clear_chat">Hapus obrolan</string>
@@ -769,8 +760,6 @@
     <string name="ai_coach_switched_local_banner">Beralih ke mode Lokal Gratis ($0, bekerja offline).</string>
     <string name="ai_model_primary_standard">Gemini 3.8 Flash (Standar)</string>
     <string name="ai_model_economy_lite">Gemini 3.5 Flash-Lite (Hemat)</string>
-    <string name="ai_coach_risk_sample_robux_input">Robux Gratis! Kirim kata sandi dan kode OTP 482910 sekarang</string>
-    <string name="ai_coach_risk_sample_tiktok_input">Putar otomatis video pendek TikTok larut malam</string>
     <string name="ai_test_key_too_short">Kunci API terlalu pendek. Tempel kunci API Gemini yang valid.</string>
     <string name="ai_test_key_success">Berhasil terhubung ke %1$s.</string>
     <string name="ai_test_key_auth_or_quota">Kunci ditolak atau kuota habis (%1$s).</string>

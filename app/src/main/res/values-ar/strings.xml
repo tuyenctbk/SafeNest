@@ -201,11 +201,6 @@
     <string name="shield_status_ok">مسموح</string>
     <string name="shield_ai_lab_title">مختبر الذكاء الاصطناعي المحلي ($0)</string>
     <string name="shield_ai_lab_sub">اختبر قمع الأمان متعدد اللغات من 3 مراحل محليًا</string>
-    <string name="ai_sample_en_bully">تنمر بالإنجليزية</string>
-    <string name="ai_sample_vn_slang">عامية فيتنامية</string>
-    <string name="ai_sample_grooming">استدراج</string>
-    <string name="ai_sample_vn_scam">احتيال</string>
-    <string name="ai_sample_safe">محادثة آمنة</string>
     <string name="shield_ai_input_label">الرسالة المطلوب فحصها على الجهاز</string>
     <string name="shield_ai_input_hint">أدخل رسالة أو عبارات عامية…</string>
     <string name="shield_run_ai_scan">تشغيل الفحص المحلي من 3 مراحل</string>
@@ -722,10 +717,6 @@
     <string name="ai_coach_starter_bedtime">نصائح لوقت نوم هادئ بلا شاشات</string>
     <string name="ai_coach_starter_bully">كيف أتحدث بهدوء عن تنبيه تنمر؟</string>
     <string name="ai_coach_starter_agreement">صياغة اتفاق عائلي للهاتف من 3 نقاط</string>
-    <string name="ai_coach_risk_sample_omegle">فحص omegle.com</string>
-    <string name="ai_coach_risk_sample_robux">احتيال Robux مجاني</string>
-    <string name="ai_coach_risk_sample_betting">فحص bet365.com</string>
-    <string name="ai_coach_risk_sample_tiktok">تيك توك قبل النوم</string>
     <string name="ai_coach_welcome_title">إرشاد مخصص لـ %1$s</string>
     <string name="ai_coach_welcome_body">اطلب بدايات حوار هادئة وروتين الشاشة أو كيفية التعامل مع تنبيه محدد، مع إجراءات حماية بنقرة واحدة.</string>
     <string name="ai_coach_clear_chat">مسح المحادثة</string>
@@ -769,8 +760,6 @@
     <string name="ai_coach_switched_local_banner">تم التبديل إلى الوضع المحلي المجاني ($0 ويعمل دون إنترنت).</string>
     <string name="ai_model_primary_standard">Gemini 3.8 Flash (قياسي)</string>
     <string name="ai_model_economy_lite">Gemini 3.5 Flash-Lite (اقتصادي)</string>
-    <string name="ai_coach_risk_sample_robux_input">Robux مجاني! أرسل كلمة المرور ورمز OTP 482910 الآن</string>
-    <string name="ai_coach_risk_sample_tiktok_input">تشغيل تلقائي لمقاطع TikTok القصيرة في وقت متأخر</string>
     <string name="ai_test_key_too_short">مفتاح API قصير جدًا. الصق مفتاح Gemini API صالحًا.</string>
     <string name="ai_test_key_success">تم الاتصال بنموذج %1$s بنجاح.</string>
     <string name="ai_test_key_auth_or_quota">تم رفض المفتاح أو تجاوز الحصة (%1$s).</string>

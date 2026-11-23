@@ -201,11 +201,6 @@
     <string name="shield_status_ok">OK</string>
     <string name="shield_ai_lab_title">Lokaler Edge-KI-Inspektor (0 $)</string>
     <string name="shield_ai_lab_sub">Teste den 3-stufigen mehrsprachigen Sicherheitsfilter lokal</string>
-    <string name="ai_sample_en_bully">EN Mobbing</string>
-    <string name="ai_sample_vn_slang">VN Slang</string>
-    <string name="ai_sample_grooming">Grooming</string>
-    <string name="ai_sample_vn_scam">VN Betrug</string>
-    <string name="ai_sample_safe">Sicherer Chat</string>
     <string name="shield_ai_input_label">Nachricht lokal prüfen</string>
     <string name="shield_ai_input_hint">Nachricht oder Jugendslang eingeben…</string>
     <string name="shield_run_ai_scan">3-Stufen-Scan lokal ausführen</string>
@@ -722,10 +717,6 @@
     <string name="ai_coach_starter_bedtime">Tipps für ruhige bildschirmfreie Schlafenszeiten</string>
     <string name="ai_coach_starter_bully">Wie spreche ich ruhig über eine Mobbing-Warnung?</string>
     <string name="ai_coach_starter_agreement">3-Punkte-Handyvertrag für die Familie erstellen</string>
-    <string name="ai_coach_risk_sample_omegle">omegle.com prüfen</string>
-    <string name="ai_coach_risk_sample_robux">Gratis-Robux-Betrug</string>
-    <string name="ai_coach_risk_sample_betting">bet365.com prüfen</string>
-    <string name="ai_coach_risk_sample_tiktok">TikTok zur Schlafenszeit</string>
     <string name="ai_coach_welcome_title">Coaching zugeschnitten auf %1$s</string>
     <string name="ai_coach_welcome_body">Fragen Sie nach ruhigen Gesprächseinstiegen, Bildschirmroutinen oder dem Umgang mit Warnungen — inklusive 1-Tipp-Schutzregeln.</string>
     <string name="ai_coach_clear_chat">Chat leeren</string>
@@ -769,8 +760,6 @@
     <string name="ai_coach_switched_local_banner">Auf On-Device-Gratismodus umgestellt ($0, offline nutzbar).</string>
     <string name="ai_model_primary_standard">Gemini 3.8 Flash (Standard)</string>
     <string name="ai_model_economy_lite">Gemini 3.5 Flash-Lite (Eco)</string>
-    <string name="ai_coach_risk_sample_robux_input">Gratis Robux! Sende jetzt dein Passwort und den OTP-Code 482910</string>
-    <string name="ai_coach_risk_sample_tiktok_input">TikTok Autoplay für Kurzvideos spät nachts</string>
     <string name="ai_test_key_too_short">API-Schlüssel wirkt zu kurz. Füge einen gültigen Gemini-API-Schlüssel ein.</string>
     <string name="ai_test_key_success">Erfolgreich mit %1$s verbunden.</string>
     <string name="ai_test_key_auth_or_quota">Schlüssel abgelehnt oder Kontingent erschöpft (%1$s).</string>

@@ -26,8 +26,6 @@
     <string name="auth_local_device_hint">No account required • 100% on-device DNS, rules &amp; AI safety</string>
     <string name="auth_local_mode_badge">On-Device Private Mode</string>
     <string name="auth_switch_account_mode">Switch Account / Mode</string>
-    <string name="empty_load_sample_family">Explore with Sample Family</string>
-    <string name="banner_sample_family_loaded">Sample family loaded — explore charts, alerts, and AI coach anytime.</string>
     <string name="shield_privacy_policy_button">View Privacy Policy</string>
     <string name="banner_privacy_policy_note">100% on-device DNS &amp; AI safety • Zero ads • Zero data selling.</string>
     <string name="auth_privacy_badge_1">100% On-Device AI — chats never leave the phone</string>
@@ -210,11 +208,6 @@
     <string name="shield_status_ok">OK</string>
     <string name="shield_ai_lab_title">On-Device Edge AI Inspector ($0)</string>
     <string name="shield_ai_lab_sub">Test the 3-stage multilingual safety funnel locally</string>
-    <string name="ai_sample_en_bully">EN Bullying</string>
-    <string name="ai_sample_vn_slang">VN Slang</string>
-    <string name="ai_sample_grooming">Grooming</string>
-    <string name="ai_sample_vn_scam">VN Scam</string>
-    <string name="ai_sample_safe">Safe Chat</string>
     <string name="shield_ai_input_label">Message to scan on-device</string>
     <string name="shield_ai_input_hint">Enter message or teen slang…</string>
     <string name="shield_run_ai_scan">Run 3-Stage On-Device Scan</string>
@@ -732,10 +725,6 @@
     <string name="ai_coach_starter_bedtime">Tips for calmer screen-free bedtimes</string>
     <string name="ai_coach_starter_bully">How to talk calmly about a bullying alert?</string>
     <string name="ai_coach_starter_agreement">Draft a 3-point family phone agreement</string>
-    <string name="ai_coach_risk_sample_omegle">Check omegle.com</string>
-    <string name="ai_coach_risk_sample_robux">Free Robux scam</string>
-    <string name="ai_coach_risk_sample_betting">Check bet365.com</string>
-    <string name="ai_coach_risk_sample_tiktok">TikTok bedtime</string>
     <string name="ai_coach_welcome_title">Coaching tailored for %1$s</string>
     <string name="ai_coach_welcome_body">Ask for calm conversation starters, screen-time routines, or how to handle a specific alert. Responses include 1-tap SafeNest guardrails.</string>
     <string name="ai_coach_clear_chat">Clear chat</string>
@@ -779,8 +768,6 @@
     <string name="ai_coach_switched_local_banner">Switched to On-Device Free mode ($0, works offline).</string>
     <string name="ai_model_primary_standard">Gemini 3.8 Flash (Standard)</string>
     <string name="ai_model_economy_lite">Gemini 3.5 Flash-Lite (Eco)</string>
-    <string name="ai_coach_risk_sample_robux_input">Free Robux! Send your password and OTP 482910 now</string>
-    <string name="ai_coach_risk_sample_tiktok_input">TikTok late-night shorts autoplay</string>
     <string name="ai_test_key_too_short">API key looks too short. Paste a valid Gemini API key.</string>
     <string name="ai_test_key_success">Connected to %1$s successfully.</string>
     <string name="ai_test_key_auth_or_quota">Key rejected or quota exceeded (%1$s).</string>

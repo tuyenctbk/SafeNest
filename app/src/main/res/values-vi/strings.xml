@@ -201,11 +201,6 @@
     <string name="shield_status_ok">Hợp lệ</string>
     <string name="shield_ai_lab_title">Kiểm định AI Trên thiết bị ($0)</string>
     <string name="shield_ai_lab_sub">Thử nghiệm phễu an toàn đa ngôn ngữ 3 tầng ngay trên máy</string>
-    <string name="ai_sample_en_bully">Bắt nạt EN</string>
-    <string name="ai_sample_vn_slang">Từ lóng VN</string>
-    <string name="ai_sample_grooming">Dụ dỗ</string>
-    <string name="ai_sample_vn_scam">Lừa đảo VN</string>
-    <string name="ai_sample_safe">Tin nhắn an toàn</string>
     <string name="shield_ai_input_label">Tin nhắn cần quét trên thiết bị</string>
     <string name="shield_ai_input_hint">Nhập tin nhắn hoặc tiếng lóng…</string>
     <string name="shield_run_ai_scan">Chạy Quét 3 tầng Trên thiết bị</string>
@@ -721,10 +716,6 @@
     <string name="ai_coach_starter_bedtime">Mẹo giúp giờ đi ngủ không màn hình nhẹ nhàng hơn</string>
     <string name="ai_coach_starter_bully">Cách trò chuyện bình tĩnh về cảnh báo bắt nạt?</string>
     <string name="ai_coach_starter_agreement">Soạn thỏa thuận dùng điện thoại gia đình gồm 3 điều</string>
-    <string name="ai_coach_risk_sample_omegle">Kiểm tra omegle.com</string>
-    <string name="ai_coach_risk_sample_robux">Lừa đảo tặng Robux miễn phí</string>
-    <string name="ai_coach_risk_sample_betting">Kiểm tra bet365.com</string>
-    <string name="ai_coach_risk_sample_tiktok">TikTok trước giờ ngủ</string>
     <string name="ai_coach_welcome_title">Tư vấn riêng cho %1$s</string>
     <string name="ai_coach_welcome_body">Hỏi gợi ý mở đầu cuộc trò chuyện bình tĩnh, lịch dùng màn hình hoặc cách xử lý một cảnh báo cụ thể. Câu trả lời đi kèm nút bảo vệ SafeNest 1 chạm.</string>
     <string name="ai_coach_clear_chat">Xóa trò chuyện</string>
@@ -768,8 +759,6 @@
     <string name="ai_coach_switched_local_banner">Đã chuyển sang chế độ Miễn phí Trên thiết bị ($0, hoạt động ngoại tuyến).</string>
     <string name="ai_model_primary_standard">Gemini 3.8 Flash (Tiêu chuẩn)</string>
     <string name="ai_model_economy_lite">Gemini 3.5 Flash-Lite (Tiết kiệm)</string>
-    <string name="ai_coach_risk_sample_robux_input">Nhận Robux miễn phí! Gửi mật khẩu và mã OTP 482910 ngay</string>
-    <string name="ai_coach_risk_sample_tiktok_input">Tự động phát video ngắn TikTok khuya</string>
     <string name="ai_test_key_too_short">Khóa API quá ngắn. Hãy dán khóa Gemini API hợp lệ.</string>
     <string name="ai_test_key_success">Đã kết nối %1$s thành công.</string>
     <string name="ai_test_key_auth_or_quota">Khóa bị từ chối hoặc vượt hạn mức (%1$s).</string>

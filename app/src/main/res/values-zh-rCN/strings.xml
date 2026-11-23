@@ -201,11 +201,6 @@
     <string name="shield_status_ok">正常</string>
     <string name="shield_ai_lab_title">端侧边缘 AI 检测器 ($0)</string>
     <string name="shield_ai_lab_sub">本地测试 3 阶段多语言安全检测漏斗</string>
-    <string name="ai_sample_en_bully">英文霸凌</string>
-    <string name="ai_sample_vn_slang">越南俚语</string>
-    <string name="ai_sample_grooming">诱骗示例</string>
-    <string name="ai_sample_vn_scam">越南诈骗</string>
-    <string name="ai_sample_safe">正常聊天</string>
     <string name="shield_ai_input_label">要在本机扫描的消息</string>
     <string name="shield_ai_input_hint">输入消息或网络俚语…</string>
     <string name="shield_run_ai_scan">运行 3 阶段端侧扫描</string>
@@ -721,10 +716,6 @@
     <string name="ai_coach_starter_bedtime">更平和的无屏幕睡前习惯建议</string>
     <string name="ai_coach_starter_bully">如何冷静沟通网络欺凌警报？</string>
     <string name="ai_coach_starter_agreement">起草一份 3 条家庭手机使用约定</string>
-    <string name="ai_coach_risk_sample_omegle">检测 omegle.com</string>
-    <string name="ai_coach_risk_sample_robux">免费 Robux 诈骗</string>
-    <string name="ai_coach_risk_sample_betting">检测 bet365.com</string>
-    <string name="ai_coach_risk_sample_tiktok">睡前刷 TikTok</string>
     <string name="ai_coach_welcome_title">为 %1$s 定制的指导</string>
     <string name="ai_coach_welcome_body">咨询温和的对话开场白、屏幕时间作息或特定警报的处理方法。回复附带一键 SafeNest 防护操作。</string>
     <string name="ai_coach_clear_chat">清空对话</string>
@@ -768,8 +759,6 @@
     <string name="ai_coach_switched_local_banner">已切换至本地免费模式（$0，支持离线）。</string>
     <string name="ai_model_primary_standard">Gemini 3.8 Flash（标准）</string>
     <string name="ai_model_economy_lite">Gemini 3.5 Flash-Lite（节能）</string>
-    <string name="ai_coach_risk_sample_robux_input">免费领取 Robux！立即发送你的密码和验证码 OTP 482910</string>
-    <string name="ai_coach_risk_sample_tiktok_input">深夜 TikTok 短视频自动连播</string>
     <string name="ai_test_key_too_short">API 密钥似乎过短，请粘贴有效的 Gemini API 密钥。</string>
     <string name="ai_test_key_success">已成功连接到 %1$s。</string>
     <string name="ai_test_key_auth_or_quota">密钥被拒绝或已超出配额（%1$s）。</string>

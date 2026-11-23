@@ -201,11 +201,6 @@
     <string name="shield_status_ok">ठीक</string>
     <string name="shield_ai_lab_title">ऑन-डिवाइस एज AI निरीक्षक ($0)</string>
     <string name="shield_ai_lab_sub">3-चरणीय बहुभाषी सुरक्षा फ़नल का स्थानीय परीक्षण करें</string>
-    <string name="ai_sample_en_bully">EN बुलिंग</string>
-    <string name="ai_sample_vn_slang">VN स्लैंग</string>
-    <string name="ai_sample_grooming">ग्रूमिंग</string>
-    <string name="ai_sample_vn_scam">VN धोखाधड़ी</string>
-    <string name="ai_sample_safe">सुरक्षित चैट</string>
     <string name="shield_ai_input_label">डिवाइस पर स्कैन करने के लिए संदेश</string>
     <string name="shield_ai_input_hint">संदेश या स्लैंग दर्ज करें…</string>
     <string name="shield_run_ai_scan">3-चरणीय ऑन-डिवाइस स्कैन चलाएं</string>
@@ -722,10 +717,6 @@
     <string name="ai_coach_starter_bedtime">शांत स्क्रीन-मुक्त सोने के समय के सुझाव</string>
     <string name="ai_coach_starter_bully">बुलिंग अलर्ट पर शांति से बात कैसे करें?</string>
     <string name="ai_coach_starter_agreement">3-बिंदु वाला पारिवारिक फ़ोन समझौता बनाएँ</string>
-    <string name="ai_coach_risk_sample_omegle">omegle.com जाँचें</string>
-    <string name="ai_coach_risk_sample_robux">फ्री Robux घोटाला</string>
-    <string name="ai_coach_risk_sample_betting">bet365.com जाँचें</string>
-    <string name="ai_coach_risk_sample_tiktok">सोते समय TikTok</string>
     <string name="ai_coach_welcome_title">%1$s के लिए व्यक्तिगत मार्गदर्शन</string>
     <string name="ai_coach_welcome_body">शांत बातचीत की शुरुआत, स्क्रीन रूटीन या किसी अलर्ट से निपटने के तरीके पूछें — 1-टैप SafeNest सुरक्षा नियमों के साथ।</string>
     <string name="ai_coach_clear_chat">चैट साफ़ करें</string>
@@ -769,8 +760,6 @@
     <string name="ai_coach_switched_local_banner">ऑन-डिवाइस फ्री मोड पर स्विच किया गया ($0, ऑफ़लाइन काम करता है)।</string>
     <string name="ai_model_primary_standard">Gemini 3.8 Flash (मानक)</string>
     <string name="ai_model_economy_lite">Gemini 3.5 Flash-Lite (इको)</string>
-    <string name="ai_coach_risk_sample_robux_input">मुफ़्त Robux! अभी अपना पासवर्ड और OTP 482910 भेजें</string>
-    <string name="ai_coach_risk_sample_tiktok_input">देर रात TikTok शॉर्ट्स ऑटोप्ले</string>
     <string name="ai_test_key_too_short">API कुंजी बहुत छोटी है। एक मान्य Gemini API कुंजी पेस्ट करें।</string>
     <string name="ai_test_key_success">%1$s से सफलतापूर्वक कनेक्ट हो गया।</string>
     <string name="ai_test_key_auth_or_quota">कुंजी अस्वीकृत हुई या कोटा समाप्त हो गया (%1$s)।</string>

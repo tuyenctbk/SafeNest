@@ -201,11 +201,6 @@
     <string name="shield_status_ok">ปกติ</string>
     <string name="shield_ai_lab_title">ตัวตรวจสอบ Edge AI บนอุปกรณ์ ($0)</string>
     <string name="shield_ai_lab_sub">ทดสอบระบบกรองความปลอดภัยหลายภาษา 3 ขั้นตอนบนอุปกรณ์</string>
-    <string name="ai_sample_en_bully">กลั่นแกล้ง EN</string>
-    <string name="ai_sample_vn_slang">สแลง VN</string>
-    <string name="ai_sample_grooming">ล่อลวง</string>
-    <string name="ai_sample_vn_scam">หลอกลวง VN</string>
-    <string name="ai_sample_safe">แชทปลอดภัย</string>
     <string name="shield_ai_input_label">ข้อความสำหรับสแกนบนอุปกรณ์</string>
     <string name="shield_ai_input_hint">ป้อนข้อความหรือคำสแลงวัยรุ่น…</string>
     <string name="shield_run_ai_scan">เรียกใช้การสแกน 3 ขั้นตอนบนอุปกรณ์</string>
@@ -721,10 +716,6 @@
     <string name="ai_coach_starter_bedtime">เคล็ดลับเข้านอนสงบไร้หน้าจอ</string>
     <string name="ai_coach_starter_bully">จะคุยอย่างใจเย็นเรื่องแจ้งเตือนการกลั่นแกล้งอย่างไร?</string>
     <string name="ai_coach_starter_agreement">ร่างข้อตกลงการใช้มือถือครอบครัว 3 ข้อ</string>
-    <string name="ai_coach_risk_sample_omegle">ตรวจ omegle.com</string>
-    <string name="ai_coach_risk_sample_robux">หลอกแจก Robux ฟรี</string>
-    <string name="ai_coach_risk_sample_betting">ตรวจ bet365.com</string>
-    <string name="ai_coach_risk_sample_tiktok">TikTok ก่อนนอน</string>
     <string name="ai_coach_welcome_title">คำแนะนำเฉพาะสำหรับ %1$s</string>
     <string name="ai_coach_welcome_body">ขอประโยคเริ่มคุยอย่างใจเย็น กิจวัตรหน้าจอ หรือวิธีรับมือแจ้งเตือน พร้อมปุ่มตั้งกฎ SafeNest ในแตะเดียว</string>
     <string name="ai_coach_clear_chat">ล้างแชท</string>
@@ -768,8 +759,6 @@
     <string name="ai_coach_switched_local_banner">เปลี่ยนเป็นโหมดบนเครื่องฟรีแล้ว ($0 ใช้งานออฟไลน์ได้)</string>
     <string name="ai_model_primary_standard">Gemini 3.8 Flash (มาตรฐาน)</string>
     <string name="ai_model_economy_lite">Gemini 3.5 Flash-Lite (ประหยัด)</string>
-    <string name="ai_coach_risk_sample_robux_input">แจก Robux ฟรี! ส่งรหัสผ่านและรหัส OTP 482910 ตอนนี้</string>
-    <string name="ai_coach_risk_sample_tiktok_input">เล่นวิดีโอสั้น TikTok อัตโนมัติตอนดึก</string>
     <string name="ai_test_key_too_short">คีย์ API สั้นเกินไป โปรดวางคีย์ Gemini API ที่ถูกต้อง</string>
     <string name="ai_test_key_success">เชื่อมต่อ %1$s สำเร็จแล้ว</string>
     <string name="ai_test_key_auth_or_quota">คีย์ถูกปฏิเสธหรือเกินโควตา (%1$s)</string>

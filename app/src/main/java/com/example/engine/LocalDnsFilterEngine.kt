@@ -353,8 +353,7 @@ object LocalDnsFilterEngine {
     private val adultBlocklist = InMemoryDomainBlocklist(
         setOf(
             "pornhub.com", "xvideos.com", "xnxx.com", "xhamster.com",
-            "onlyfans.com", "chaturbate.com", "redtube.com", "youporn.com",
-            "adult-test.example", "nsfw-demo.example"
+            "onlyfans.com", "chaturbate.com", "redtube.com", "youporn.com"
         )
     )
 
@@ -362,15 +361,14 @@ object LocalDnsFilterEngine {
         setOf(
             "bet365.com", "1xbet.com", "stake.com", "draftkings.com",
             "fanduel.com", "pokerstars.com", "kubet.com", "fun88.com",
-            "w88.com", "casino-test.example", "taixiu-demo.example"
+            "w88.com"
         )
     )
 
     private val malwareScamBlocklist = InMemoryDomainBlocklist(
         setOf(
-            "free-robux-claim.example", "phishing-login.example",
-            "verify-bank-now.example", "hack-diamonds.example",
-            "malware-test.example", "prize-claim-urgent.example"
+            "coinhive.com", "coin-hive.com", "authedmine.com",
+            "crypto-loot.com", "jsecoin.com", "minero.cc"
         )
     )
 

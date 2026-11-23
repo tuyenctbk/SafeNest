@@ -201,11 +201,6 @@
     <string name="shield_status_ok">OK</string>
     <string name="shield_ai_lab_title">On-Device Edge AI-inspecteur ($0)</string>
     <string name="shield_ai_lab_sub">Test de 3-traps meertalige veiligheidstrechter lokaal</string>
-    <string name="ai_sample_en_bully">EN Pesten</string>
-    <string name="ai_sample_vn_slang">VN Slang</string>
-    <string name="ai_sample_grooming">Grooming</string>
-    <string name="ai_sample_vn_scam">VN Oplichting</string>
-    <string name="ai_sample_safe">Veilige chat</string>
     <string name="shield_ai_input_label">Bericht om lokaal te scannen</string>
     <string name="shield_ai_input_hint">Voer een bericht of jongerentaal in…</string>
     <string name="shield_run_ai_scan">3-traps scan op apparaat uitvoeren</string>
@@ -721,10 +716,6 @@
     <string name="ai_coach_starter_bedtime">Tips voor rustige schermvrije bedtijd</string>
     <string name="ai_coach_starter_bully">Hoe praat ik rustig over een pestmelding?</string>
     <string name="ai_coach_starter_agreement">Stel een 3-punten telefoonafspraak voor het gezin op</string>
-    <string name="ai_coach_risk_sample_omegle">Controleer omegle.com</string>
-    <string name="ai_coach_risk_sample_robux">Gratis Robux-oplichting</string>
-    <string name="ai_coach_risk_sample_betting">Controleer bet365.com</string>
-    <string name="ai_coach_risk_sample_tiktok">TikTok voor het slapen</string>
     <string name="ai_coach_welcome_title">Coaching op maat voor %1$s</string>
     <string name="ai_coach_welcome_body">Vraag om rustige gespreksstarters, schermroutines of hulp bij meldingen — met 1-tik SafeNest-regels.</string>
     <string name="ai_coach_clear_chat">Chat wissen</string>
@@ -768,8 +759,6 @@
     <string name="ai_coach_switched_local_banner">Overgeschakeld naar Lokaal Gratis ($0, werkt offline).</string>
     <string name="ai_model_primary_standard">Gemini 3.8 Flash (Standaard)</string>
     <string name="ai_model_economy_lite">Gemini 3.5 Flash-Lite (Eco)</string>
-    <string name="ai_coach_risk_sample_robux_input">Gratis Robux! Stuur nu je wachtwoord en OTP-code 482910</string>
-    <string name="ai_coach_risk_sample_tiktok_input">TikTok automatisch afspelen van korte video\'s laat op de avond</string>
     <string name="ai_test_key_too_short">API-sleutel lijkt te kort. Plak een geldige Gemini API-sleutel.</string>
     <string name="ai_test_key_success">Succesvol verbonden met %1$s.</string>
     <string name="ai_test_key_auth_or_quota">Sleutel geweigerd of quotum overschreden (%1$s).</string>

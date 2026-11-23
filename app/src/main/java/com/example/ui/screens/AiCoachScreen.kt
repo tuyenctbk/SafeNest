@@ -159,13 +159,6 @@ fun AiCoachScreen(
         stringResource(R.string.ai_coach_starter_agreement)
     )
 
-    val riskSamples = listOf(
-        R.string.ai_coach_risk_sample_omegle to "omegle.com",
-        R.string.ai_coach_risk_sample_robux to stringResource(R.string.ai_coach_risk_sample_robux_input),
-        R.string.ai_coach_risk_sample_betting to "bet365.com",
-        R.string.ai_coach_risk_sample_tiktok to stringResource(R.string.ai_coach_risk_sample_tiktok_input)
-    )
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -496,22 +489,6 @@ fun AiCoachScreen(
                                                 style = MaterialTheme.typography.bodySmall
                                             )
                                         }
-                                    }
-                                }
-
-                                FlowRow(
-                                    horizontalArrangement = Arrangement.spacedBy(6.dp),
-                                    verticalArrangement = Arrangement.spacedBy(6.dp)
-                                ) {
-                                    riskSamples.forEachIndexed { idx, (labelRes, sample) ->
-                                        AssistChip(
-                                            onClick = {
-                                                riskInput = sample
-                                                onRunRiskCheck(sample, pickedScreenshotUri)
-                                            },
-                                            label = { Text(stringResource(labelRes)) },
-                                            modifier = Modifier.testTag("ai_risk_sample_$idx")
-                                        )
                                     }
                                 }
 

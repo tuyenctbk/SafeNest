@@ -201,11 +201,6 @@
     <string name="shield_status_ok">OK</string>
     <string name="shield_ai_lab_title">Ispettore IA Locale ($0)</string>
     <string name="shield_ai_lab_sub">Prova localmente la pipeline di sicurezza multilingue in 3 fasi</string>
-    <string name="ai_sample_en_bully">Bullismo EN</string>
-    <string name="ai_sample_vn_slang">Slang VN</string>
-    <string name="ai_sample_grooming">Adescamento</string>
-    <string name="ai_sample_vn_scam">Truffa VN</string>
-    <string name="ai_sample_safe">Chat sicura</string>
     <string name="shield_ai_input_label">Messaggio da analizzare sul dispositivo</string>
     <string name="shield_ai_input_hint">Inserisci messaggio o slang…</string>
     <string name="shield_run_ai_scan">Esegui Scansione Locale a 3 Fasi</string>
@@ -722,10 +717,6 @@
     <string name="ai_coach_starter_bedtime">Consigli per andare a dormire sereni senza schermi</string>
     <string name="ai_coach_starter_bully">Come parlare con calma di un avviso di bullismo?</string>
     <string name="ai_coach_starter_agreement">Prepara un patto familiare per il telefono in 3 punti</string>
-    <string name="ai_coach_risk_sample_omegle">Controlla omegle.com</string>
-    <string name="ai_coach_risk_sample_robux">Truffa Robux gratis</string>
-    <string name="ai_coach_risk_sample_betting">Controlla bet365.com</string>
-    <string name="ai_coach_risk_sample_tiktok">TikTok prima di dormire</string>
     <string name="ai_coach_welcome_title">Consigli su misura per %1$s</string>
     <string name="ai_coach_welcome_body">Chiedi spunti di dialogo sereni, routine digitali o come gestire un avviso, con regole SafeNest in 1 tocco.</string>
     <string name="ai_coach_clear_chat">Cancella chat</string>
@@ -769,8 +760,6 @@
     <string name="ai_coach_switched_local_banner">Passato alla modalità Locale Gratis ($0, offline).</string>
     <string name="ai_model_primary_standard">Gemini 3.8 Flash (Standard)</string>
     <string name="ai_model_economy_lite">Gemini 3.5 Flash-Lite (Eco)</string>
-    <string name="ai_coach_risk_sample_robux_input">Robux gratis! Invia subito la password e il codice OTP 482910</string>
-    <string name="ai_coach_risk_sample_tiktok_input">Riproduzione automatica notturna di video brevi TikTok</string>
     <string name="ai_test_key_too_short">La chiave API sembra troppo corta. Incolla una chiave Gemini valida.</string>
     <string name="ai_test_key_success">Connesso a %1$s con successo.</string>
     <string name="ai_test_key_auth_or_quota">Chiave rifiutata o quota superata (%1$s).</string>

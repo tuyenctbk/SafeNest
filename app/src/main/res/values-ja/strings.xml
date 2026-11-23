@@ -201,11 +201,6 @@
     <string name="shield_status_ok">許可</string>
     <string name="shield_ai_lab_title">端末内エッジAI検査 ($0)</string>
     <string name="shield_ai_lab_sub">3段階の多言語セーフティ判定を端末内でテスト</string>
-    <string name="ai_sample_en_bully">英語いじめ</string>
-    <string name="ai_sample_vn_slang">VNスラング</string>
-    <string name="ai_sample_grooming">誘引</string>
-    <string name="ai_sample_vn_scam">VN詐欺</string>
-    <string name="ai_sample_safe">安全な会話</string>
     <string name="shield_ai_input_label">端末内でスキャンするメッセージ</string>
     <string name="shield_ai_input_hint">メッセージやスラングを入力…</string>
     <string name="shield_run_ai_scan">3段階ローカルスキャンを実行</string>
@@ -722,10 +717,6 @@
     <string name="ai_coach_starter_bedtime">穏やかに画面なしで就寝するコツ</string>
     <string name="ai_coach_starter_bully">いじめ警告について落ち着いて話すには？</string>
     <string name="ai_coach_starter_agreement">家族のスマホ約束3か条を作成</string>
-    <string name="ai_coach_risk_sample_omegle">omegle.comを診断</string>
-    <string name="ai_coach_risk_sample_robux">無料Robux詐欺</string>
-    <string name="ai_coach_risk_sample_betting">bet365.comを診断</string>
-    <string name="ai_coach_risk_sample_tiktok">就寝前のTikTok</string>
     <string name="ai_coach_welcome_title">%1$s向けの安全コーチング</string>
     <string name="ai_coach_welcome_body">落ち着いた声かけや利用ルール、アラート対応を相談できます。ワンタップでSafeNestルールを適用可能です。</string>
     <string name="ai_coach_clear_chat">履歴を消去</string>
@@ -769,8 +760,6 @@
     <string name="ai_coach_switched_local_banner">端末内無料モード（$0・オフライン対応）に切り替えました。</string>
     <string name="ai_model_primary_standard">Gemini 3.8 Flash (標準)</string>
     <string name="ai_model_economy_lite">Gemini 3.5 Flash-Lite (エコ)</string>
-    <string name="ai_coach_risk_sample_robux_input">無料Robux！今すぐパスワードとOTP 482910を送信</string>
-    <string name="ai_coach_risk_sample_tiktok_input">深夜のTikTokショート動画自動再生</string>
     <string name="ai_test_key_too_short">APIキーが短すぎます。有効なGemini APIキーを貼り付けてください。</string>
     <string name="ai_test_key_success">%1$s に正常に接続しました。</string>
     <string name="ai_test_key_auth_or_quota">キーが拒否されたか利用枠を超過しました (%1$s)。</string>
