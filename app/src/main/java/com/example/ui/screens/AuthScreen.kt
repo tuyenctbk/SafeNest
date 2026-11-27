@@ -80,6 +80,7 @@ import androidx.credentials.CredentialManager
 import com.example.R
 import com.example.auth.attemptAutoSignIn
 import com.example.auth.onGoogleSignInClicked
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 
 @Composable
@@ -93,12 +94,13 @@ fun AuthScreen(
 
     var isLoading by remember { mutableStateOf(false) }
     var isCheckingSession by remember { mutableStateOf(true) }
+    var autoSignInJob by remember { mutableStateOf<Job?>(null) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
     var contentVisible by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         contentVisible = true
-        attemptAutoSignIn(
+        autoSignInJob = attemptAutoSignIn(
             context = context,
             credentialManager = credentialManager,
             onAuthSuccess = {
@@ -296,6 +298,9 @@ fun AuthScreen(
                 // Interactive Google Sign-In CTA with crisp multi-color Google G badge
                 Button(
                     onClick = {
+                        autoSignInJob?.cancel()
+                        autoSignInJob = null
+                        isCheckingSession = false
                         errorMessage = null
                         isLoading = true
                         onGoogleSignInClicked(

@@ -287,7 +287,7 @@ interface QuotaRemoteLedger {
 /**
  * Firestore-backed Source of Truth for `/users/{userId}/usageQuota/{periodId}`.
  * Uses atomic Firestore Transactions for rollover reset, deduct-with-refund, and one-time grace credits.
- * Always targets the named database (`R.string.firestore_database_id`), never `(default)`.
+ * Targets `R.string.firestore_database_id` (falling back to the `(default)` Firestore database).
  */
 class FirestoreQuotaRemoteLedger(
     private val db: FirebaseFirestore,
@@ -296,9 +296,13 @@ class FirestoreQuotaRemoteLedger(
 ) : QuotaRemoteLedger {
 
     constructor(context: Context, period: QuotaPeriod = QuotaPeriod.DAILY) : this(
-        db = FirebaseFirestore.getInstance(
-            context.applicationContext.getString(R.string.firestore_database_id)
-        ),
+        db = context.applicationContext.getString(R.string.firestore_database_id).trim().let { dbId ->
+            if (dbId.isBlank() || dbId == "(default)") {
+                FirebaseFirestore.getInstance()
+            } else {
+                FirebaseFirestore.getInstance(dbId)
+            }
+        },
         period = period
     )
 

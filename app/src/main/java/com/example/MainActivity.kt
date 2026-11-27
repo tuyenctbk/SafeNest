@@ -298,8 +298,14 @@ private fun SafeNestMainShell(
                 }
                 val useCloud = !isLocalMode && isFirebaseConfigured(app)
                 val db = if (useCloud) {
-                    val databaseId = app.getString(R.string.firestore_database_id)
-                    runCatching { FirebaseFirestore.getInstance(databaseId) }.getOrNull()
+                    val databaseId = app.getString(R.string.firestore_database_id).trim()
+                    runCatching {
+                        if (databaseId.isBlank() || databaseId == "(default)") {
+                            FirebaseFirestore.getInstance()
+                        } else {
+                            FirebaseFirestore.getInstance(databaseId)
+                        }
+                    }.getOrNull()
                 } else {
                     null
                 }

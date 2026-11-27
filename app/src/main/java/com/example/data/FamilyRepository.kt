@@ -27,9 +27,13 @@ class FamilyRepository(
     private val auth: FirebaseAuth = Firebase.auth
 ) : SafeNestRepository {
     constructor(context: Context) : this(
-        FirebaseFirestore.getInstance(
-            context.applicationContext.getString(R.string.firestore_database_id)
-        )
+        context.applicationContext.getString(R.string.firestore_database_id).trim().let { dbId ->
+            if (dbId.isBlank() || dbId == "(default)") {
+                FirebaseFirestore.getInstance()
+            } else {
+                FirebaseFirestore.getInstance(dbId)
+            }
+        }
     )
 
     private fun requireUserId(expectedUid: String? = null): String {

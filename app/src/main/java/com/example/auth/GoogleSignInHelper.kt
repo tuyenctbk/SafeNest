@@ -27,6 +27,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.auth
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -88,6 +89,7 @@ private fun resolveDefaultWebClientId(context: Context): String {
 
 /**
  * Silent Auto-Sign-In on startup using GetGoogleIdOption (strictly one credential option per request).
+ * Returns the launched Job so callers can cancel it before launching an interactive sign-in request.
  */
 fun attemptAutoSignIn(
     context: Context,
@@ -95,25 +97,25 @@ fun attemptAutoSignIn(
     onAuthSuccess: () -> Unit,
     onUnauthenticated: () -> Unit,
     scope: CoroutineScope
-) {
+): Job? {
     if (!isFirebaseConfigured(context)) {
         onUnauthenticated()
-        return
+        return null
     }
     if (Firebase.auth.currentUser != null) {
         onAuthSuccess()
-        return
+        return null
     }
     val clientId = resolveDefaultWebClientId(context)
     if (clientId.isBlank()) {
         Log.w(AUTH_TAG, "Silent auto sign-in skipped: default_web_client_id missing")
         onUnauthenticated()
-        return
+        return null
     }
     val activity = context.findActivity()
     if (activity == null) {
         onUnauthenticated()
-        return
+        return null
     }
     val googleIdOption = GetGoogleIdOption.Builder()
         .setFilterByAuthorizedAccounts(true)
@@ -124,7 +126,7 @@ fun attemptAutoSignIn(
         .addCredentialOption(googleIdOption)
         .build()
 
-    scope.launch {
+    return scope.launch {
         try {
             val cred = credentialManager.getCredential(activity, request).credential
             if (cred is CustomCredential && cred.type == TYPE_GOOGLE_ID_TOKEN_CREDENTIAL) {
@@ -149,9 +151,22 @@ fun attemptAutoSignIn(
     }
 }
 
+private fun isConfigurationOrReauthError(message: String?): Boolean {
+    if (message.isNullOrBlank()) return false
+    val lower = message.lowercase()
+    return lower.contains("[16]") ||
+        lower.contains("[10]") ||
+        lower.contains("reauth") ||
+        lower.contains("developer console") ||
+        lower.contains("developer_error") ||
+        lower.contains("sha-1") ||
+        lower.contains("apiexception: 10")
+}
+
 /**
  * Interactive Google Sign-In using GetSignInWithGoogleOption (strictly one credential option per request
- * so the Android API 36 Credential Manager bottom sheet stays responsive).
+ * so the Android API 36 Credential Manager bottom sheet stays responsive), with an automatic fallback
+ * to GetGoogleIdOption (unfiltered) if the primary provider reports NoCredentialException.
  */
 fun onGoogleSignInClicked(
     context: Context,
@@ -176,13 +191,28 @@ fun onGoogleSignInClicked(
         return
     }
     val signInOption = GetSignInWithGoogleOption.Builder(serverClientId = clientId).build()
-    val request = GetCredentialRequest.Builder()
+    val primaryRequest = GetCredentialRequest.Builder()
         .addCredentialOption(signInOption)
         .build()
 
     scope.launch {
         try {
-            val cred = credentialManager.getCredential(activity, request).credential
+            val response = try {
+                credentialManager.getCredential(activity, primaryRequest)
+            } catch (primaryNoCred: NoCredentialException) {
+                Log.w(AUTH_TAG, "Primary Sign-In-With-Google found no credential; retrying with unfiltered GetGoogleIdOption", primaryNoCred)
+                val fallbackOption = GetGoogleIdOption.Builder()
+                    .setFilterByAuthorizedAccounts(false)
+                    .setServerClientId(clientId)
+                    .setAutoSelectEnabled(false)
+                    .build()
+                val fallbackRequest = GetCredentialRequest.Builder()
+                    .addCredentialOption(fallbackOption)
+                    .build()
+                credentialManager.getCredential(activity, fallbackRequest)
+            }
+
+            val cred = response.credential
             if (cred is CustomCredential && cred.type == TYPE_GOOGLE_ID_TOKEN_CREDENTIAL) {
                 val token = GoogleIdTokenCredential.createFrom(cred.data).idToken
                 Firebase.auth.signInWithCredential(GoogleAuthProvider.getCredential(token, null)).await()
@@ -194,7 +224,11 @@ fun onGoogleSignInClicked(
             throw e
         } catch (e: GetCredentialCancellationException) {
             Log.w(AUTH_TAG, "Google Sign-In cancelled or dismissed: ${e.message}", e)
-            onAuthCancelled()
+            if (isConfigurationOrReauthError(e.message)) {
+                onAuthError(e.localizedMessage ?: context.getString(R.string.auth_err_credential_failed))
+            } else {
+                onAuthCancelled()
+            }
         } catch (e: NoCredentialException) {
             Log.w(AUTH_TAG, "No Google credential available on device: ${e.message}", e)
             onAuthError(context.getString(R.string.auth_err_no_account))
